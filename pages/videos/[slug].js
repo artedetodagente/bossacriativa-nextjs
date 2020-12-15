@@ -7,6 +7,7 @@ import styles from '../../styles/Home.module.css'
 
 import { getVideos, getSingleVideo } from '../../lib/api'
 import YouEmbed from '../../components/YouEmbed'
+import DisqusComments from '../../components/DisqusComments'
 
 export default function Home({video}) {
   
@@ -23,16 +24,17 @@ export default function Home({video}) {
         <div className="content">
           {parse(video.excerpt)}
         </div>
+        <DisqusComments post={{...video, path: `${process.env.NEXT_PUBLIC_URL}videos/${video.slug}`}} />
       </div>
     </>
   )
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({params}) {
   const data = await getSingleVideo(params.slug)
   return {
     props: {
-      video: data.nodes[0],
+      video: data.nodes[0]
     },
     revalidate: 1
   }
@@ -45,3 +47,4 @@ export async function getStaticPaths() {
     fallback: false
   }
 }
+

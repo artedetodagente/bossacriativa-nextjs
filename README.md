@@ -7,6 +7,7 @@ Crie um arquivo `.env.local` com as informações do servidor
 ```
 WORDPRESS_API_URL=https://######.bossacriativa.art.br/graphql/
 WORDPRESS_DOMAIN=######.bossacriativa.art.br
+NEXT_PUBLIC_URL=https://bossacriativa-nextjs.vercel.app/
 ```
 
 Rode o servidor de desenvolvimento:
