@@ -44,7 +44,7 @@ export async function getStaticPaths() {
   const data = await getVideos()
   return {
     paths: data.nodes.map(node => `/videos/${node.slug}`) || [],
-    fallback: false
+    fallback: true
   }
 }
 
