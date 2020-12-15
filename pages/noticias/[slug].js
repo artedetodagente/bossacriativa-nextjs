@@ -40,6 +40,6 @@ export async function getStaticPaths() {
   const data = await getPosts()
   return {
     paths: data.nodes.map(node => `/noticias/${node.slug}`) || [],
-    fallback: false
+    fallback: true
   }
 }
