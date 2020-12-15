@@ -20,11 +20,11 @@ export default function Home({video}) {
       <div className={styles.container}>
         <h3><Link href="/">Bossa Criativa</Link></h3>
         <h1>Vídeo: {video?.title}</h1>
-        <YouEmbed url={video.acf_videos.youtube} />
+        <YouEmbed url={video?.acf_videos?.youtube} />
         <div className="content">
-          {parse(video.excerpt)}
+          {parse(video?.excerpt || '')}
         </div>
-        <DisqusComments post={{...video, path: `${process.env.NEXT_PUBLIC_URL}videos/${video.slug}`}} />
+        <DisqusComments post={{...video, path: `${process.env.NEXT_PUBLIC_URL}videos/${video?.slug}`}} />
       </div>
     </>
   )
