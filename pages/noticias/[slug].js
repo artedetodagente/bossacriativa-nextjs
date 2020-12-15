@@ -19,7 +19,7 @@ export default function Home({post}) {
         <h3><Link href="/">Bossa Criativa</Link></h3>
         <h1>{post?.title}</h1>
         <div className="content">
-          {parse(post.content)}
+          {parse(post?.content || '')}
         </div>
       </div>
     </>
