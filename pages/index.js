@@ -1,65 +1,37 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+import { getPosts, getVideos } from '../lib/api'
+import YouThumb from '../components/YouThumb'
+
+export default function Home({posts,videos}) {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Bossa Criativa - Arte de Toda Gente</title>
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+      <div className={styles.container}>
+        <h1>Bossa Criativa</h1>
+        <h3>Posts</h3>
+        <ul>
+          {posts.map(post => <li><Link href={`/noticias/${post.slug}`}>{post.title}</Link></li>)}
+        </ul>
+        <h3>Vídeos</h3>
+        {videos.map(video => <Link href={`/videos/${video.slug}`}><a><YouThumb url={video.acf_videos.youtube} /></a></Link>)}
+      </div>
+    </>
   )
+}
+
+export async function getStaticProps() {
+  const posts = await getPosts()
+  const videos = await getVideos()
+  return {
+    props: {
+      posts: posts.nodes || [],
+      videos: videos.nodes || [],
+    },
+    revalidate: 1
+  }
 }
