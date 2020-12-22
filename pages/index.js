@@ -2,10 +2,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
-import { getPosts, getVideos } from '../lib/api'
+import { getPosts, getLives } from '../lib/api'
 import YouThumb from '../components/YouThumb'
 
-export default function Home({posts,videos}) {
+export default function Home({posts,lives}) {
   return (
     <>
       <Head>
@@ -17,8 +17,8 @@ export default function Home({posts,videos}) {
         <ul>
           {posts.map(post => <li><Link href={`/noticias/${post.slug}`}>{post.title}</Link></li>)}
         </ul>
-        <h3>Vídeos</h3>
-        {videos.map(video => <Link href={`/videos/${video.slug}`}><a><YouThumb url={video.acf_videos.youtube} /></a></Link>)}
+        <h3>Lives</h3>
+        {lives.map(live => <Link href={`/lives/${live.slug}`}><a><YouThumb url={live.acf_data.videoUrl} /></a></Link>)}
       </div>
     </>
   )
@@ -26,11 +26,11 @@ export default function Home({posts,videos}) {
 
 export async function getStaticProps() {
   const posts = await getPosts()
-  const videos = await getVideos()
+  const lives = await getLives()
   return {
     props: {
       posts: posts.nodes || [],
-      videos: videos.nodes || [],
+      lives: lives.nodes || [],
     },
     revalidate: 1
   }
