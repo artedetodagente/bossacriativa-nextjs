@@ -5,10 +5,33 @@ import List from '@/components/List';
 import styles from '@/styles/Home.module.css';
 import { getPosts, getLives } from '@/services/api';
 import YouThumb from '@/components/YouThumb';
+import Section from '@/components/Section';
+import Descriptor from '@/components/Descriptor';
+import CarouselGrid from '@/components/CarouselGrid';
 
 export default function Home({ posts, lives }) {
   return (
     <Page>
+      <Section title="Mostra Virtual Bossa Criativa">
+        <CarouselGrid
+          source={[]}
+        />
+      </Section>
+      <Section title="Notícias">
+        <CarouselGrid
+          source={[]}
+        />
+      </Section>
+      <Section title="Lives">
+        <CarouselGrid
+          source={[]}
+          reverse
+        />
+      </Section>
+      <Descriptor
+        title="Teste"
+        text="Conteudo 1"
+      />
       <div className={styles.container}>
         <h1>Bossa Criativa</h1>
         <h3>Posts</h3>

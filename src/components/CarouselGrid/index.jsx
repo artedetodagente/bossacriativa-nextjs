@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import theme from '@/theme';
 import {
-  Wrapper, Indicator, Slide, Item,
+  Wrapper, Indicator, IndicatorItem, Slide, Item,
 } from './styles';
 
 export default function CarouselGrid({
@@ -16,9 +16,12 @@ export default function CarouselGrid({
   });
 
   useEffect(() => {
-    const slides = [];
-    for (let i = 0; i < source.length / 5; i += 1) slides.push(source.slice(i * 5, (i + 1) * 5));
-    setSettings({ ...settings, autoplay, slides });
+    if (source.length === 0) setSettings({ ...settings, autoplay });
+    else {
+      const slides = [];
+      for (let i = 0; i < source.length / 5; i += 1) slides.push(source.slice(i * 5, (i + 1) * 5));
+      setSettings({ ...settings, autoplay, slides });
+    }
   }, []);
 
   useEffect(() => {
@@ -59,10 +62,10 @@ export default function CarouselGrid({
       onMouseOver={() => setSettings({ ...settings, autoplay: false })}
       onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
     >
-      <div className="indicators">
+      <Indicator reverse={reverse}>
         {
-          settings.slides.map((item, index) => (
-            <Indicator
+          settings.slides[0].length > 0 && settings.slides.map((item, index) => (
+            <IndicatorItem
               type="button"
               key={index}
               selected={settings.selected === index}
@@ -71,8 +74,8 @@ export default function CarouselGrid({
           ))
         }
         {
-          settings.slides[0].map((item, index) => (
-            <Indicator
+          settings.slides[0].length > 0 && settings.slides[0].map((item, index) => (
+            <IndicatorItem
               type="button"
               key={index}
               mobile
@@ -81,10 +84,10 @@ export default function CarouselGrid({
             />
           ))
         }
-      </div>
+      </Indicator>
       <div className="scroll" ref={slideScroll}>
         {
-          settings.slides.map((slide, index) => (
+          settings.slides[0].length > 0 && settings.slides.map((slide, index) => (
             <Slide key={index} reverse={reverse}>
               {
                 slide.map((item, area) => (
@@ -103,7 +106,7 @@ export default function CarouselGrid({
           ))
         }
         {
-          settings.slides[0].map((item, index) => (
+          settings.slides[0].length > 0 && settings.slides[0].map((item, index) => (
             <Slide key={index} mobile>
               <Item
                 area="a1"

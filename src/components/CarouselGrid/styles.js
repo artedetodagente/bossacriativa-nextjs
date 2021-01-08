@@ -1,4 +1,3 @@
-import devices from '@/theme/devices';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -7,16 +6,6 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.default.background};
   margin: 20px 0;
   position: relative;
-
-  div.indicators {
-    position: absolute;
-    width: auto;
-    height: auto;
-    display: flex;
-    top: 10px;
-    left: 10px;
-    z-index: 999;
-  }
 
   div.scroll {
     display: flex;
@@ -35,7 +24,17 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Indicator = styled.button`
+export const Indicator = styled.div`
+  position: absolute;
+  width: auto;
+  height: auto;
+  display: flex;
+  top: 10px;
+  z-index: 999;
+  ${({ reverse }) => (reverse ? 'right: 10px' : 'left: 10px')};
+`;
+
+export const IndicatorItem = styled.button`
   height: 17px;
   width: 17px;
   border-radius: 100%;
@@ -50,7 +49,7 @@ export const Indicator = styled.button`
     margin-right: 0;
   }
 
-  @media ${devices.tablet} {
+  @media ${({ theme }) => theme.devices.tablet} {
     display: ${({ mobile }) => (mobile ? 'block' : 'none')};
   }
 `;
@@ -71,7 +70,7 @@ export const Slide = styled.ul`
   )};
   grid-gap: 15px;
 
-  @media ${devices.tablet} {
+  @media ${({ theme }) => theme.devices.tablet} {
     display: ${({ mobile }) => (mobile ? 'grid' : 'none')};
     grid-template-columns: repeat(1, 1fr);
     grid-template-areas: 'a1';
@@ -122,7 +121,11 @@ export const Item = styled.li`
     width: calc(100% - 20px);
     padding: 10px;
     position: absolute;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
     z-index: 998;
   }
 
