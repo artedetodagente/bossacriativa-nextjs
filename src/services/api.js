@@ -1,8 +1,7 @@
-const API_URL = process.env.WORDPRESS_API_URL
+const API_URL = process.env.WORDPRESS_API_URL;
 
 async function fetchAPI(query, { variables } = {}) {
-
-  const headers = { 'Content-Type': 'application/json' }
+  const headers = { 'Content-Type': 'application/json' };
 
   const res = await fetch(API_URL, {
     method: 'POST',
@@ -11,15 +10,15 @@ async function fetchAPI(query, { variables } = {}) {
       query,
       variables,
     }),
-  })
+  });
 
-  const json = await res.json()
-  
+  const json = await res.json();
+
   if (json.errors) {
-    console.error(json.errors)
-    throw new Error('Failed to fetch API')
+    console.error(json.errors);
+    throw new Error('Failed to fetch API');
   }
-  return json.data
+  return json.data;
 }
 
 export async function getPages() {
@@ -39,9 +38,9 @@ export async function getPages() {
     `,
     {
       variables: {},
-    }
-  )
-  return data?.pages
+    },
+  );
+  return data?.pages;
 }
 
 export async function getPosts() {
@@ -56,9 +55,9 @@ export async function getPosts() {
         }
       }
     }
-    `
-  )
-  return data?.posts
+    `,
+  );
+  return data?.posts;
 }
 export async function getSinglePost(slug) {
   const data = await fetchAPI(`
@@ -80,11 +79,9 @@ export async function getSinglePost(slug) {
   `,
   {
     variables: { slug },
-  }
-  )
-  return data?.posts
+  });
+  return data?.posts;
 }
-
 
 export async function getLives() {
   const data = await fetchAPI(
@@ -102,9 +99,9 @@ export async function getLives() {
         }
       }
     }
-    `
-  )
-  return data?.lives
+    `,
+  );
+  return data?.lives;
 }
 export async function getSingleLive(slug) {
   const data = await fetchAPI(`
@@ -124,7 +121,6 @@ export async function getSingleLive(slug) {
   `,
   {
     variables: { slug },
-  }
-  )
-  return data?.lives
+  });
+  return data?.lives;
 }
