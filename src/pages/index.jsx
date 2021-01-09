@@ -1,63 +1,72 @@
 import React from 'react';
-import Link from 'next/link';
 import Page from '@/components/Page';
-import List from '@/components/List';
-import styles from '@/styles/Home.module.css';
-import { getPosts, getLives } from '@/services/api';
-import YouThumb from '@/components/YouThumb';
 import Section from '@/components/Section';
-import Descriptor from '@/components/Descriptor';
 import CarouselGrid from '@/components/CarouselGrid';
+import { getLives, getPosts } from '@/services/api';
+import CardList from '@/components/CardList';
+import CardThumb from '@/components/CardThumb';
+import { useRouter } from 'next/router';
+import CardImage from '@/components/CardImage';
+import CardText from '@/components/CardText';
+import Fluid from '@/components/Fluid';
 
-export default function Home({ posts, lives }) {
+export default function Home({ mostras, posts, lives }) {
+  const { push } = useRouter();
+
   return (
     <Page>
-      <Section title="Mostra Virtual Bossa Criativa">
-        <CarouselGrid
-          source={[]}
-        />
-      </Section>
-      <Section title="Notícias">
-        <CarouselGrid
-          source={[]}
-        />
-      </Section>
-      <Section title="Lives">
-        <CarouselGrid
-          source={[]}
-          reverse
-        />
-      </Section>
-      <Descriptor
-        title="Teste"
-        text="Conteudo 1"
-      />
-      <div className={styles.container}>
-        <h1>Bossa Criativa</h1>
-        <h3>Posts</h3>
-        <List
-          source={posts}
-          renderItem={(item) => <Link href={`/noticias/${item.slug}`}>{item.title}</Link>}
-        />
-        <h3>Lives</h3>
-        <List
-          source={lives}
-          renderItem={(item) => (
-            <Link href={`/noticias/${item.slug}`}>
-              <YouThumb url={item.acf_data.videoUrl} />
-            </Link>
-          )}
-        />
-      </div>
+      <Fluid>
+        <Section title="Mostra Virtual Bossa Criativa">
+          <CarouselGrid
+            source={mostras}
+            renderItem={(item) => (
+              <CardImage
+                image={item.image}
+                title={item.title}
+                excerpt={item.excerpt}
+                click={() => push(`mostras/${item.slug}`)}
+              />
+            )}
+          />
+        </Section>
+        <Section title="Notícias">
+          <CardList
+            source={posts}
+            renderItem={(item) => (
+              <CardText
+                title={item.title}
+                excerpt={item.excerpt}
+                image={item.photo}
+                click={() => push(`noticias/${item.slug}`)}
+              />
+            )}
+          />
+        </Section>
+        <Section title="Lives">
+          <CarouselGrid
+            source={lives}
+            reverse
+            renderItem={(item) => (
+              <CardThumb
+                video={item.acf_data.videoUrl}
+                excerpt={item.excerpt}
+                title={item.title}
+                click={() => push(`lives/${item.slug}`)}
+              />
+            )}
+          />
+        </Section>
+      </Fluid>
     </Page>
   );
 }
 
 export async function getStaticProps() {
-  const posts = await getPosts();
   const lives = await getLives();
+  const posts = await getPosts();
   return {
     props: {
+      mostras: [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],
     },

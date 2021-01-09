@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const Card = styled.article`
+export const Card = styled.div`
   width: 100%;
   height: 200px;
-  background-image: ${({ photo }) => (photo ? `url(${photo})` : '')};
+  background-image: ${({ image }) => (image ? `url(${image})` : '')};
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -13,14 +13,14 @@ export const Card = styled.article`
   cursor: pointer;
 
   h1 {
-    font-size: 1.2em;
+    font-size: 1.5em;
     background-color: rgba(2, 2, 2, .6);
     color: #fff;
-    padding: 10px 5px;
+    padding: 5px 10px;
     text-align: center;
     margin: 0;
     position: absolute;
-    width: calc(100% - 10px);
+    width: calc(100% - 20px);
     bottom: 0;
     overflow: hidden;
     text-overflow: ellipsis;

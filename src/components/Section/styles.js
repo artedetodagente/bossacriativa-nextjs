@@ -11,6 +11,7 @@ export const Container = styled.section`
     
     h1 {
       margin: 0;
+      font-family: ${({ theme }) => theme.fonts.title};
       font-size: 2.7em;
       width: auto;
       z-index: 999;

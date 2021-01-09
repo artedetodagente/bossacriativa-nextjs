@@ -31,7 +31,7 @@ export const Indicator = styled.div`
   display: flex;
   top: 10px;
   z-index: 999;
-  ${({ reverse }) => (reverse ? 'right: 10px' : 'left: 10px')};
+  ${({ reverse }) => (reverse ? 'right: 30px' : 'left: 30px')};
 `;
 
 export const IndicatorItem = styled.button`
@@ -88,48 +88,8 @@ export const Item = styled.li`
   position: relative;
   cursor: pointer;
 
-  h1 {
-    font-size: 1.2em;
-    background-color: rgba(2, 2, 2, .6);
-    color: #fff;
-    padding: 10px 5px;
-    text-align: center;
-    margin: 0;
-    position: absolute;
-    width: calc(100% - 10px);
-    bottom: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    z-index: 1;
-  }
-
-  :first-of-type > h1 {
+  :first-of-type h1 {
     bottom: 20px;
     width: 50%;
-  }
-
-  p {
-    background-color: rgba(2, 2, 2, .8);
-    color: #fff;
-    margin: 0;
-    opacity: 0;
-    transition: opacity .3s linear;
-    height: calc(100% - 20px);
-    width: calc(100% - 20px);
-    padding: 10px;
-    position: absolute;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    z-index: 998;
-  }
-
-  :hover > p {
-    opacity: 1;
   }
 `;

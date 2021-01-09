@@ -8,7 +8,7 @@ import {
 } from './styles';
 
 export default function CarouselGrid({
-  autoplay, source, reverse, h,
+  autoplay, source, reverse, h, renderItem,
 }) {
   const slideScroll = useRef();
   const [settings, setSettings] = useState({
@@ -52,10 +52,6 @@ export default function CarouselGrid({
     setSettings({ ...settings, oldSelected: settings.selected, selected: index });
   }
 
-  function navigate(link) {
-    window.location.replace(link);
-  }
-
   return (
     <Wrapper
       h={h}
@@ -91,14 +87,8 @@ export default function CarouselGrid({
             <Slide key={index} reverse={reverse}>
               {
                 slide.map((item, area) => (
-                  <Item
-                    key={area}
-                    area={`a${area + 1}`}
-                    photo={item.photo}
-                    onClick={() => navigate(item.link)}
-                  >
-                    <h1>{item.title}</h1>
-                    <p>{item.description}</p>
+                  <Item key={area} area={`a${area + 1}`}>
+                    { renderItem(item) }
                   </Item>
                 ))
               }
@@ -108,13 +98,8 @@ export default function CarouselGrid({
         {
           settings.slides[0].length > 0 && settings.slides[0].map((item, index) => (
             <Slide key={index} mobile>
-              <Item
-                area="a1"
-                photo={item.photo}
-                onClick={() => navigate(item.link)}
-              >
-                <h1>{item.title}</h1>
-                <p>{item.description}</p>
+              <Item area="a1">
+                { renderItem(item) }
               </Item>
             </Slide>
           ))
@@ -125,13 +110,8 @@ export default function CarouselGrid({
 }
 
 CarouselGrid.propTypes = {
-  source: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    photo: PropTypes.string,
-    title: PropTypes.string,
-    link: PropTypes.string,
-    description: PropTypes.string,
-  })),
+  source: PropTypes.arrayOf(PropTypes.shape()),
+  renderItem: PropTypes.func,
   reverse: PropTypes.bool,
   autoplay: PropTypes.bool,
   h: PropTypes.number,
@@ -139,6 +119,7 @@ CarouselGrid.propTypes = {
 
 CarouselGrid.defaultProps = {
   source: [],
+  renderItem: null,
   reverse: false,
   autoplay: true,
   h: 412,

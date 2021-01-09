@@ -1,0 +1,17 @@
+/* Título */
+@font-face {
+  font-family: 'Amatic';
+  src: url('../fonts/AmaticSC-Bold.ttf');
+}
+
+/* Subtítulos */
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('../fonts/BarlowCondensed-Regular.ttf');
+}
+
+/* Texto */
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../fonts/BarlowSemiCondensed-Regular.ttf');
+}

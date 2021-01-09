@@ -1,5 +1,6 @@
 import React from 'react';
 import '@/styles/globals.css';
+import '@/styles/fonts.css';
 import { ThemeProvider } from 'styled-components';
 import theme from '@/theme';
 

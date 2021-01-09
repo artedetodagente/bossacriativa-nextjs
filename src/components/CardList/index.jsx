@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container } from './styles';
 
 export default function Grid({
-  source, renderItem, cols, gap, pt, pb, pl, pr,
+  source, renderItem, cols, gap, pt, pb, pl, pr, className, key,
 }) {
   return (
     <Container
@@ -13,8 +13,15 @@ export default function Grid({
       pb={pb}
       pl={pl}
       pr={pr}
+      className={className}
     >
-      { source.map((item) => renderItem(item)) }
+      { source.map((item) => (
+        <article key={item[key]}>
+          {' '}
+          { renderItem(item)}
+          {' '}
+        </article>
+      )) }
     </Container>
   );
 }
@@ -22,6 +29,7 @@ export default function Grid({
 Grid.propType = {
   souce: PropTypes.arrayOf(PropTypes.any).isRequired,
   renderItem: PropTypes.func.isRequired,
+  key: PropTypes.string,
   cols: PropTypes.number,
   gap: PropTypes.string,
   pt: PropTypes.number,
@@ -31,6 +39,7 @@ Grid.propType = {
 };
 
 Grid.defaultProps = {
+  key: 'id',
   cols: 4,
   gap: '20px',
   pt: 0,
