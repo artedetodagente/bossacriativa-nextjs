@@ -5,13 +5,13 @@ export const Container = styled.div`
   padding: 10px 60px 35px 60px;
 
   h1 {
-    font-family: ${({ theme }) => theme.fonts.title};
     font-size: 3em;
     text-align: center;
   }
 
   p {
     text-align: justify;
+    font-size: 1.2em;
   }
 
 `;
