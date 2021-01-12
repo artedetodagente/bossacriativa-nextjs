@@ -26,17 +26,17 @@ export default function LiveSlug({ live }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await core.lives.getSingleLive(params.slug);
+  const data = await core.lives.getOne(params.slug);
   return {
     props: {
       live: data.nodes[0],
     },
-    revalidate: 1,
+    revalidate: process.env.REQUEST_TIME,
   };
 }
 
 export async function getStaticPaths() {
-  const data = await core.lives.getLives();
+  const data = await core.lives.getAll();
   return {
     paths: data.nodes.map((node) => `/lives/${node.slug}`) || [],
     fallback: true,

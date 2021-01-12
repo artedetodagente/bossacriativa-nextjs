@@ -1,6 +1,6 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getPages() {
+export async function getAll() {
   const data = await fetchAPI(
     `
     query MyQuery {

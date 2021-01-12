@@ -10,7 +10,7 @@ import CardText from '@/components/CardText';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
 
-export default function Home({ mostras, posts, lives }) {
+export default function Home({ realities, posts, lives }) {
   const { push } = useRouter();
 
   return (
@@ -18,7 +18,7 @@ export default function Home({ mostras, posts, lives }) {
       <Fluid>
         <Section title="Mostra Virtual Bossa Criativa">
           <CarouselGrid
-            source={mostras}
+            source={realities}
             renderItem={(item) => (
               <CardImage
                 image={item.image}
@@ -62,14 +62,15 @@ export default function Home({ mostras, posts, lives }) {
 }
 
 export async function getStaticProps() {
-  const lives = await core.lives.getLives();
-  const posts = await core.posts.getPosts();
+  const lives = await core.lives.getAll();
+  const posts = await core.posts.getAll();
+  const realities = await core.mostras.getAll();
   return {
     props: {
-      mostras: [],
+      realities: realities.nodes || [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],
     },
-    revalidate: 1,
+    revalidate: process.env.REQUEST_TIME,
   };
 }

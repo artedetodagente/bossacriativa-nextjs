@@ -8,10 +8,12 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { useRouter } from 'next/router';
 import Filter from '@/components/Filter';
 import Option from '@/components/Option';
+import core from '@/core';
+import styles from '@/styles/oficinas.module.css';
 
-export default function Workshops({ workshops }) {
+export default function Workshops({ workshops, categories }) {
   const { push } = useRouter();
-  const [category, setCategory] = useState(1);
+  const [category, setCategory] = useState(0);
 
   function changeCategory(id) {
     setCategory(id);
@@ -28,19 +30,20 @@ export default function Workshops({ workshops }) {
       />
       <Fluid>
         <Filter
-          options={[{ id: 1, name: 'Todas' }, { id: 2, name: 'Música' }]}
+          options={categories}
           renderOption={(item) => (
             <Option
-              id={item.id}
+              id={item.termTaxonomyId}
               name={item.name}
-              selected={category === item.id}
+              selected={category === item.termTaxonomyId}
               click={changeCategory}
             />
           )}
         />
         <CardList
           gap="15px"
-          source={[]}
+          source={workshops}
+          className={styles.card_list}
           renderItem={(item) => (
             <CardImage
               image={item.image}
@@ -53,4 +56,16 @@ export default function Workshops({ workshops }) {
       </Fluid>
     </Page>
   );
+}
+
+export async function getStaticProps() {
+  const workshops = await core.oficinas.getAll();
+  const categories = await core.categories.getAll();
+  return {
+    props: {
+      workshops: workshops.nodes || [],
+      categories: [{ termTaxonomyId: 0, name: 'Todas' }, ...categories.nodes] || [],
+    },
+    revalidate: process.env.REQUEST_TIME,
+  };
 }

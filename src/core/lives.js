@@ -1,6 +1,6 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getLives() {
+export async function getAll() {
   const data = await fetchAPI(
     `
     query MyQuery {
@@ -21,7 +21,7 @@ export async function getLives() {
   return data?.lives;
 }
 
-export async function getSingleLive(slug) {
+export async function getOne(slug) {
   const data = await fetchAPI(`
   query MyQuery($slug: String) {
     lives(where: {name: $slug}) {

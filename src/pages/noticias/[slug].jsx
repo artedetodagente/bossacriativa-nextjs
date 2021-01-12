@@ -22,17 +22,17 @@ export default function NoticeSlug({ post }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await core.posts.getSinglePost(params.slug);
+  const data = await core.posts.getOne(params.slug);
   return {
     props: {
       post: data.nodes[0],
     },
-    revalidate: 1,
+    revalidate: process.env.REQUEST_TIME,
   };
 }
 
 export async function getStaticPaths() {
-  const data = await core.posts.getPosts();
+  const data = await core.posts.getAll();
   return {
     paths: data.nodes.map((node) => `/noticias/${node.slug}`) || [],
     fallback: true,

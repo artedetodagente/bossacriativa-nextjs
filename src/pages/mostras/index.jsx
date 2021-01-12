@@ -6,8 +6,9 @@ import CardImage from '@/components/CardImage';
 import Breadcrumb from '@/components/Breadcrumb';
 import { useRouter } from 'next/router';
 import Fluid from '@/components/Fluid';
+import core from '@/core';
 
-export default function Realities() {
+export default function Realities({ realities }) {
   const { push } = useRouter();
 
   return (
@@ -22,7 +23,7 @@ export default function Realities() {
       <Fluid>
         <CardList
           gap="15px"
-          source={[]}
+          source={realities}
           renderItem={(item) => (
             <CardImage
               image={item.image}
@@ -35,4 +36,14 @@ export default function Realities() {
       </Fluid>
     </Page>
   );
+}
+
+export async function getStaticProps() {
+  const realitities = await core.mostras.getAll();
+  return {
+    props: {
+      realities: realitities.nodes || [],
+    },
+    revalidate: process.env.REQUEST_TIME,
+  };
 }

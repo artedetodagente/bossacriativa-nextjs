@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { BiSearch } from 'react-icons/bi';
 import { SearchBar } from './styles';
 
-export default function Filter({ options, renderOption, submit }) {
+export default function Filter({
+  options, identity, renderOption, submit,
+}) {
   const [filter, setFilter] = useState({ search: '' });
 
   function handleChange(e) {
@@ -32,7 +34,7 @@ export default function Filter({ options, renderOption, submit }) {
       </form>
       <ul>
         {
-          options.map((item) => <li key={item.id}>{renderOption(item)}</li>)
+          options.map((item) => <li key={item[identity]}>{renderOption(item)}</li>)
         }
       </ul>
     </SearchBar>
@@ -40,12 +42,14 @@ export default function Filter({ options, renderOption, submit }) {
 }
 
 Filter.propTypes = {
+  identity: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape()),
   renderOption: PropTypes.func,
   submit: PropTypes.func,
 };
 
 Filter.defaultProps = {
+  identity: 'id',
   options: [],
   renderOption: null,
   submit: null,
