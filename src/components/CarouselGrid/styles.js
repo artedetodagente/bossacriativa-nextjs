@@ -30,7 +30,7 @@ export const Indicator = styled.div`
   height: auto;
   display: flex;
   top: 10px;
-  z-index: 999;
+  z-index: 998;
   ${({ reverse }) => (reverse ? 'right: 30px' : 'left: 30px')};
 `;
 
