@@ -14,7 +14,7 @@ export const Container = styled.section`
       font-family: ${({ theme }) => theme.fonts.title};
       font-size: 2.7em;
       width: auto;
-      z-index: 999;
+      z-index: 998;
       padding: 0px 7px;
       position: relative;
       font-weight: 500;

@@ -3,11 +3,11 @@ import Link from 'next/link';
 import parse from 'html-react-parser';
 import Page from '@/components/Page';
 import styles from '@/styles/Home.module.css';
-import { getLives, getSingleLive } from '@/services/api';
 import YouEmbed from '@/components/YouEmbed';
 import DisqusComments from '@/components/DisqusComments';
+import core from '@/core';
 
-export default function Home({ live }) {
+export default function LiveSlug({ live }) {
   return (
     <Page>
       <div className={styles.container}>
@@ -26,17 +26,17 @@ export default function Home({ live }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getSingleLive(params.slug);
+  const data = await core.lives.getOne(params.slug);
   return {
     props: {
       live: data.nodes[0],
     },
-    revalidate: 1,
+    revalidate: process.env.REQUEST_TIME,
   };
 }
 
 export async function getStaticPaths() {
-  const data = await getLives();
+  const data = await core.lives.getAll();
   return {
     paths: data.nodes.map((node) => `/lives/${node.slug}`) || [],
     fallback: true,

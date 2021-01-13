@@ -2,19 +2,21 @@ import React from 'react';
 import Page from '@/components/Page';
 import Section from '@/components/Section';
 import CarouselGrid from '@/components/CarouselGrid';
-import { getLives, getPosts } from '@/services/api';
 import CardList from '@/components/CardList';
 import CardThumb from '@/components/CardThumb';
 import { useRouter } from 'next/router';
 import CardImage from '@/components/CardImage';
 import CardText from '@/components/CardText';
 import Fluid from '@/components/Fluid';
+import core from '@/core';
 
-export default function Home({ mostras, posts, lives }) {
+export default function Home({
+  menus, mostras, posts, lives,
+}) {
   const { push } = useRouter();
 
   return (
-    <Page>
+    <Page options={menus}>
       <Fluid>
         <Section title="Mostra Virtual Bossa Criativa">
           <CarouselGrid
@@ -62,14 +64,17 @@ export default function Home({ mostras, posts, lives }) {
 }
 
 export async function getStaticProps() {
-  const lives = await getLives();
-  const posts = await getPosts();
+  const lives = await core.lives.getAll();
+  const posts = await core.posts.getAll();
+  const mostras = await core.mostras.getAll();
+  const menus = await core.menus.getAll();
   return {
     props: {
-      mostras: [],
+      menus: menus.nodes || [],
+      mostras: mostras.nodes || [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],
     },
-    revalidate: 1,
+    revalidate: process.env.REQUEST_TIME,
   };
 }

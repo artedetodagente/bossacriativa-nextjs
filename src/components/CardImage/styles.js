@@ -20,7 +20,7 @@ export const Card = styled.div`
     text-align: center;
     margin: 0;
     position: absolute;
-    width: calc(100% - 20px);
+    width: 100%;
     bottom: 0;
     overflow: hidden;
     text-overflow: ellipsis;

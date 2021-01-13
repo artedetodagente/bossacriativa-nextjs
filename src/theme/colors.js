@@ -6,6 +6,7 @@ export default {
     backgroundPage: '',
     textPrimary: '',
     textSecondary: '',
+    btnsearch: '#222',
   },
   darkMode: {
     primary: '',
@@ -13,5 +14,6 @@ export default {
     background: '',
     textPrimary: '',
     textSecondary: '',
+    btnsearch: '#222',
   },
 };
