@@ -5,7 +5,7 @@ import styles from '@/styles/Home.module.css';
 import Link from 'next/link';
 // import { getPosts, getLives } from '@/services/api';
 
-export default function Test({ posts, lives }) {
+export default function Tests({ posts, lives }) {
   return (
     <div className={styles.container}>
       <h1>Bossa Criativa</h1>
