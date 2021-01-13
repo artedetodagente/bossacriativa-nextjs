@@ -3,7 +3,7 @@ import YouThumb from '@/components/YouThumb';
 import List from '@/components/List';
 import styles from '@/styles/Home.module.css';
 import Link from 'next/link';
-import { getPosts, getLives } from '@/services/api';
+// import { getPosts, getLives } from '@/services/api';
 
 export default function Test({ posts, lives }) {
   return (
@@ -28,12 +28,12 @@ export default function Test({ posts, lives }) {
 }
 
 export async function getStaticProps() {
-  const posts = await getPosts();
-  const lives = await getLives();
+  // const posts = await getPosts();
+  // const lives = await getLives();
   return {
     props: {
-      posts: posts.nodes || [],
-      lives: lives.nodes || [],
+      posts: [],
+      lives: [],
     },
     revalidate: 1,
   };
