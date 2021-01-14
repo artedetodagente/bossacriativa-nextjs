@@ -3,7 +3,7 @@ const API_URL = process.env.WORDPRESS_API_URL;
 export async function fetchAPI(query, { variables } = {}) {
   const headers = { 'Content-Type': 'application/json' };
 
-  const res = await fetch(API_URL, {
+  const res = await fetch('https://wp-admin.bossacriativa.art.br/graphql', {
     method: 'POST',
     headers,
     body: JSON.stringify({

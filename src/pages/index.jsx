@@ -9,6 +9,8 @@ import CardImage from '@/components/CardImage';
 import CardText from '@/components/CardText';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
+import Schedule from './schedule';
+import CarouselBanner from '../components/CarouselBanner';
 
 export default function Home({
   menus, mostras, posts, lives,
@@ -17,7 +19,9 @@ export default function Home({
 
   return (
     <Page options={menus}>
+      
       <Fluid>
+        <CarouselBanner />
         <Section title="Mostra Virtual Bossa Criativa">
           <CarouselGrid
             source={mostras}
@@ -57,6 +61,9 @@ export default function Home({
               />
             )}
           />
+        </Section>
+        <Section title="Calendário">
+          <Schedule />
         </Section>
       </Fluid>
     </Page>

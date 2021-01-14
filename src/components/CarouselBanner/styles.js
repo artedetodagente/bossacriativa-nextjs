@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  height: ${({ h }) => h}px;
-  width: 100%;
+  height: ${({ height }) => height}px;
+  width: ${({ width }) => width};
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;

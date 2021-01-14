@@ -1,79 +1,87 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Wrapper, Slide, Item, Dots } from './styles';
+import {
+  Wrapper, Slide, Item, Dots,
+} from './styles';
 
-export default function CarouselBanner({autoplay, source, h}){
-    const carousel = useRef();
-    const [settings, setSettings] = useState({ autoplay: false, slides: [], selected: 0, prevSelected: 0 });
-    const [dots, setDots] = useState([]);
-    
-    useEffect(() => {
-        setSettings({ ...settings, autoplay, slides: source });
-    }, []);
+export default function CarouselBanner({ autoplay, source, height, width }) {
+  const carousel = useRef();
+  const [settings, setSettings] = useState({
+    autoplay: false, slides: [], selected: 0, prevSelected: 0,
+  });
+  const [dots, setDots] = useState([]);
 
-    useEffect(() => {
-      if (!settings.autoplay) return () => null;
-      const timer = setInterval(() => {
-        const prev = settings.selected;
-        const pos = settings.selected === settings.slides.length - 1 ? 0 : settings.selected + 1;
-        setSettings({ ...settings, selected: pos, prevSelected: prev });
-      }, 5000);
-      return () => clearInterval(timer);
-    });
+  useEffect(() => {
+    setSettings({ ...settings, autoplay, slides: source });
+  }, []);
 
-    useEffect(() => {
-      const size = carousel.current.offsetWidth;
-      if(settings.autoplay){      
-        if (settings.selected === 0) carousel.current.scrollBy(-(size * settings.slides.length), 0);
-        else carousel.current.scrollBy(size, 0);
-      }else{
-        if(settings.prevSelected > settings.selected) carousel.current.scrollBy(-(size * (settings.prevSelected - settings.selected)), 0);
-        else if(settings.prevSelected == settings.selected) return () => null;
-        else carousel.current.scrollBy(size * (settings.selected - settings.prevSelected), 0);
-      }
-    }, [settings.selected, settings.autoplay]);
+  useEffect(() => {
+    if (!settings.autoplay) return () => null;
+    const timer = setInterval(() => {
+      const prev = settings.selected;
+      const pos = settings.selected === settings.slides.length - 1 ? 0 : settings.selected + 1;
+      setSettings({ ...settings, selected: pos, prevSelected: prev });
+    }, 5000);
+    return () => clearInterval(timer);
+  });
 
-    useEffect(() => {
-      let dotsList = [];
-      for(let x = 0; x <= settings.slides.length - 1; x++){
-        dotsList.push(<button onClick={() => {
+  useEffect(() => {
+    const size = carousel.current.offsetWidth;
+    if (settings.autoplay) {
+      if (settings.selected === 0) carousel.current.scrollBy(-(size * settings.slides.length), 0);
+      else carousel.current.scrollBy(size, 0);
+    } else if (settings.prevSelected > settings.selected) carousel.current.scrollBy(-(size * (settings.prevSelected - settings.selected)), 0);
+    else if (settings.prevSelected == settings.selected) return () => null;
+    else carousel.current.scrollBy(size * (settings.selected - settings.prevSelected), 0);
+  }, [settings.selected, settings.autoplay]);
+
+  useEffect(() => {
+    const dotsList = [];
+    for (let x = 0; x <= settings.slides.length - 1; x++) {
+      dotsList.push(<button
+        onClick={() => {
           const prev = settings.selected;
-          setSettings({ ...settings, selected: x, prevSelected: prev, autoplay: false});
-        }} key= {x}></button>);
-      }
-      setDots(dotsList);
-    }, [settings.slides, settings.selected]);
+          setSettings({
+            ...settings, selected: x, prevSelected: prev, autoplay: false,
+          });
+        }}
+        key={x}
+      />);
+    }
+    setDots(dotsList);
+  }, [settings.slides, settings.selected]);
 
-      return(
-        <>
-        <Wrapper
-            h={h}
-            ref={carousel}
-            onMouseOver={() => setSettings({ ...settings, autoplay: false })}
-            onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
-        >
-          {
-            settings.slides.map((slide, index) => (
-              <Slide key={index}>
-                  <Item
-                    key={slide.id}
-                    photo="https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg"
-                  >
-                    <div className="text-container">
-                      <h1>{slide.title}</h1>
-                      <p>{slide.description}</p>
-                    </div>
-                    <Dots>
-                      {dots}
-                    </Dots> 
-                  </Item>
-              </Slide>
-            ))
-          }       
-        </Wrapper>
-        </>
-    
-      )
+  return (
+    <>
+      <Wrapper
+        height={height}
+        width={width}
+        ref={carousel}
+        onMouseOver={() => setSettings({ ...settings, autoplay: false })}
+        onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
+      >
+        {
+          settings.slides.map((slide, index) => (
+            <Slide key={index}>
+              <Item
+                key={slide.id}
+                photo="https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg"
+              >
+                <div className="text-container">
+                  <h1>{slide.title}</h1>
+                  <p>{slide.description}</p>
+                </div>
+                <Dots>
+                  {dots}
+                </Dots>
+              </Item>
+            </Slide>
+          ))
+        }
+      </Wrapper>
+    </>
+
+  );
 }
 
 CarouselBanner.propTypes = {
@@ -84,11 +92,19 @@ CarouselBanner.propTypes = {
     description: PropTypes.string,
   })),
   autoplay: PropTypes.bool,
-  h: PropTypes.number,
+  height: PropTypes.number,
+  width: PropTypes.string,
 };
 
 CarouselBanner.defaultProps = {
-  source: [],
+  source: [{
+    id: 1, photo: null, title: 'banner 1', description: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+  }, {
+    id: 2, photo: null, title: 'banner 2', description: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+  }, {
+    id: 3, photo: null, title: 'banner 3', description: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+  }],
   autoplay: true,
-  h: 412,
+  height: 412,
+  width: '100%',
 };
