@@ -9,8 +9,8 @@ export default function WorkshopSlug({ workshop }) {
     <Page>
       <Breadcrumb />
       <Descriptor
-        title={workshop.title}
-        text={workshop.excerpt}
+        title={workshop?.title}
+        text={workshop?.excerpt}
       />
     </Page>
   );
