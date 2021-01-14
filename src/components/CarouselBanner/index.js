@@ -88,7 +88,7 @@ CarouselBanner.propTypes = {
 };
 
 CarouselBanner.defaultProps = {
-  source: [],
+  source: [{id:1, photo:null, title:'banner 1', description:'hdhshdgusjjgusj djsidjh dd'},{id:2, photo:null, title:'banner 2', description:'hdhshdgusjjgusj djsidjh dd'}, {id:3, photo:null, title:'banner 3', description:'hdhshdgusjjgusj djsidjh dd'} ],
   autoplay: true,
   h: 412,
 };
