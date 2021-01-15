@@ -51,7 +51,7 @@ export default function WorkshopSlug({ workshop }) {
         <ListCard
           title="Todas as Aulas"
           className={styles.videos}
-          source={workshop.oficinas?.nodes}
+          source={workshop?.oficinas.nodes}
           renderItem={(item) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
