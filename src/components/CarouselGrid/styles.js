@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   height: ${({ h }) => h}px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.default.background};
-  margin: 20px 0;
+  margin: 0;
   position: relative;
 
   div.scroll {

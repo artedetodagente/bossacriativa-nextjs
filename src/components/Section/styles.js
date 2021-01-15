@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  margin: 30px 0;
+  margin: 50px 0;
 
   > div:first-of-type {
     display: inline-block;
     width: fit-content; 
-    margin: 15px 0px;
+    margin: 35px 0px;
     position: relative;
     
     h1 {
