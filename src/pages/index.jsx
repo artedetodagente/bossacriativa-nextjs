@@ -8,7 +8,7 @@ import CardImage from '@/components/CardImage';
 import CardText from '@/components/CardText';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
-import Schedule from './schedule';
+import Schedule from './agenda';
 import CarouselBanner from '../components/CarouselBanner';
 
 export default function Home({

@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  margin: 20px 0;
+  margin: 0;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 
@@ -95,7 +95,7 @@ export const Item = styled.li`
     height: calc(100% - 20px);
     padding: 10px 5px 10px 50px;
     z-index: 999;
-    //opacity: ${(style) => style ? '1':'0'};
+    //opacity: ${(style) => (style ? '1' : '0')};
   }
 
 
