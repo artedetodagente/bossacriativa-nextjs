@@ -18,8 +18,7 @@ export default function Home({
   const { push } = useRouter();
 
   return (
-    <Page options={menus}>
-      
+    <Page options={menus}>   
       <Fluid>
         <CarouselBanner />
         <Section title="Mostra Virtual Bossa Criativa">

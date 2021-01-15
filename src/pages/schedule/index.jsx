@@ -1,11 +1,14 @@
 import React from 'react';
 import CarouselBanner from '../../components/CarouselBanner';
+import {
+    WrapperCarousel,
+} from './style';
 
 export default function Schedule(){
     return(
-        <div className="carousel-container">
-            <CarouselBanner width='45%'/>
-            <CarouselBanner width='45%'/>
-        </div>
+        <WrapperCarousel>
+            <CarouselBanner width='49%'/>
+            <CarouselBanner width='49%'/>
+        </WrapperCarousel>
     )
 }

@@ -16,6 +16,11 @@ export const Wrapper = styled.div`
     display: none;
   }
 
+  
+  // :hover ${Item} p {
+  //   opacity: 1;
+  // }
+
 `;
 
 export const Dots = styled.div`
@@ -90,6 +95,8 @@ export const Item = styled.li`
     height: calc(100% - 20px);
     padding: 10px 5px 10px 50px;
     z-index: 999;
+    //opacity: ${(style) => style ? '1':'0'};
   }
+
 
 `;
