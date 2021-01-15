@@ -34,12 +34,13 @@ export default function Home({
         </Section>
         <Section title="Notícias">
           <ListCard
-            source={posts}
+            source={posts.slice(0, 3)}
+            cols={3}
             renderItem={(item) => (
               <CardText
                 title={item.title}
                 excerpt={item.excerpt}
-                image={item.photo}
+                image={item.featuredImage.node?.mediaItemUrl}
                 click={() => push(`noticias/${item.slug}`)}
               />
             )}

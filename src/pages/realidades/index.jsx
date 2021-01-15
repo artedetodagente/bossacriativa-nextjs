@@ -1,14 +1,15 @@
 import React from 'react';
 import Info from '@/components/Info';
 import ListCard from '@/components/ListCard';
-import CardImage from '@/components/CardImage';
 import Breadcrumb from '@/components/Breadcrumb';
 import { useRouter } from 'next/router';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
+import CardThumb from '@/components/CardThumb';
 
-export default function Realities({ realities }) {
+export default function Realities({ mostras }) {
   const { push } = useRouter();
+  console.log(mostras);
 
   return (
     <main>
@@ -21,11 +22,10 @@ export default function Realities({ realities }) {
       />
       <Fluid>
         <ListCard
-          gap="15px"
-          source={realities}
+          source={mostras}
           renderItem={(item) => (
-            <CardImage
-              image={item.image}
+            <CardThumb
+              video={item.acf_data?.videoUrl}
               title={item.title}
               excerpt={item.excerpt}
               click={() => push(`realidades/${item.slug}`)}
@@ -38,10 +38,10 @@ export default function Realities({ realities }) {
 }
 
 export async function getStaticProps() {
-  const realities = await core.mostras.getAll();
+  const mostras = await core.mostras.getAll();
   return {
     props: {
-      realities: realities.nodes || [],
+      mostras: mostras.nodes || [],
     },
     revalidate: process.env.REQUEST_TIME,
   };

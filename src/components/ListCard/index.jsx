@@ -1,37 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container } from './styles';
+import { Container, Main } from './styles';
 
 export default function ListCard({
-  source, renderItem, title, cols, gap, pt, pb, pl, pr, className, key,
+  source, filters, renderFilter, renderItem, title, cols, gap, pt, pb, pl, pr, className,
 }) {
   return (
-    <Container
-      cols={cols}
-      gap={gap}
-      pt={pt}
-      pb={pb}
-      pl={pl}
-      pr={pr}
-      className={className}
-    >
-      {title && (<h1>{title}</h1>)}
-      { source.map((item) => (
-        <article key={item[key]}>
-          {' '}
-          { renderItem(item)}
-          {' '}
-        </article>
-      )) }
+    <Container className={className}>
+      {
+        (title || filters.length > 0) && (
+          <header>
+            {title && (<h1>{title}</h1>)}
+            {
+              filters.length > 0 && (
+                <ul>
+                  {
+                    filters.map((item, index) => (
+                      <li key={index}>{renderFilter(item)}</li>
+                    ))
+                  }
+                </ul>
+              )
+            }
+          </header>
+        )
+      }
+      <Main
+        cols={cols}
+        gap={gap}
+        pt={pt}
+        pb={pb}
+        pl={pl}
+        pr={pr}
+      >
+        { source.map((item, index) => (
+          <article key={index}>
+            {' '}
+            { renderItem(item)}
+            {' '}
+          </article>
+        )) }
+      </Main>
     </Container>
   );
 }
 
 ListCard.propType = {
-  souce: PropTypes.arrayOf(PropTypes.any).isRequired,
+  source: PropTypes.arrayOf(PropTypes.any).isRequired,
+  filters: PropTypes.arrayOf(PropTypes.any),
   renderItem: PropTypes.func.isRequired,
+  renderFilter: PropTypes.func,
   title: PropTypes.string,
-  key: PropTypes.string,
   cols: PropTypes.number,
   gap: PropTypes.string,
   pt: PropTypes.number,
@@ -41,8 +60,9 @@ ListCard.propType = {
 };
 
 ListCard.defaultProps = {
-  key: 'id',
   title: '',
+  filters: [],
+  renderFilter: null,
   cols: 4,
   gap: '20px',
   pt: 0,

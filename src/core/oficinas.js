@@ -36,11 +36,6 @@ export async function getOne(slug) {
             name
             slug
             description
-            acf_data {
-              imagemDestacada {
-                mediaItemUrl
-              }
-            }
             oficinas {
               nodes {
                 id

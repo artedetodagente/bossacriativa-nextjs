@@ -9,6 +9,12 @@ export async function getAll() {
           id
           slug
           title
+          excerpt
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
         }
       }
     }

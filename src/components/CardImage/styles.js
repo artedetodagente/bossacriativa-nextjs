@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Card = styled.div`
+export const Card = styled.main`
   width: 100%;
   min-height: 200px;
   height: 100%;
@@ -10,7 +10,6 @@ export const Card = styled.div`
   background-size: cover;
   position: relative;
   border-radius: 2px;
-  overflow: hidden;
   cursor: pointer;
 
   h1 {

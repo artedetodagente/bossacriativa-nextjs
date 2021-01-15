@@ -6,7 +6,7 @@ export const Search = styled.div`
   align-items: center;
   
   form {
-    flex: 0.3;
+    flex: .7;
     display: flex;
     width: 100%;
     padding-right: 5%;
@@ -27,7 +27,6 @@ export const Search = styled.div`
     }
     
     input {
-      flex: 1;
       height: 35px;
       font-size: 1.1em;
       padding: 0 5px;
@@ -41,6 +40,7 @@ export const Search = styled.div`
   }
 
   ul {
+    flex: 1;
     width: 100%;
     display: flex;
     align-items: center;

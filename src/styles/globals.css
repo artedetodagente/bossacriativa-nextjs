@@ -13,7 +13,7 @@ body,
   flex-direction: column;
 }
 
-header {
+#__next > header {
   height: 130px;
   width: 100%;
   position: fixed;
@@ -21,7 +21,7 @@ header {
   top: 0;
 }
 
-main {
+#__next > main {
   flex: 1;
   margin-top: 130px;
 }

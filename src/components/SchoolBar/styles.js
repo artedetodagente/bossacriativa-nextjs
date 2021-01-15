@@ -28,6 +28,7 @@ export const Bar = styled.ul`
 
     a {
       text-transform: uppercase;
+      font-weight: 600;
     }
   }
 `;

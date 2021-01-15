@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
-export const Card = styled.div`
+export const Card = styled.main`
   background-image: ${({ image }) => (image ? `url(${image})` : '')};
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   position: relative;
+  border-radius: 2px;
   height: 100%;
+  min-height: 200px;
   width: 100%;
+  cursor: pointer;
 
   h1 {
     font-size: 1.5em;

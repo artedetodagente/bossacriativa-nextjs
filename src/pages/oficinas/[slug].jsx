@@ -7,10 +7,16 @@ import YouEmbed from '@/components/YouEmbed';
 import ListCard from '@/components/ListCard';
 import styles from '@/styles/oficinas-slug.module.css';
 import CardThumb from '@/components/CardThumb';
+import Option from '@/components/Option';
 
 export default function WorkshopSlug({ workshop }) {
   const [lesson, setLesson] = useState(0);
   const [teacher, setTeacher] = useState(0);
+  const [category, setCategory] = useState(0);
+
+  async function changeCategory(value) {
+    setCategory(value);
+  }
 
   return (
     <main>
@@ -34,9 +40,9 @@ export default function WorkshopSlug({ workshop }) {
               cols={1}
               renderItem={(item) => (
                 <CardThumb
-                  video=""
-                  title={item.name}
-                  excerpt={item.description}
+                  video={item.acf_data?.videoUrl}
+                  title={item.title}
+                  excerpt={item.excerpt}
                 />
               )}
             />
@@ -45,12 +51,20 @@ export default function WorkshopSlug({ workshop }) {
         <ListCard
           title="Todas as Aulas"
           className={styles.videos}
-          source={[]}
+          source={workshop.oficinas?.nodes}
           renderItem={(item) => (
             <CardThumb
-              video=""
-              title={item.name}
-              excerpt={item.description}
+              video={item.acf_data?.videoUrl}
+              title={item.title}
+              excerpt={item.excerpt}
+            />
+          )}
+          renderFilter={(item) => (
+            <Option
+              id={item.termTaxonomyId}
+              name={item.name}
+              selected={category === item.termTaxonomyId}
+              click={changeCategory}
             />
           )}
         />

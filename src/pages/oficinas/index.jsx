@@ -30,7 +30,7 @@ export default function Workshops({ workshops, categories }) {
       <Fluid>
         <SearchBar
           filters={categories}
-          renderOption={(item) => (
+          renderFilter={(item) => (
             <Option
               id={item.termTaxonomyId}
               name={item.name}
@@ -40,7 +40,6 @@ export default function Workshops({ workshops, categories }) {
           )}
         />
         <ListCard
-          gap="30px"
           source={workshops}
           className={styles.card_list}
           renderItem={(item) => (
