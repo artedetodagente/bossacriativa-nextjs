@@ -1,5 +1,5 @@
 import React from 'react';
-import CarouselBanner from '../../components/CarouselBanner';
+import CarouselBanner from '../CarouselBanner';
 import {
   WrapperCarousel,
 } from './style';
