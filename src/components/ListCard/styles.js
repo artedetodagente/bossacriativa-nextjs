@@ -8,4 +8,9 @@ export const Container = styled.div`
   ${({ pb }) => pb >= 0 && `padding-bottom: ${pb}px`};
   ${({ pl }) => pl >= 0 && `padding-left: ${pl}px`};
   ${({ pr }) => pr >= 0 && `padding-right: ${pr}px`};
+
+  h1 {
+    font-family: 'Barlow Condensed';
+    font-weight: 500;
+  }
 `;

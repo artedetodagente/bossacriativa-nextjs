@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
 
-export default function Grid({
-  source, renderItem, cols, gap, pt, pb, pl, pr, className, key,
+export default function ListCard({
+  source, renderItem, title, cols, gap, pt, pb, pl, pr, className, key,
 }) {
   return (
     <Container
@@ -15,6 +15,7 @@ export default function Grid({
       pr={pr}
       className={className}
     >
+      {title && (<h1>{title}</h1>)}
       { source.map((item) => (
         <article key={item[key]}>
           {' '}
@@ -26,9 +27,10 @@ export default function Grid({
   );
 }
 
-Grid.propType = {
+ListCard.propType = {
   souce: PropTypes.arrayOf(PropTypes.any).isRequired,
   renderItem: PropTypes.func.isRequired,
+  title: PropTypes.string,
   key: PropTypes.string,
   cols: PropTypes.number,
   gap: PropTypes.string,
@@ -38,8 +40,9 @@ Grid.propType = {
   pr: PropTypes.number,
 };
 
-Grid.defaultProps = {
+ListCard.defaultProps = {
   key: 'id',
+  title: '',
   cols: 4,
   gap: '20px',
   pt: 0,

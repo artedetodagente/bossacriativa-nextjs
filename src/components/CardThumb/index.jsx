@@ -11,7 +11,11 @@ export default function CardThumb({
   return (
     <Card image={thumb} onClick={click}>
       <h1>{title}</h1>
-      <p>{excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+      <div>
+        <p>
+          {excerpt && excerpt.replace(/<\/?[^>]+(>|$)/g, '')}
+        </p>
+      </div>
     </Card>
   );
 }

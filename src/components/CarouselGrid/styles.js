@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   div.scroll {
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
@@ -29,9 +30,9 @@ export const Indicator = styled.div`
   width: auto;
   height: auto;
   display: flex;
-  top: 10px;
+  bottom: 10px;
   z-index: 998;
-  ${({ reverse }) => (reverse ? 'right: 30px' : 'left: 30px')};
+  ${({ reverse }) => (reverse ? 'right: 10px' : 'left: 10px')};
 `;
 
 export const IndicatorItem = styled.button`

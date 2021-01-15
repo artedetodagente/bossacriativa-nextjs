@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import Page from '@/components/Page';
-import Descriptor from '@/components/Descriptor';
+import Info from '@/components/Info';
 import Fluid from '@/components/Fluid';
-import CardList from '@/components/CardList';
+import ListCard from '@/components/ListCard';
 import CardImage from '@/components/CardImage';
 import Breadcrumb from '@/components/Breadcrumb';
 import { useRouter } from 'next/router';
-import Filter from '@/components/Filter';
+import SearchBar from '@/components/SearchBar';
 import Option from '@/components/Option';
 import core from '@/core';
 import styles from '@/styles/oficinas.module.css';
@@ -20,16 +19,16 @@ export default function Workshops({ workshops, categories }) {
   }
 
   return (
-    <Page>
+    <main>
       <Breadcrumb />
-      <Descriptor
+      <Info
         title="Oficinas"
         text="No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da humanidade. São mais de 180 artistas e educadores, de várias regiões
         do país, em apresentações, lives e oficinas de capacitação nas áreas de música, circo, artes visuais, dança, teatro e gestão cultural. Mais de 200 horas de
         conteúdo já estão no ar, com foco na diversidade e democratização da cultura."
       />
       <Fluid>
-        <Filter
+        <SearchBar
           options={categories}
           renderOption={(item) => (
             <Option
@@ -40,21 +39,21 @@ export default function Workshops({ workshops, categories }) {
             />
           )}
         />
-        <CardList
-          gap="15px"
+        <ListCard
+          gap="30px"
           source={workshops}
           className={styles.card_list}
           renderItem={(item) => (
             <CardImage
-              image={item.image}
-              title={item.title}
-              excerpt={item.excerpt}
-              click={() => push(`oficinas/${item.slug}`)}
+              image={item?.image}
+              title={item?.name}
+              excerpt={item?.description}
+              click={() => push(`oficinas/${item?.slug}`)}
             />
           )}
         />
       </Fluid>
-    </Page>
+    </main>
   );
 }
 

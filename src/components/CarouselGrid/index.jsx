@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import theme from '@/theme';

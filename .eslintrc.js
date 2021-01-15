@@ -21,6 +21,8 @@ module.exports = {
     'react/prop-types': 0,
     'react/jsx-props-no-spreading': 'off',
     'import/prefer-default-export': 'off',
+    'global-require': 0,
+    'react/no-array-index-key': 0,
     'react/jsx-filename-extension': [1, {
       extensions: ['.tsx', '.jsx'],
     }],

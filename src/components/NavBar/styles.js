@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Menu = styled.nav`
+export const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,12 +8,10 @@ export const Menu = styled.nav`
   height: calc(110px - 10px);
   padding: 5px 40px;
   overflow: none;
-  position: fixed;
-  width: 100%;
-  z-index: 999;
 
   div {
     flex: .15;
+    margin: 0;
   }
 
   ul { 
@@ -61,6 +59,7 @@ export const Menu = styled.nav`
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
+            font-family: 'Barlow Condensed Light';
 
             :hover {
               background-color: ${({ theme }) => theme.colors.default.primary};
@@ -78,7 +77,6 @@ export const Menu = styled.nav`
       }
 
       a {
-        font-family: ${({ theme }) => theme.fonts.title};
         font-size: 1.5em;
       }
 

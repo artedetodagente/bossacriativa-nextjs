@@ -1,0 +1,28 @@
+.layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: 
+    "player player player list" 
+    "videos videos videos videos";
+  grid-column-gap: 20px;
+  grid-row-gap: 50px;
+}
+
+.player {
+  grid-area: player;
+}
+
+.list {
+  grid-area: list;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.list h2 {
+  font-size: 2em;
+}
+
+.videos {
+  grid-area: videos;
+}

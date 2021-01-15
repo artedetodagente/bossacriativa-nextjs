@@ -4,41 +4,51 @@ export async function getAll() {
   const data = await fetchAPI(
     `
       query MyQuery {
-        oficinas {
+        oficinasClasses {
           nodes {
             id
-            title
+            name
             slug
-            excerpt
+            description
           }
         }
-      }
+      }    
     `,
     {
       variables: {},
     },
   );
-  return data?.oficinas;
+  return data?.oficinasClasses;
 }
 
 export async function getOne(slug) {
   const data = await fetchAPI(
     `
       query MyQuery {
-        oficinas {
+        oficinasClasses {
           nodes {
             id
-            title
+            name
             slug
-            excerpt
-            content
+            description
+            oficinas {
+              nodes {
+                id
+                title
+                slug
+                excerpt
+                acf_data {
+                  videoUrl
+                }
+              }
+            }
           }
         }
       }
     `,
     {
-      variables: { slug },
+      variables: { slug, oficinas: { status: 'publish' } },
     },
   );
-  return data?.oficinas;
+  return data?.oficinasClasses;
 }

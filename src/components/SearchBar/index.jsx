@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiSearch } from 'react-icons/bi';
-import { SearchBar } from './styles';
+import { Search } from './styles';
 
-export default function Filter({
+export default function SearchBar({
   options, identity, renderOption, submit,
 }) {
   const [filter, setFilter] = useState({ search: '' });
@@ -19,7 +19,7 @@ export default function Filter({
   }
 
   return (
-    <SearchBar>
+    <Search>
       <form action="POST" onSubmit={(e) => handleSubmit(e)}>
         <button type="submit">
           <BiSearch />
@@ -37,18 +37,18 @@ export default function Filter({
           options.map((item) => <li key={item[identity]}>{renderOption(item)}</li>)
         }
       </ul>
-    </SearchBar>
+    </Search>
   );
 }
 
-Filter.propTypes = {
+SearchBar.propTypes = {
   identity: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape()),
   renderOption: PropTypes.func,
   submit: PropTypes.func,
 };
 
-Filter.defaultProps = {
+SearchBar.defaultProps = {
   identity: 'id',
   options: [],
   renderOption: null,

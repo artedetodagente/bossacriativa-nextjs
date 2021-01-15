@@ -1,18 +1,61 @@
-import React from 'react';
-import Page from '@/components/Page';
+import React, { useState } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
-import Descriptor from '@/components/Descriptor';
+import Info from '@/components/Info';
 import core from '@/core';
+import Fluid from '@/components/Fluid';
+import YouEmbed from '@/components/YouEmbed';
+import ListCard from '@/components/ListCard';
+import styles from '@/styles/oficinas-slug.module.css';
+import CardThumb from '@/components/CardThumb';
 
 export default function WorkshopSlug({ workshop }) {
+  const [lesson, setLesson] = useState(0);
+  const [teacher, setTeacher] = useState(0);
+
   return (
-    <Page>
+    <main>
       <Breadcrumb />
-      <Descriptor
-        title={workshop?.title}
-        text={workshop?.excerpt}
+      <Info
+        title={workshop?.name}
+        text={workshop?.description}
       />
-    </Page>
+      <Fluid className={styles.layout}>
+        <div className={styles.player}>
+          <YouEmbed
+            url={workshop?.oficinas.nodes[lesson].acf_data.videoUrl}
+          />
+        </div>
+        {
+          workshop?.oficinas.nodes.slice(lesson + 1).length > 0 && (
+            <ListCard
+              title="Próximas Aulas"
+              className={styles.list}
+              source={workshop.oficinas.nodes.slice(lesson, lesson + 2)}
+              cols={1}
+              renderItem={(item) => (
+                <CardThumb
+                  video=""
+                  title={item.name}
+                  excerpt={item.description}
+                />
+              )}
+            />
+          )
+        }
+        <ListCard
+          title="Todas as Aulas"
+          className={styles.videos}
+          source={[]}
+          renderItem={(item) => (
+            <CardThumb
+              video=""
+              title={item.name}
+              excerpt={item.description}
+            />
+          )}
+        />
+      </Fluid>
+    </main>
   );
 }
 

@@ -15,3 +15,9 @@
   font-family: 'Barlow Semi Condensed';
   src: url('../fonts/BarlowSemiCondensed-Regular.ttf');
 }
+
+/* Menus */
+@font-face {
+  font-family: 'Barlow Condensed Light';
+  src: url('../fonts/BarlowCondensed-Light.ttf');
+}

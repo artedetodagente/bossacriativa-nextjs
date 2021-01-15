@@ -1,8 +1,7 @@
 import React from 'react';
-import Page from '@/components/Page';
 import Section from '@/components/Section';
 import CarouselGrid from '@/components/CarouselGrid';
-import CardList from '@/components/CardList';
+import ListCard from '@/components/ListCard';
 import CardThumb from '@/components/CardThumb';
 import { useRouter } from 'next/router';
 import CardImage from '@/components/CardImage';
@@ -11,12 +10,12 @@ import Fluid from '@/components/Fluid';
 import core from '@/core';
 
 export default function Home({
-  menus, mostras, posts, lives,
+  mostras, posts, lives,
 }) {
   const { push } = useRouter();
 
   return (
-    <Page options={menus}>
+    <main>
       <Fluid>
         <Section title="Mostra Virtual Bossa Criativa">
           <CarouselGrid
@@ -26,13 +25,13 @@ export default function Home({
                 image={item.image}
                 title={item.title}
                 excerpt={item.excerpt}
-                click={() => push(`mostras/${item.slug}`)}
+                click={() => push(`realidades/${item.slug}`)}
               />
             )}
           />
         </Section>
         <Section title="Notícias">
-          <CardList
+          <ListCard
             source={posts}
             renderItem={(item) => (
               <CardText
@@ -59,7 +58,7 @@ export default function Home({
           />
         </Section>
       </Fluid>
-    </Page>
+    </main>
   );
 }
 
@@ -67,10 +66,9 @@ export async function getStaticProps() {
   const lives = await core.lives.getAll();
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
-  const menus = await core.menus.getAll();
+
   return {
     props: {
-      menus: menus.nodes || [],
       mostras: mostras.nodes || [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],

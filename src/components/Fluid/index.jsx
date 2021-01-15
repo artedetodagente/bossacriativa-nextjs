@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container } from './styles';
 
-export default function Fluid({ children }) {
+export default function Fluid({ children, className }) {
   return (
-    <Container>
+    <Container className={className}>
       {children}
     </Container>
   );
