@@ -22,7 +22,7 @@ export default function WorkshopSlug({ workshop }) {
       <Fluid className={styles.layout}>
         <div className={styles.player}>
           <YouEmbed
-            url={workshop?.oficinas.nodes[lesson].acf_data.videoUrl}
+            url={workshop?.oficinas.nodes[lesson]?.acf_data.videoUrl}
           />
         </div>
         {
