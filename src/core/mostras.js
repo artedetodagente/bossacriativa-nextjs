@@ -10,6 +10,9 @@ export async function getAll() {
             title
             slug
             excerpt
+            acf_data {
+              videoUrl
+            }
           }
         }
       }
@@ -31,6 +34,9 @@ export async function getOne(slug) {
             title
             slug
             excerpt
+            acf_data {
+              videoUrl
+            }
             content
           }
         }

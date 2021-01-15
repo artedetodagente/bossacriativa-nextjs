@@ -11,7 +11,7 @@ export default function NavBar({ menus }) {
         <Link href="/">
           <a href="/#">
             <Image
-              src={require('@/images/logo-menu.svg')}
+              src={require('@/images/menu-logo.svg')}
               alt="Logo do Bossa Criativa"
               width="100px"
               height="80px"

@@ -10,6 +10,11 @@ export async function getAll() {
             name
             slug
             description
+            acf_data {
+              imagemDestacada {
+                mediaItemUrl
+              }
+            }
           }
         }
       }    
@@ -31,6 +36,11 @@ export async function getOne(slug) {
             name
             slug
             description
+            acf_data {
+              imagemDestacada {
+                mediaItemUrl
+              }
+            }
             oficinas {
               nodes {
                 id

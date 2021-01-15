@@ -4,7 +4,6 @@ import CarouselGrid from '@/components/CarouselGrid';
 import ListCard from '@/components/ListCard';
 import CardThumb from '@/components/CardThumb';
 import { useRouter } from 'next/router';
-import CardImage from '@/components/CardImage';
 import CardText from '@/components/CardText';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
@@ -24,8 +23,8 @@ export default function Home({
           <CarouselGrid
             source={mostras}
             renderItem={(item) => (
-              <CardImage
-                image={item.image}
+              <CardThumb
+                video={item.acf_data?.videoUrl}
                 title={item.title}
                 excerpt={item.excerpt}
                 click={() => push(`realidades/${item.slug}`)}

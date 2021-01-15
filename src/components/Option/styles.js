@@ -8,4 +8,8 @@ export const Item = styled.button`
   cursor: pointer;
   background-color: ${({ selected }) => (selected ? '#222' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#222')};
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+  text-overflow: ellipsis;
 `;

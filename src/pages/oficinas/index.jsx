@@ -29,7 +29,7 @@ export default function Workshops({ workshops, categories }) {
       />
       <Fluid>
         <SearchBar
-          options={categories}
+          filters={categories}
           renderOption={(item) => (
             <Option
               id={item.termTaxonomyId}
@@ -45,7 +45,7 @@ export default function Workshops({ workshops, categories }) {
           className={styles.card_list}
           renderItem={(item) => (
             <CardImage
-              image={item?.image}
+              image={item.acf_data?.imagemDestacada?.mediaItemUrl}
               title={item?.name}
               excerpt={item?.description}
               click={() => push(`oficinas/${item?.slug}`)}

@@ -94,7 +94,7 @@ export const Item = styled.li`
     transition: opacity .3s linear;
     height: calc(100% - 20px);
     padding: 10px 5px 10px 50px;
-    z-index: 999;
+    z-index: 998;
     //opacity: ${(style) => (style ? '1' : '0')};
   }
 

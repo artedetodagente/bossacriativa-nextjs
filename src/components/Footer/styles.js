@@ -26,6 +26,7 @@ export const Container = styled.footer`
         h4 {
           color: #fff;
           text-transform: uppercase;
+          margin: 0;
         }
   
         ul {
