@@ -48,6 +48,9 @@ export default function CarouselBanner({
           });
         }}
         key={x}
+        style={
+          settings.selected === x? {backgroundColor:'#E4BE2Bcc'} :{ backgroundColor:'#585858'}
+        }
       />);
     }
     setDots(dotsList);
@@ -58,10 +61,10 @@ export default function CarouselBanner({
       <Wrapper
         height={height}
         width={width}
-        ref={carousel}
         onMouseOver={() => setSettings({ ...settings, autoplay: false })}
         onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
       >
+        <div className='scroll' ref={carousel}>
         {
           settings.slides.map((slide, index) => (
             <Slide key={index}>
@@ -73,13 +76,14 @@ export default function CarouselBanner({
                   <h1>{slide.title}</h1>
                   <p>{slide.description}</p>
                 </div>
-                <Dots>
-                  {dots}
-                </Dots>
               </Item>
             </Slide>
           ))
         }
+        </div>
+        <Dots>
+          {dots}
+        </Dots>
       </Wrapper>
     </>
 

@@ -3,18 +3,26 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   height: ${({ height }) => height}px;
   width: ${({ width }) => width};
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  margin: 0;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  position: relative;
 
-  ::-webkit-scrollbar {
-    display: none;
+  div.scroll {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    margin: 0;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
+
+
 
   
   // :hover ${Item} p {
@@ -24,6 +32,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Dots = styled.div`
+  position: absolute;  
+  bottom: 0px;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -32,13 +42,9 @@ export const Dots = styled.div`
     height: 16px;
     width: 16px;
     border-radius: 10px;
-    background-color: #585858;
     margin: 15px 5px;
     cursor: pointer;
     border-style: none;
-    &:hover{
-      background-color: #E4BE2B;
-    }
   }
 `;
 
