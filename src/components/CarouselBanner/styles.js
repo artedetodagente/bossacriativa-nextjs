@@ -60,7 +60,7 @@ export const Slide = styled.ul`
 export const Item = styled.li`
   width: 100%;
   height: 100%;
-  background-image: ${({ photo }) => (photo ? `url(${photo})` : '')};
+  background-image: ${({ photo }) => (photo ? `url(${photo})` : 'url("https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg")')};
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

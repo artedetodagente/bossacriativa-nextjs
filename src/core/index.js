@@ -5,6 +5,7 @@ import * as oficinas from './oficinas';
 import * as mostras from './mostras';
 import * as categories from './categories';
 import * as menus from './menus';
+import * as slides from './slides';
 
 export default {
   posts,
@@ -14,4 +15,5 @@ export default {
   mostras,
   categories,
   menus,
+  slides,
 };
