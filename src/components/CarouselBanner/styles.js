@@ -74,7 +74,7 @@ export const Item = styled.li`
     display: flex;
     flex-direction: column;
     width: 40%;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
   }
 
   h1 {
