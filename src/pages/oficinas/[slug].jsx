@@ -37,7 +37,7 @@ export default function WorkshopSlug({ workshop, menus }) {
         <FlatList
           title="Próximas Aulas"
           className={styles.list}
-          source={workshop.oficinas.nodes.slice(lesson, lesson + 2)}
+          source={workshop?.oficinas.nodes.slice(lesson, lesson + 2)}
           cols={1}
           renderItem={(item) => (
             <CardThumb
