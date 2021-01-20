@@ -19,9 +19,10 @@ Option.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   selected: PropTypes.bool,
-  click: PropTypes.string.isRequired,
+  click: PropTypes.func,
 };
 
 Option.defaultProps = {
   selected: false,
+  click: null,
 };

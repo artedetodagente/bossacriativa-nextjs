@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Card = styled.main`
+export const Card = styled.article`
   cursor: pointer;
 
   div {

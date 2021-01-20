@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Card = styled.main`
+export const Card = styled.article`
   background-image: ${({ image }) => (image ? `url(${image})` : '')};
   background-repeat: no-repeat;
   background-size: cover;
@@ -20,7 +20,7 @@ export const Card = styled.main`
     text-align: center;
     margin: 0;
     position: absolute;
-    width: calc(100% - 20px);
+    width: 100%;
     bottom: 0;
     overflow: hidden;
     text-overflow: ellipsis;

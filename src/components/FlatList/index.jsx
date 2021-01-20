@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Main } from './styles';
 
-export default function ListCard({
-  source, filters, renderFilter, renderItem, title, cols, gap, pt, pb, pl, pr, className,
+export default function FlatList({
+  source, filters, renderFilter, renderItem, title, cols, colsl, colsxss, colsxsm,
+  colsxsl, colsmd, colsxl, gap, pt, pb, pl, pr, className,
 }) {
   return (
     <Container className={className}>
@@ -27,25 +28,29 @@ export default function ListCard({
       }
       <Main
         cols={cols}
+        colsl={colsl}
+        colsxss={colsxss}
+        colsxsm={colsxsm}
+        colsxsl={colsxsl}
+        colsmd={colsmd}
+        colsxl={colsxl}
         gap={gap}
         pt={pt}
         pb={pb}
         pl={pl}
         pr={pr}
       >
-        { source.map((item, index) => (
-          <article key={index}>
-            {' '}
-            { renderItem(item)}
-            {' '}
-          </article>
-        )) }
+        {
+          source.map((item, index) => (
+            <Fragment key={index}>{renderItem(item)}</Fragment>
+          ))
+        }
       </Main>
     </Container>
   );
 }
 
-ListCard.propType = {
+FlatList.propType = {
   source: PropTypes.arrayOf(PropTypes.any).isRequired,
   filters: PropTypes.arrayOf(PropTypes.any),
   renderItem: PropTypes.func.isRequired,
@@ -59,7 +64,7 @@ ListCard.propType = {
   pr: PropTypes.number,
 };
 
-ListCard.defaultProps = {
+FlatList.defaultProps = {
   title: '',
   filters: [],
   renderFilter: null,

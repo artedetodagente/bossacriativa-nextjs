@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.section`
   margin: 50px 0;
 
-  > div:first-of-type {
+  header {
     display: inline-block;
     width: fit-content; 
     margin: 35px 0px;
@@ -21,6 +21,11 @@ export const Container = styled.section`
       width: fit-content;
       text-transform: uppercase;
       letter-spacing: -1.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
     }
 
     div {

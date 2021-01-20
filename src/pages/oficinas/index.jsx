@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Info from '@/components/Info';
 import Fluid from '@/components/Fluid';
-import ListCard from '@/components/ListCard';
+import FlatList from '@/components/FlatList';
 import CardImage from '@/components/CardImage';
 import Breadcrumb from '@/components/Breadcrumb';
 import { useRouter } from 'next/router';
@@ -9,8 +9,9 @@ import SearchBar from '@/components/SearchBar';
 import Option from '@/components/Option';
 import core from '@/core';
 import styles from '@/styles/oficinas.module.css';
+import Page from '@/components/Page';
 
-export default function Workshops({ workshops, categories }) {
+export default function Workshops({ workshops, categories, menus }) {
   const { push } = useRouter();
   const [category, setCategory] = useState(0);
 
@@ -19,7 +20,7 @@ export default function Workshops({ workshops, categories }) {
   }
 
   return (
-    <main>
+    <Page menus={menus}>
       <Breadcrumb />
       <Info
         title="Oficinas"
@@ -39,8 +40,13 @@ export default function Workshops({ workshops, categories }) {
             />
           )}
         />
-        <ListCard
+        <FlatList
           source={workshops}
+          colsxss={1}
+          colsmd={2}
+          cols={4}
+          colsl={4}
+          colsxl={7}
           className={styles.card_list}
           renderItem={(item) => (
             <CardImage
@@ -52,7 +58,7 @@ export default function Workshops({ workshops, categories }) {
           )}
         />
       </Fluid>
-    </main>
+    </Page>
   );
 }
 

@@ -4,10 +4,11 @@ import parse from 'html-react-parser';
 import styles from '@/styles/Home.module.css';
 import Breadcrumb from '@/components/Breadcrumb';
 import core from '@/core';
+import Page from '@/components/Page';
 
-export default function NoticeSlug({ post }) {
+export default function NoticeSlug({ post, menus }) {
   return (
-    <main>
+    <Page menus={menus}>
       <Breadcrumb />
       <div className={styles.container}>
         <h3><Link href="/"><a href="/#">Bossa Criativa</a></Link></h3>
@@ -16,7 +17,7 @@ export default function NoticeSlug({ post }) {
           {parse(post?.content || '')}
         </div>
       </div>
-    </main>
+    </Page>
   );
 }
 

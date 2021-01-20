@@ -1,7 +1,7 @@
 import React from 'react';
 import Section from '@/components/Section';
 import CarouselGrid from '@/components/CarouselGrid';
-import ListCard from '@/components/ListCard';
+import FlatList from '@/components/FlatList';
 import CardThumb from '@/components/CardThumb';
 import { useRouter } from 'next/router';
 import CardText from '@/components/CardText';
@@ -9,14 +9,15 @@ import Fluid from '@/components/Fluid';
 import core from '@/core';
 import Schedule from '@/components/agenda';
 import CarouselBanner from '@/components/CarouselBanner';
+import Page from '@/components/Page';
 
 export default function Home({
-  mostras, posts, lives,
+  mostras, posts, lives, menus,
 }) {
   const { push } = useRouter();
 
   return (
-    <main>
+    <Page menus={menus}>
       <CarouselBanner />
       <Fluid>
         <Section title="Mostra Virtual Bossa Criativa">
@@ -33,9 +34,13 @@ export default function Home({
           />
         </Section>
         <Section title="Notícias">
-          <ListCard
+          <FlatList
             source={posts.slice(0, 3)}
             cols={3}
+            colsl={4}
+            colsxss={1}
+            colsmd={2}
+            colsxl={7}
             renderItem={(item) => (
               <CardText
                 title={item.title}
@@ -64,7 +69,7 @@ export default function Home({
           <Schedule />
         </Section>
       </Fluid>
-    </main>
+    </Page>
   );
 }
 

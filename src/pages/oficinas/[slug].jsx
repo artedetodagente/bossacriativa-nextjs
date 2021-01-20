@@ -4,14 +4,16 @@ import Info from '@/components/Info';
 import core from '@/core';
 import Fluid from '@/components/Fluid';
 import YouEmbed from '@/components/YouEmbed';
-import ListCard from '@/components/ListCard';
+import FlatList from '@/components/FlatList';
 import styles from '@/styles/oficinas-slug.module.css';
 import CardThumb from '@/components/CardThumb';
 import Option from '@/components/Option';
+import Page from '@/components/Page';
+import ContentExpansive from '@/components/ContentExpansible';
 
-export default function WorkshopSlug({ workshop }) {
-  const [lesson, setLesson] = useState(0);
-  const [teacher, setTeacher] = useState(0);
+export default function WorkshopSlug({ workshop, menus }) {
+  const [lesson] = useState(0);
+  // const [teacher, setTeacher] = useState(0);
   const [category, setCategory] = useState(0);
 
   async function changeCategory(value) {
@@ -19,36 +21,33 @@ export default function WorkshopSlug({ workshop }) {
   }
 
   return (
-    <main>
+    <Page menus={menus}>
       <Breadcrumb />
       <Info
         title={workshop?.name}
         text={workshop?.description}
       />
+      <ContentExpansive showText="Conheça os professores e mais" />
       <Fluid className={styles.layout}>
         <div className={styles.player}>
           <YouEmbed
             url={workshop?.oficinas.nodes[lesson]?.acf_data.videoUrl}
           />
         </div>
-        {
-          workshop?.oficinas.nodes.slice(lesson + 1).length > 0 && (
-            <ListCard
-              title="Próximas Aulas"
-              className={styles.list}
-              source={workshop.oficinas.nodes.slice(lesson, lesson + 2)}
-              cols={1}
-              renderItem={(item) => (
-                <CardThumb
-                  video={item.acf_data?.videoUrl}
-                  title={item.title}
-                  excerpt={item.excerpt}
-                />
-              )}
+        <FlatList
+          title="Próximas Aulas"
+          className={styles.list}
+          source={workshop.oficinas.nodes.slice(lesson, lesson + 2)}
+          cols={1}
+          renderItem={(item) => (
+            <CardThumb
+              video={item.acf_data?.videoUrl}
+              title={item.title}
+              excerpt={item.excerpt}
             />
-          )
-        }
-        <ListCard
+          )}
+        />
+        <FlatList
           title="Todas as Aulas"
           className={styles.videos}
           source={workshop?.oficinas.nodes || []}
@@ -69,7 +68,7 @@ export default function WorkshopSlug({ workshop }) {
           )}
         />
       </Fluid>
-    </main>
+    </Page>
   );
 }
 

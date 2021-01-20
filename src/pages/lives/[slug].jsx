@@ -5,10 +5,11 @@ import styles from '@/styles/Home.module.css';
 import YouEmbed from '@/components/YouEmbed';
 import DisqusComments from '@/components/DisqusComments';
 import core from '@/core';
+import Page from '@/components/Page';
 
-export default function LiveSlug({ live }) {
+export default function LiveSlug({ live, menus }) {
   return (
-    <main>
+    <Page menus={menus}>
       <div className={styles.container}>
         <h3>
           <Link href="/"><a href="/#">Bossa Criativa</a></Link>
@@ -20,7 +21,7 @@ export default function LiveSlug({ live }) {
         </div>
         <DisqusComments post={{ ...live, path: `${process.env.NEXT_PUBLIC_URL}lives/${live?.slug}` }} />
       </div>
-    </main>
+    </Page>
   );
 }
 

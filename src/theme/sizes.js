@@ -1,6 +1,9 @@
 export default {
-  mobile: 320,
+  mobileS: 320,
+  mobileM: 375,
+  mobileL: 425,
   tablet: 768,
   laptop: 1024,
-  desktop: 1440,
+  laptopL: 1440,
+  desktop: 2560,
 };

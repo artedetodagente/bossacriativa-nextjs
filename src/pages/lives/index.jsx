@@ -8,21 +8,19 @@ import core from '@/core';
 import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
 
-export default function Realities({ mostras, menus }) {
+export default function Lives({ lives, menus }) {
   const { push } = useRouter();
 
   return (
     <Page menus={menus}>
-      <Breadcrumb name="Mostra Virtual" />
+      <Breadcrumb />
       <Info
-        title="Mostra Virtual"
-        text="No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da humanidade. São mais de 180 artistas e educadores, de várias regiões
-        do país, em apresentações, lives e oficinas de capacitação nas áreas de música, circo, artes visuais, dança, teatro e gestão cultural. Mais de 200 horas de
-        conteúdo já estão no ar, com foco na diversidade e democratização da cultura."
+        title="Lives"
+        text=""
       />
       <Fluid>
         <FlatList
-          source={mostras}
+          source={lives}
           colsxss={1}
           colsmd={2}
           cols={3}
@@ -33,7 +31,7 @@ export default function Realities({ mostras, menus }) {
               video={item.acf_data?.videoUrl}
               title={item.title}
               excerpt={item.excerpt}
-              click={() => push(`realidades/${item.id}`)}
+              click={() => push(`lives/${item.slug}`)}
             />
           )}
         />
@@ -43,10 +41,10 @@ export default function Realities({ mostras, menus }) {
 }
 
 export async function getStaticProps() {
-  const mostras = await core.mostras.getAll();
+  const lives = await core.lives.getAll();
   return {
     props: {
-      mostras: mostras.nodes || [],
+      lives: lives.nodes || [],
     },
     revalidate: process.env.REQUEST_TIME,
   };

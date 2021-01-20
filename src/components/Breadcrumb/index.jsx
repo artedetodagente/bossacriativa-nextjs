@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useRouter } from 'next/router';
 import { BsChevronRight } from 'react-icons/bs';
 import Link from 'next/link';
@@ -18,18 +18,18 @@ export default function Breadcrumb({ name }) {
       <BsChevronRight />
       {
         paths.map((item, index) => (
-          <>
+          <Fragment key={index}>
             {
               index === paths.length - 1
-                ? <Link key={index} href={router.asPath}><a href="/#">{name || item}</a></Link>
+                ? <Link href={`/${router.asPath}`}><a href="/#">{name || item}</a></Link>
                 : (
                   <>
-                    <Link key={index} href={item}><a href="/#">{item}</a></Link>
+                    <Link href={item}><a href="/#">{item}</a></Link>
                     <BsChevronRight />
                   </>
                 )
             }
-          </>
+          </Fragment>
         ))
       }
     </Container>

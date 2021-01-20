@@ -10,6 +10,11 @@ export async function getAll() {
             title
             slug
             excerpt
+            featuredImage {
+              node {
+                mediaItemUrl
+              }
+            }
             acf_data {
               videoUrl
             }

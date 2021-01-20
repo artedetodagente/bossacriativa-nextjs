@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BsCircleFill } from 'react-icons/bs';
@@ -23,8 +23,8 @@ export default function NavBar({ menus }) {
         {
           menus.map((menu, index) => (
             !menu.parentId && (
-              <>
-                <li key={menu.id}>
+              <Fragment key={menu.id}>
+                <li>
                   <Link href={menu.url}>
                     <a href="/#">{menu.label}</a>
                   </Link>
@@ -46,7 +46,7 @@ export default function NavBar({ menus }) {
                   }
                 </li>
                 <li><BsCircleFill /></li>
-              </>
+              </Fragment>
             )
           ))
         }
