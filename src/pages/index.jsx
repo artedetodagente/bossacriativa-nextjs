@@ -12,13 +12,13 @@ import CarouselBanner from '@/components/CarouselBanner';
 import Page from '@/components/Page';
 
 export default function Home({
-  mostras, posts, lives, menus,
+  mostras, posts, lives, menus, slides,
 }) {
   const { push } = useRouter();
 
   return (
     <Page menus={menus}>
-      <CarouselBanner />
+      <CarouselBanner source={slides} />
       <Fluid>
         <Section title="Mostra Virtual Bossa Criativa">
           <CarouselGrid
@@ -77,12 +77,14 @@ export async function getStaticProps() {
   const lives = await core.lives.getAll();
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
+  const slides = await core.slides.getAll();
 
   return {
     props: {
       mostras: mostras.nodes || [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],
+      slides: slides.nodes || [],
     },
     revalidate: process.env.REQUEST_TIME,
   };

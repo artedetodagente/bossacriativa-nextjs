@@ -48,6 +48,9 @@ export default function CarouselBanner({
           });
         }}
         key={x}
+        style={
+          settings.selected === x? {backgroundColor:'#E4BE2Bcc'} :{ backgroundColor:'#585858'}
+        }
       />);
     }
     setDots(dotsList);
@@ -58,28 +61,32 @@ export default function CarouselBanner({
       <Wrapper
         height={height}
         width={width}
-        ref={carousel}
         onMouseOver={() => setSettings({ ...settings, autoplay: false })}
         onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
       >
+        <div className='scroll' ref={carousel}>
         {
-          settings.slides.map((slide, index) => (
-            <Slide key={index}>
-              <Item
-                key={slide.id}
-                photo="https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg"
-              >
-                <div className="text-container">
-                  <h1>{slide.title}</h1>
-                  <p>{slide.description}</p>
-                </div>
-                <Dots>
-                  {dots}
-                </Dots>
-              </Item>
-            </Slide>
-          ))
+          settings.slides.map((slide, index) =>{ 
+            console.log(slide)
+            return(
+              <Slide key={index}>
+                <Item
+                  key={slide.id}
+                  photo={slide.featuredImage?.node?.mediaItemUrl}
+                >
+                  <div className="text-container">
+                    <h1>{slide.title}</h1>
+                    <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+                  </div>
+                </Item>
+              </Slide>
+            )
+          })
         }
+        </div>
+        <Dots>
+          {dots}
+        </Dots>
       </Wrapper>
     </>
 
@@ -89,9 +96,13 @@ export default function CarouselBanner({
 CarouselBanner.propTypes = {
   source: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    photo: PropTypes.string,
+    featuredImage: PropTypes.shape({
+      node: PropTypes.shape({
+        mediaItemUrl: PropTypes.string
+      })
+    }),
     title: PropTypes.string,
-    description: PropTypes.string,
+    excerpt: PropTypes.string,
   })),
   autoplay: PropTypes.bool,
   height: PropTypes.number,
@@ -100,11 +111,11 @@ CarouselBanner.propTypes = {
 
 CarouselBanner.defaultProps = {
   source: [{
-    id: 1, photo: null, title: 'banner 1', description: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+    id: 1, featuredImage: null, title: 'banner 1', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
   }, {
-    id: 2, photo: null, title: 'banner 2', description: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+    id: 2, featuredImage: null, title: 'banner 2', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
   }, {
-    id: 3, photo: null, title: 'banner 3', description: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+    id: 3, featuredImage: null, title: 'banner 3', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
   }],
   autoplay: true,
   height: 412,
