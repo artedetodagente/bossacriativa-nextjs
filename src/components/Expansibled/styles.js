@@ -7,7 +7,10 @@ export const Content = styled.div`
 
   > div {
     :first-of-type {
-      height: 100%;
+      height: ${({ show }) => (show ? '100vh' : 0)};
+      background-color: #fff;
+      transition: .3s height linear;
+      overflow: hidden;
     }
 
     :last-of-type {
@@ -15,7 +18,7 @@ export const Content = styled.div`
       align-items: center;
       justify-content: center;
       background-color: ${({ theme }) => theme.colors.default.primary};
-      height: 100px;
+      padding: 20px 0;
       width: 100%;
 
       button {
@@ -31,6 +34,8 @@ export const Content = styled.div`
         align-items: center;
         
         svg {
+          transition: .3s transform linear;
+          transform: ${({ show }) => (show ? 'rotate(180deg)' : 'rotate(0deg)')};
           margin-left: 10px;
           font-size: 1.2em;
         }

@@ -1,11 +1,14 @@
 import React from 'react';
 import { Container } from './styles';
 
-export default function Info({ title, text }) {
+export default function Info({ title, text, children }) {
   return (
     <Container>
-      <h1>{title}</h1>
-      <p>{text}</p>
+      <div>
+        <h1>{title}</h1>
+        {text && <p>{text}</p>}
+      </div>
+      {children}
     </Container>
   );
 }

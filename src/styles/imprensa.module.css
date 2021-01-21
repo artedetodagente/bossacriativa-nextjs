@@ -1,0 +1,10 @@
+.contact main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.contact article h1 {
+  font-family: 'Barlow Condensed';
+  margin: 0;
+}

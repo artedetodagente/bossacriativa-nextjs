@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from './styles';
 
-export default function CardText({ title, text }) {
+export default function CardIcon({ icon, text }) {
   return (
     <Card>
-      <h1>{title}</h1>
-      <p>{text}</p>
+      <figure>{icon}</figure>
+      <p>{ text }</p>
     </Card>
   );
 }
 
-CardText.propTypes = {
-  title: PropTypes.string.isRequired,
+CardIcon.propTypes = {
+  icon: PropTypes.element.isRequired,
   text: PropTypes.string.isRequired,
 };

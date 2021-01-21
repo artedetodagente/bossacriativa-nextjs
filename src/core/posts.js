@@ -1,15 +1,16 @@
 import { fetchAPI } from '@/services/api';
 
 export async function getAll() {
-  const data = await fetchAPI(
-    `
+  const data = await fetchAPI(`
     query MyQuery {
       posts {
         nodes {
           id
           slug
           title
-          excerpt
+          acf_chamada_post {
+            chamadaHome
+          }
           featuredImage {
             node {
               mediaItemUrl
@@ -17,9 +18,7 @@ export async function getAll() {
           }
         }
       }
-    }
-    `,
-  );
+    }`);
   return data?.posts;
 }
 
@@ -32,6 +31,7 @@ export async function getOne(slug) {
         slug
         title
         content
+        excerpt
         featuredImage {
           node {
             sourceUrl(size: LARGE)

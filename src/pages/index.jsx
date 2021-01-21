@@ -4,7 +4,7 @@ import CarouselGrid from '@/components/CarouselGrid';
 import FlatList from '@/components/FlatList';
 import CardThumb from '@/components/CardThumb';
 import { useRouter } from 'next/router';
-import CardText from '@/components/CardText';
+import CardFigure from '@/components/CardFigure';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
 import Schedule from '@/components/agenda';
@@ -42,9 +42,9 @@ export default function Home({
             colsmd={2}
             colsxl={7}
             renderItem={(item) => (
-              <CardText
+              <CardFigure
                 title={item.title}
-                excerpt={item.excerpt}
+                excerpt={item.acf_chamada_post?.chamadaHome}
                 image={item.featuredImage.node?.mediaItemUrl}
                 click={() => push(`noticias/${item.slug}`)}
               />

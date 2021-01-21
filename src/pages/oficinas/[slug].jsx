@@ -9,7 +9,7 @@ import styles from '@/styles/oficinas-slug.module.css';
 import CardThumb from '@/components/CardThumb';
 import Option from '@/components/Option';
 import Page from '@/components/Page';
-import ContentExpansive from '@/components/ContentExpansible';
+import Expansibled from '@/components/Expansibled';
 
 export default function WorkshopSlug({ workshop, menus }) {
   const [lesson] = useState(0);
@@ -26,8 +26,12 @@ export default function WorkshopSlug({ workshop, menus }) {
       <Info
         title={workshop?.name}
         text={workshop?.description}
-      />
-      <ContentExpansive showText="Conheça os professores e mais" />
+      >
+        <Expansibled
+          showText="Conheça os professores e mais"
+          hiddenText="Fechar"
+        />
+      </Info>
       <Fluid className={styles.layout}>
         <div className={styles.player}>
           <YouEmbed
