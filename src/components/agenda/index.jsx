@@ -1,5 +1,5 @@
 import React from 'react';
-import CarouselBanner from '../CarouselBanner';
+import AgendaCarousel from '../AgendaCarousel';
 import {
   WrapperCarousel,
 } from './style';
@@ -7,8 +7,8 @@ import {
 export default function Schedule() {
   return (
     <WrapperCarousel>
-      <CarouselBanner width="49%" />
-      <CarouselBanner width="49%" />
+      <AgendaCarousel width="49%" />
+      <AgendaCarousel width="49%" />
     </WrapperCarousel>
   );
 }
