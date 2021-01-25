@@ -9,8 +9,9 @@ import CardText from '@/components/CardText';
 import CardIcon from '@/components/CardIcon';
 import { BsNewspaper } from 'react-icons/bs';
 import CardHorizontal from '@/components/CardHorizontal';
+import core from '@/core';
 
-export default function Press({ menus }) {
+export default function Press({ releases, menus }) {
   const contacts = [
     { title: 'Funarte - Assessoria de Comunicação:', text: 'ascomfunarte@funarte.gov.br' },
     { title: 'Contato de Assessoria de Imprensa:', text: 'imprensa@musica.ufrj.br' },
@@ -36,11 +37,11 @@ export default function Press({ menus }) {
         </Section>
         <Section title="Releases">
           <FlatList
-            source={[]}
+            source={releases}
             renderItem={(item) => (
               <CardIcon
                 icon={<BsNewspaper />}
-                text={item.text}
+                text={item.title}
               />
             )}
           />
@@ -60,4 +61,14 @@ export default function Press({ menus }) {
       </Fluid>
     </Page>
   );
+}
+
+export async function getStaticProps() {
+  const releases = await core.releases.getAll();
+  return {
+    props: {
+      releases: releases.nodes || [],
+    },
+    revalidate: 1,
+  };
 }
