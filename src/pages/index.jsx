@@ -45,7 +45,7 @@ export default function Home({
               <CardFigure
                 title={item.title}
                 excerpt={item.acf_chamada_post?.chamadaHome}
-                image={item.featuredImage.node?.mediaItemUrl}
+                image={item.featuredImage?.node?.mediaItemUrl}
                 click={() => push(`noticias/${item.slug}`)}
               />
             )}

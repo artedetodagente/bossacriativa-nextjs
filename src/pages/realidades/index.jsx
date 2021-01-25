@@ -33,7 +33,9 @@ export default function Realities({ mostras, menus }) {
               video={item.acf_data?.videoUrl}
               title={item.title}
               excerpt={item.excerpt}
-              click={() => push(`realidades/${item.id}`)}
+              w={300}
+              h={200}
+              click={() => push(`realidades/${item.slug}`)}
             />
           )}
         />

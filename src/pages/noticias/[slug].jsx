@@ -22,19 +22,19 @@ export default function NoticeSlug({ post, menus }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await core.posts.getOne(params.slug);
+  const { nodes } = await core.posts.getOne(params.slug);
   return {
     props: {
-      post: data.nodes[0],
+      post: nodes[0],
     },
     revalidate: process.env.REQUEST_TIME,
   };
 }
 
 export async function getStaticPaths() {
-  const data = await core.posts.getAll();
+  const { nodes } = await core.posts.getAll();
   return {
-    paths: data.nodes.map((node) => `/noticias/${node.slug}`) || [],
+    paths: nodes.map((node) => `/noticias/${node.slug}`) || [],
     fallback: true,
   };
 }

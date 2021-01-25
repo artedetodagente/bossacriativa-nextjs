@@ -53,6 +53,8 @@ export default function Workshops({ workshops, categories, menus }) {
               image={item.acf_data?.imagemDestacada?.mediaItemUrl}
               title={item?.name}
               excerpt={item?.description}
+              h={200}
+              w={300}
               click={() => push(`oficinas/${item?.slug}`)}
             />
           )}
