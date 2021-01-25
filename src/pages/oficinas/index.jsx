@@ -72,6 +72,6 @@ export async function getStaticProps() {
       workshops: workshops.nodes || [],
       categories: [{ termTaxonomyId: 0, name: 'Todas' }, ...categories.nodes] || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }

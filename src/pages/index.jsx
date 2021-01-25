@@ -16,8 +16,6 @@ export default function Home({
 }) {
   const { push } = useRouter();
 
-  console.log(process.env.REQUEST_TIME);
-
   return (
     <Page menus={menus}>
       <CarouselBanner source={slides} />
@@ -88,6 +86,6 @@ export async function getStaticProps() {
       lives: lives.nodes || [],
       slides: slides.nodes || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }

@@ -82,7 +82,7 @@ export async function getStaticProps({ params }) {
     props: {
       workshop: nodes[0] || {},
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }
 

@@ -31,7 +31,7 @@ export async function getStaticProps({ params }) {
     props: {
       live: nodes[0],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }
 

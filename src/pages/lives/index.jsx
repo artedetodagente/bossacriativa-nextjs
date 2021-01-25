@@ -46,6 +46,6 @@ export async function getStaticProps() {
     props: {
       lives: lives.nodes || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }
