@@ -16,6 +16,8 @@ export default function Home({
 }) {
   const { push } = useRouter();
 
+  console.log(process.env.REQUEST_TIME);
+
   return (
     <Page menus={menus}>
       <CarouselBanner source={slides} />
