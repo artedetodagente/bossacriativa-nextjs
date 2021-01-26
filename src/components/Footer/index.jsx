@@ -9,6 +9,7 @@ export default function Footer() {
     { image: require('@/images/footer-emufrj.svg'), url: '/' },
     { image: require('@/images/footer-fujb.svg'), url: '/' },
     { image: require('@/images/footer-funarte.svg'), url: '/' },
+    { image: require('@/images/footer-mtur.svg'), url: '/' },
     { image: require('@/images/footer-secult.svg'), url: '/' },
     { image: require('@/images/footer-brasil.svg'), url: '/' },
   ];
