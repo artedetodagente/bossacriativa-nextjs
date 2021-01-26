@@ -9,7 +9,7 @@ export default function NavBar({ menus }) {
     <Nav>
       <div>
         <Link href="/">
-          <a href="/#">
+          <a>
             <Image
               src={require('@/images/menu-logo.svg')}
               alt="Logo do Bossa Criativa"
@@ -26,7 +26,7 @@ export default function NavBar({ menus }) {
               <Fragment key={menu.id}>
                 <li>
                   <Link href={menu.url}>
-                    <a href="/#">{menu.label}</a>
+                    <a>{menu.label}</a>
                   </Link>
                   {
                     menus[index + 1]?.parentId && (
@@ -36,7 +36,7 @@ export default function NavBar({ menus }) {
                             .map((submenu) => submenu.parentId === menu.id && (
                               <li key={submenu.id}>
                                 <Link href={submenu.url}>
-                                  <a href="/#">{submenu.label}</a>
+                                  <a>{submenu.label}</a>
                                 </Link>
                               </li>
                             ))

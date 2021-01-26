@@ -3,12 +3,13 @@ import styled from 'styled-components';
 export const Card = styled.article`
   display: flex;
   background-color: #fff;
-  height: 130px;
+  height: 150px;
+  /* width: 600px; */
 
   figure {
     background-color: rgb(51, 51, 51);
     margin: 0;
-    width: 130px;
+    width: 180px;
 
     img {
       height: 100%;
@@ -18,7 +19,7 @@ export const Card = styled.article`
 
   div {
     flex: 1;
-    padding: 3px;
+    padding: 3px 5px;
 
     h1 {
       margin: 0;

@@ -78,8 +78,11 @@ export default function WorkshopSlug({ workshop, menus }) {
 
 export async function getStaticProps({ params }) {
   const { nodes } = await core.oficinas.getOne(params.slug);
+  const menus = await core.menus.getAll();
+
   return {
     props: {
+      menus: menus.nodes || [],
       workshop: nodes[0] || {},
     },
     revalidate: 1,

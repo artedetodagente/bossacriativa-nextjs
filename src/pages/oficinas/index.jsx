@@ -67,9 +67,12 @@ export default function Workshops({ workshops, categories, menus }) {
 export async function getStaticProps() {
   const workshops = await core.oficinas.getAll();
   const categories = await core.categories.getAll();
+  const menus = await core.menus.getAll();
+
   return {
     props: {
       workshops: workshops.nodes || [],
+      menus: menus.nodes || [],
       categories: [{ termTaxonomyId: 0, name: 'Todas' }, ...categories.nodes] || [],
     },
     revalidate: 1,

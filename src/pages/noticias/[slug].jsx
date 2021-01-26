@@ -11,7 +11,7 @@ export default function NoticeSlug({ post, menus }) {
     <Page menus={menus}>
       <Breadcrumb />
       <div className={styles.container}>
-        <h3><Link href="/"><a href="/#">Bossa Criativa</a></Link></h3>
+        <h3><Link href="/"><a>Bossa Criativa</a></Link></h3>
         <h1>{post?.title}</h1>
         <div className="content">
           {parse(post?.content || '')}
@@ -23,9 +23,12 @@ export default function NoticeSlug({ post, menus }) {
 
 export async function getStaticProps({ params }) {
   const { nodes } = await core.posts.getOne(params.slug);
+  const menus = await core.menus.getAll();
+
   return {
     props: {
       post: nodes[0],
+      menus: menus.nodes || [],
     },
     revalidate: 1,
   };

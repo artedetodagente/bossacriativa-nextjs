@@ -78,6 +78,7 @@ export async function getStaticProps() {
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
   const slides = await core.slides.getAll();
+  const menus = await core.menus.getAll();
 
   return {
     props: {
@@ -85,6 +86,7 @@ export async function getStaticProps() {
       posts: posts.nodes || [],
       lives: lives.nodes || [],
       slides: slides.nodes || [],
+      menus: menus.nodes || [],
     },
     revalidate: 1,
   };

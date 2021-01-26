@@ -7,6 +7,7 @@ import * as categories from './categories';
 import * as menus from './menus';
 import * as slides from './slides';
 import * as releases from './releases';
+import * as clippings from './clippings';
 
 export default {
   posts,
@@ -18,4 +19,5 @@ export default {
   menus,
   slides,
   releases,
+  clippings,
 };

@@ -46,9 +46,12 @@ export default function Realities({ mostras, menus }) {
 
 export async function getStaticProps() {
   const mostras = await core.mostras.getAll();
+  const menus = await core.menus.getAll();
+
   return {
     props: {
       mostras: mostras.nodes || [],
+      menus: menus.nodes || [],
     },
     revalidate: 1,
   };

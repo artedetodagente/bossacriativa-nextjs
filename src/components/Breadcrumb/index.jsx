@@ -13,7 +13,7 @@ export default function Breadcrumb({ name }) {
   return (
     <Container>
       <Link href="/">
-        <a href="/#">Início</a>
+        <a>Início</a>
       </Link>
       <BsChevronRight />
       {
@@ -21,10 +21,10 @@ export default function Breadcrumb({ name }) {
           <Fragment key={index}>
             {
               index === paths.length - 1
-                ? <Link href={`/${router.asPath}`}><a href="/#">{name || item}</a></Link>
+                ? <Link href={`/${router.asPath}`}><a>{name || item}</a></Link>
                 : (
                   <>
-                    <Link href={item}><a href="/#">{item}</a></Link>
+                    <Link href={item}><a>{item}</a></Link>
                     <BsChevronRight />
                   </>
                 )

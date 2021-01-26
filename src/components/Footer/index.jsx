@@ -24,7 +24,7 @@ export default function Footer() {
               sponsors.map((item, index) => (
                 <li key={index}>
                   <Link href={item.url}>
-                    <a href="/#">
+                    <a>
                       <Image
                         src={item.image}
                         width="180px"
