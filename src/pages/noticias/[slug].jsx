@@ -11,7 +11,7 @@ export default function NoticeSlug({ post, menus }) {
     <Page menus={menus}>
       <Breadcrumb />
       <div className={styles.container}>
-        <h3><Link href="/"><a href="/#">Bossa Criativa</a></Link></h3>
+        <h3><Link href="/"><a>Bossa Criativa</a></Link></h3>
         <h1>{post?.title}</h1>
         <div className="content">
           {parse(post?.content || '')}
@@ -22,19 +22,22 @@ export default function NoticeSlug({ post, menus }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await core.posts.getOne(params.slug);
+  const { nodes } = await core.posts.getOne(params.slug);
+  const menus = await core.menus.getAll();
+
   return {
     props: {
-      post: data.nodes[0],
+      post: nodes[0],
+      menus: menus.nodes || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }
 
 export async function getStaticPaths() {
-  const data = await core.posts.getAll();
+  const { nodes } = await core.posts.getAll();
   return {
-    paths: data.nodes.map((node) => `/noticias/${node.slug}`) || [],
+    paths: nodes.map((node) => `/noticias/${node.slug}`) || [],
     fallback: true,
   };
 }

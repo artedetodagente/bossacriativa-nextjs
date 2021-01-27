@@ -6,7 +6,9 @@ export default function CardIcon({ icon, text }) {
   return (
     <Card>
       <figure>{icon}</figure>
-      <p>{ text }</p>
+      <div>
+        <p>{ text }</p>
+      </div>
     </Card>
   );
 }

@@ -53,6 +53,8 @@ export default function Workshops({ workshops, categories, menus }) {
               image={item.acf_data?.imagemDestacada?.mediaItemUrl}
               title={item?.name}
               excerpt={item?.description}
+              h={200}
+              w={300}
               click={() => push(`oficinas/${item?.slug}`)}
             />
           )}
@@ -65,11 +67,14 @@ export default function Workshops({ workshops, categories, menus }) {
 export async function getStaticProps() {
   const workshops = await core.oficinas.getAll();
   const categories = await core.categories.getAll();
+  const menus = await core.menus.getAll();
+
   return {
     props: {
       workshops: workshops.nodes || [],
+      menus: menus.nodes || [],
       categories: [{ termTaxonomyId: 0, name: 'Todas' }, ...categories.nodes] || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }

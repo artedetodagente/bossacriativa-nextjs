@@ -9,6 +9,7 @@ export default function Footer() {
     { image: require('@/images/footer-emufrj.svg'), url: '/' },
     { image: require('@/images/footer-fujb.svg'), url: '/' },
     { image: require('@/images/footer-funarte.svg'), url: '/' },
+    { image: require('@/images/footer-mtur.svg'), url: '/' },
     { image: require('@/images/footer-secult.svg'), url: '/' },
     { image: require('@/images/footer-brasil.svg'), url: '/' },
   ];
@@ -24,7 +25,7 @@ export default function Footer() {
               sponsors.map((item, index) => (
                 <li key={index}>
                   <Link href={item.url}>
-                    <a href="/#">
+                    <a>
                       <Image
                         src={item.image}
                         width="180px"

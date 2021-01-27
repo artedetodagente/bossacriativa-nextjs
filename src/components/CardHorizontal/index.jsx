@@ -6,7 +6,7 @@ export default function CardHorizontal({ image, title, text }) {
   return (
     <Card>
       <figure>
-        <img src={image} />
+        <img src={image} alt={title} />
       </figure>
       <div>
         <h1>{title}</h1>

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Card = styled.article`
   display: flex;
   background-color: #fff;
+  height: 90px;
+  overflow: hidden;
 
   figure {
     flex: .4;
@@ -15,8 +17,17 @@ export const Card = styled.article`
     color: #fff;
   }
 
-  p {
+  div {
     flex: 1;
-    padding: 10px 15px;
+
+    p {
+      padding: 0px 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
   }
+
 `;

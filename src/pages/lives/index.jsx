@@ -42,10 +42,13 @@ export default function Lives({ lives, menus }) {
 
 export async function getStaticProps() {
   const lives = await core.lives.getAll();
+  const menus = await core.menus.getAll();
+
   return {
     props: {
       lives: lives.nodes || [],
+      menus: menus.nodes || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }

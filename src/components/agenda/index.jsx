@@ -1,7 +1,5 @@
 import React, {useEffect, useState, Fragment} from 'react';
-import Image from 'next/image';
 import AgendaCarousel from '../AgendaCarousel';
-import core from '@/core';
 import {
   WrapperCarousel, WrapperAgenda, Toolbar, AgendaFeed,
 } from './style';
@@ -18,9 +16,9 @@ export default function Schedule({
   const image = require('@/images/loupe.svg');
 
   useEffect(() => {
-    let date = new Date();
-    let month = date.getMonth();
-    let year = date.getFullYear();
+    const date = new Date();
+    const month = date.getMonth();
+    const year = date.getFullYear();
     setNow(`${months[month]} - ${year}`);
     setSlides(source.slice(0,6));
   }, [])
@@ -57,8 +55,8 @@ export default function Schedule({
           </div>
           <div className="filter-container">
             <form className="filter">
-              <input type='submit' value='a' id="search-button"/>
-              <input type='text' id='query' value='Digite aqui para buscar...' />
+              <input type="submit" value="a" id="search-button" />
+              <input type="text" id="query" value="Digite aqui para buscar..." />
             </form>
             <button className="filter-button">Todas</button>
             <button className="filter-button">Virtual</button>
@@ -78,14 +76,3 @@ export default function Schedule({
   );
 }
 
-// export async function getStaticProps() {
-  
-//   const eventos = await core.eventos.getAll();
-
-//   return {
-//     props: {
-//       eventos: eventos.nodes || [],
-//     },
-//     revalidate: process.env.REQUEST_TIME,
-//   };
-// }

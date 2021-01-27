@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Card = styled.article`
-  width: 100%;
-  min-height: 350px;
-  height: 100%;
+  min-height: 200px;
+  height: ${({ h }) => (h > 0 ? `${h}px` : '100%')};
+  width: ${({ w }) => (w > 0 ? `${w}px` : '100%')};
   background-image: ${({ image }) => (image ? `url(${image})` : '')};
   background-repeat: no-repeat;
   background-position: center;

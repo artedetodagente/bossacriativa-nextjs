@@ -9,12 +9,15 @@ import CardText from '@/components/CardText';
 import CardIcon from '@/components/CardIcon';
 import { BsNewspaper } from 'react-icons/bs';
 import CardHorizontal from '@/components/CardHorizontal';
+import core from '@/core';
 
-export default function Press({ menus }) {
+export default function Press({ releases, clippings, menus }) {
   const contacts = [
     { title: 'Funarte - Assessoria de Comunicação:', text: 'ascomfunarte@funarte.gov.br' },
     { title: 'Contato de Assessoria de Imprensa:', text: 'imprensa@musica.ufrj.br' },
   ];
+
+  console.log(clippings);
 
   return (
     <Page menus={menus}>
@@ -24,23 +27,23 @@ export default function Press({ menus }) {
         <Section title="Clipping">
           <FlatList
             cols={3}
-            source={[]}
+            source={clippings}
             renderItem={(item) => (
               <CardHorizontal
-                image={item.image}
+                image={item?.featuredImage.node?.mediaItemUrl}
                 title={item.title}
-                text={item.text}
+                text={item.excerpt}
               />
             )}
           />
         </Section>
         <Section title="Releases">
           <FlatList
-            source={[]}
+            source={releases}
             renderItem={(item) => (
               <CardIcon
                 icon={<BsNewspaper />}
-                text={item.text}
+                text={item.title}
               />
             )}
           />
@@ -60,4 +63,19 @@ export default function Press({ menus }) {
       </Fluid>
     </Page>
   );
+}
+
+export async function getStaticProps() {
+  const releases = await core.releases.getAll();
+  const clippings = await core.clippings.getAll();
+  const menus = await core.menus.getAll();
+
+  return {
+    props: {
+      releases: releases.nodes || [],
+      clippings: clippings.nodes || [],
+      menus: menus.nodes || [],
+    },
+    revalidate: 1,
+  };
 }

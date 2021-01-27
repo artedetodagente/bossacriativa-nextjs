@@ -75,6 +75,7 @@ export default function Home({
                 excerpt={item.excerpt}
                 click={null}
                 image={null}
+                h={350}
               />
             )}
           />
@@ -90,6 +91,7 @@ export async function getStaticProps() {
   const mostras = await core.mostras.getAll();
   const slides = await core.slides.getAll();
   const eventos = await core.eventos.getAll();
+  const menus = await core.menus.getAll();
 
   return {
     props: {
@@ -98,7 +100,8 @@ export async function getStaticProps() {
       lives: lives.nodes || [],
       slides: slides.nodes || [],
       eventos: eventos.nodes || [],
+      menus: menus.nodes || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }

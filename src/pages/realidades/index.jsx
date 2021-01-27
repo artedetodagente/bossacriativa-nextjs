@@ -33,7 +33,9 @@ export default function Realities({ mostras, menus }) {
               video={item.acf_data?.videoUrl}
               title={item.title}
               excerpt={item.excerpt}
-              click={() => push(`realidades/${item.id}`)}
+              w={300}
+              h={200}
+              click={() => push(`realidades/${item.slug}`)}
             />
           )}
         />
@@ -44,10 +46,13 @@ export default function Realities({ mostras, menus }) {
 
 export async function getStaticProps() {
   const mostras = await core.mostras.getAll();
+  const menus = await core.menus.getAll();
+
   return {
     props: {
       mostras: mostras.nodes || [],
+      menus: menus.nodes || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }

@@ -77,19 +77,22 @@ export default function WorkshopSlug({ workshop, menus }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await core.oficinas.getOne(params.slug);
+  const { nodes } = await core.oficinas.getOne(params.slug);
+  const menus = await core.menus.getAll();
+
   return {
     props: {
-      workshop: data.nodes[0] || {},
+      menus: menus.nodes || [],
+      workshop: nodes[0] || {},
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }
 
 export async function getStaticPaths() {
-  const data = await core.oficinas.getAll();
+  const { nodes } = await core.oficinas.getAll();
   return {
-    paths: data.nodes.map((node) => `/oficinas/${node.slug}`) || [],
+    paths: nodes.map((node) => `/oficinas/${node.slug}`) || [],
     fallback: true,
   };
 }

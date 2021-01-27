@@ -12,7 +12,7 @@ export default function LiveSlug({ live, menus }) {
     <Page menus={menus}>
       <div className={styles.container}>
         <h3>
-          <Link href="/"><a href="/#">Bossa Criativa</a></Link>
+          <Link href="/"><a>Bossa Criativa</a></Link>
         </h3>
         <h1>{`Video ${live?.title}`}</h1>
         <YouEmbed url={live?.acf_data?.videoUrl} />
@@ -26,19 +26,22 @@ export default function LiveSlug({ live, menus }) {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await core.lives.getOne(params.slug);
+  const { nodes } = await core.lives.getOne(params.slug);
+  const menus = await core.menus.getAll();
+
   return {
     props: {
-      live: data.nodes[0],
+      live: nodes[0],
+      menus: menus.nodes || [],
     },
-    revalidate: process.env.REQUEST_TIME,
+    revalidate: 1,
   };
 }
 
 export async function getStaticPaths() {
-  const data = await core.lives.getAll();
+  const { nodes } = await core.lives.getAll();
   return {
-    paths: data.nodes.map((node) => `/lives/${node.slug}`) || [],
+    paths: nodes.map((node) => `/lives/${node.slug}`) || [],
     fallback: true,
   };
 }

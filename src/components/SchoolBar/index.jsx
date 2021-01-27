@@ -19,7 +19,7 @@ export default function SchoolBar() {
         orgs.map((item, index) => (
           <li key={index}>
             <Link href={item.url}>
-              <a href="/#">
+              <a>
                 {item.name}
               </a>
             </Link>

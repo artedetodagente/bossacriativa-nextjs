@@ -7,9 +7,9 @@ export const Card = styled.article`
   background-position: center;
   position: relative;
   border-radius: 2px;
-  height: 100%;
   min-height: 200px;
-  width: 100%;
+  height: ${({ h }) => (h > 0 ? `${h}px` : '100%')};
+  width: ${({ w }) => (w > 0 ? `${w}px` : '100%')};
   cursor: pointer;
 
   h1 {
