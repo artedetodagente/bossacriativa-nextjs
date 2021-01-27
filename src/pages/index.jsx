@@ -10,9 +10,10 @@ import core from '@/core';
 import Schedule from '@/components/agenda';
 import CarouselBanner from '@/components/CarouselBanner';
 import Page from '@/components/Page';
+import CardImage from '@/components/CardImage';
 
 export default function Home({
-  mostras, posts, lives, menus, slides,
+  mostras, posts, lives, menus, slides, eventos,
 }) {
   const { push } = useRouter();
 
@@ -45,7 +46,7 @@ export default function Home({
               <CardFigure
                 title={item.title}
                 excerpt={item.acf_chamada_post?.chamadaHome}
-                image={item.featuredImage.node?.mediaItemUrl}
+                image={item.featuredImage?.node?.mediaItemUrl}
                 click={() => push(`noticias/${item.slug}`)}
               />
             )}
@@ -66,7 +67,17 @@ export default function Home({
           />
         </Section>
         <Section title="Calendário">
-          <Schedule />
+          <Schedule 
+            source={eventos}
+            renderItem={(item) => (
+              <CardImage 
+                title={item.title}
+                excerpt={item.excerpt}
+                click={null}
+                image={null}
+              />
+            )}
+          />
         </Section>
       </Fluid>
     </Page>
@@ -78,6 +89,7 @@ export async function getStaticProps() {
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
   const slides = await core.slides.getAll();
+  const eventos = await core.eventos.getAll();
 
   return {
     props: {
@@ -85,6 +97,7 @@ export async function getStaticProps() {
       posts: posts.nodes || [],
       lives: lives.nodes || [],
       slides: slides.nodes || [],
+      eventos: eventos.nodes || [],
     },
     revalidate: process.env.REQUEST_TIME,
   };

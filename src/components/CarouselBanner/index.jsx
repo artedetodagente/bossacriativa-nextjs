@@ -67,7 +67,6 @@ export default function CarouselBanner({
         <div className='scroll' ref={carousel}>
         {
           settings.slides.map((slide, index) =>{ 
-            console.log(slide)
             return(
               <Slide key={index}>
                 <Item

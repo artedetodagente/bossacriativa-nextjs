@@ -1,22 +1,47 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, Fragment} from 'react';
 import Image from 'next/image';
 import AgendaCarousel from '../AgendaCarousel';
+import core from '@/core';
 import {
-  WrapperCarousel, WrapperAgenda, Toolbar,
+  WrapperCarousel, WrapperAgenda, Toolbar, AgendaFeed,
 } from './style';
 
-export default function Schedule() {
+export default function Schedule({
+  source, renderItem
+}) {
 
   const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-  const image = require('@/images/loupe.svg');
+  const[slides, setSlides] = useState([]);
+  const[page, setPage] = useState(1);
   const[now, setNow] = useState('Fevereiro - 2021');
+
+  const image = require('@/images/loupe.svg');
 
   useEffect(() => {
     let date = new Date();
     let month = date.getMonth();
     let year = date.getFullYear();
     setNow(`${months[month]} - ${year}`);
+    setSlides(source.slice(0,6));
   }, [])
+
+  useEffect(() => {
+    setSlides(source.slice((page - 1) * 6, page * 6));
+  }, [page])
+
+  console.log(page)
+
+  let nextEnabled = page < source.length / 6;
+  let prevEnabled = page > 1;
+
+  function nextPage(){
+    if(nextEnabled) setPage(page + 1);
+  }
+
+  function previousPage(){
+    if(prevEnabled) setPage(page - 1);
+  }
+
   return (
     <>
       <WrapperCarousel>
@@ -26,8 +51,8 @@ export default function Schedule() {
       <WrapperAgenda>
         <Toolbar>
           <div className="months-nav">
-            <button className="arrow">◀</button>
-            <button className="arrow">▶</button>
+            <button className="arrow" onClick={() => previousPage()} style={{opacity: prevEnabled ? 1 : 0.5}}>◀</button>
+            <button className="arrow" onClick={() => nextPage()} style={{opacity: nextEnabled ? 1 : 0.5}}>▶</button>
             <button className="months">{now}</button>
           </div>
           <div className="filter-container">
@@ -41,7 +66,26 @@ export default function Schedule() {
             <button className="filter-button">Presencial</button>
           </div>
         </Toolbar>
+        <AgendaFeed>
+          {
+            slides.map((evento, index) => (
+              <Fragment className="card" key={index}>{renderItem(evento)}</Fragment>
+            ))
+          }
+        </AgendaFeed>
       </WrapperAgenda>
     </>
   );
 }
+
+// export async function getStaticProps() {
+  
+//   const eventos = await core.eventos.getAll();
+
+//   return {
+//     props: {
+//       eventos: eventos.nodes || [],
+//     },
+//     revalidate: process.env.REQUEST_TIME,
+//   };
+// }
