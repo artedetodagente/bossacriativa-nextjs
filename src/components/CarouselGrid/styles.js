@@ -95,12 +95,16 @@ export const Item = styled.li`
   width: 100%;
   height: 100%;
   grid-area: ${({ area }) => area || 0};
-  background-image: ${({ photo }) => (photo ? `url(${photo})` : '')};
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   position: relative;
   cursor: pointer;
+  padding-top: 0 56.25%;
+
+  article {
+    /* background-image: ${({ photo }) => (photo ? `url(${photo})` : '')}; */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
+    /* background-size: land; */
+  }
 
   :first-of-type h1 {
     bottom: 20px;

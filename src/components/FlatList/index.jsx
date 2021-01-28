@@ -17,7 +17,7 @@ export default function FlatList({
                 <ul>
                   {
                     filters.map((item, index) => (
-                      <li key={index}>{renderFilter(item)}</li>
+                      <li key={index}>{renderFilter(item, index)}</li>
                     ))
                   }
                 </ul>
@@ -42,7 +42,7 @@ export default function FlatList({
       >
         {
           source.map((item, index) => (
-            <Fragment key={index}>{renderItem(item)}</Fragment>
+            <Fragment key={index}>{renderItem(item, index)}</Fragment>
           ))
         }
       </Main>
