@@ -73,7 +73,7 @@ export const Toolbar = styled.div`
       padding: 0 20px;
 
       &:hover {
-        background-color: #313131;
+        background-color: #313131 !important;
         color: rgb(230, 231, 233);
       }
     }
