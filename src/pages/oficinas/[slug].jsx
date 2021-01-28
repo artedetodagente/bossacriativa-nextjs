@@ -12,12 +12,16 @@ import Page from '@/components/Page';
 import Expansibled from '@/components/Expansibled';
 
 export default function WorkshopSlug({ workshop, menus }) {
-  const [lesson] = useState(0);
+  const [lesson, setLesson] = useState(0);
   // const [teacher, setTeacher] = useState(0);
   const [category, setCategory] = useState(0);
 
   async function changeCategory(value) {
     setCategory(value);
+  }
+
+  async function changeLeasson(index) {
+    setLesson(index);
   }
 
   return (
@@ -41,7 +45,7 @@ export default function WorkshopSlug({ workshop, menus }) {
         <FlatList
           title="Próximas Aulas"
           className={styles.list}
-          source={workshop?.oficinas.nodes.slice(lesson, lesson + 2) || []}
+          source={workshop?.oficinas.nodes.slice(lesson + 1, lesson + 3) || []}
           cols={1}
           renderItem={(item) => (
             <CardThumb
@@ -55,11 +59,12 @@ export default function WorkshopSlug({ workshop, menus }) {
           title="Todas as Aulas"
           className={styles.videos}
           source={workshop?.oficinas.nodes || []}
-          renderItem={(item) => (
+          renderItem={(item, index) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
               title={item.title}
               excerpt={item.excerpt}
+              click={() => changeLeasson(index)}
             />
           )}
           renderFilter={(item) => (

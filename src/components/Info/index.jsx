@@ -5,7 +5,7 @@ export default function Info({ title, text, children }) {
   return (
     <Container>
       <div>
-        <h1>{title}</h1>
+        {title && <h1>{title}</h1>}
         {text && <p>{text}</p>}
       </div>
       {children}
