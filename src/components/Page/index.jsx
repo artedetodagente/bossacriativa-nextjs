@@ -13,7 +13,7 @@ export default function Page({ menus, children }) {
       </Head>
       <header>
         <SchoolBar />
-        { menus.length > 0 && <NavBar menus={menus} /> }
+        { menus?.length > 0 && <NavBar menus={menus} /> }
       </header>
       <main>{children}</main>
       <Footer />

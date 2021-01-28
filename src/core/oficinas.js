@@ -30,13 +30,13 @@ export async function getOne(slug) {
   const data = await fetchAPI(
     `
       query MyQuery {
-        oficinasClasses {
+        oficinasClasses(where: {slug: "${slug}"}) {
           nodes {
             id
             name
             slug
             description
-            oficinas {
+            oficinas (where: {orderby: {field: TITLE, order: ASC}}) {
               nodes {
                 id
                 title
@@ -52,7 +52,7 @@ export async function getOne(slug) {
       }
     `,
     {
-      variables: { slug, oficinas: { status: 'publish' } },
+      variables: {},
     },
   );
   return data?.oficinasClasses;

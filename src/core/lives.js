@@ -23,8 +23,8 @@ export async function getAll() {
 
 export async function getOne(slug) {
   const data = await fetchAPI(`
-  query MyQuery($slug: String) {
-    lives(where: {name: $slug}) {
+  query MyQuery {
+    lives(where: {name: "${slug}"}) {
       nodes {
         id
         slug
@@ -38,7 +38,7 @@ export async function getOne(slug) {
   }
   `,
   {
-    variables: { slug },
+    variables: {},
   });
   return data?.lives;
 }

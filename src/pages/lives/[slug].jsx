@@ -6,10 +6,12 @@ import YouEmbed from '@/components/YouEmbed';
 import DisqusComments from '@/components/DisqusComments';
 import core from '@/core';
 import Page from '@/components/Page';
+import Breadcrumb from '@/components/Breadcrumb';
 
 export default function LiveSlug({ live, menus }) {
   return (
     <Page menus={menus}>
+      <Breadcrumb />
       <div className={styles.container}>
         <h3>
           <Link href="/"><a>Bossa Criativa</a></Link>
@@ -31,7 +33,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      live: nodes[0],
+      live: nodes[0] || {},
       menus: menus.nodes || [],
     },
     revalidate: 1,
