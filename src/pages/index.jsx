@@ -14,10 +14,6 @@ import CardImage from '@/components/CardImage';
 import styles from '@/styles/home.module.css';
 import Image from 'next/image';
 import { FaPlay } from 'react-icons/fa';
-import CardImage from '@/components/CardImage';
-import styles from '@/styles/home.module.css';
-import Image from 'next/image';
-import { FaPlay } from 'react-icons/fa';
 
 export default function Home({
   mostras, posts, lives, menus, slides, eventos,
