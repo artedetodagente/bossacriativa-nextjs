@@ -49,7 +49,7 @@ export default function CarouselBanner({
         }}
         key={x}
         style={
-          settings.selected === x? {backgroundColor:'#E4BE2Bcc'} :{ backgroundColor:'#585858'}
+          settings.selected === x ? { backgroundColor: '#E4BE2Bcc' } : { backgroundColor: '#585858' }
         }
       />);
     }
@@ -64,24 +64,21 @@ export default function CarouselBanner({
         onMouseOver={() => setSettings({ ...settings, autoplay: false })}
         onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
       >
-        <div className='scroll' ref={carousel}>
-        {
-          settings.slides.map((slide, index) =>{ 
-            console.log(slide)
-            return(
-              <Slide key={index}>
-                <Item
-                  key={slide.id}
-                  photo={slide.featuredImage?.node?.mediaItemUrl}
-                >
-                  <div className="text-container">
-                    <h1>{slide.title}</h1>
-                    <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
-                  </div>
-                </Item>
-              </Slide>
-            )
-          })
+        <div className="scroll" ref={carousel}>
+          {
+          settings.slides.map((slide, index) => (
+            <Slide key={index}>
+              <Item
+                key={slide.id}
+                photo={slide.featuredImage?.node?.mediaItemUrl}
+              >
+                <div className="text-container">
+                  <h1>{slide.title}</h1>
+                  <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+                </div>
+              </Item>
+            </Slide>
+          ))
         }
         </div>
         <Dots>
@@ -98,8 +95,8 @@ CarouselBanner.propTypes = {
     id: PropTypes.number,
     featuredImage: PropTypes.shape({
       node: PropTypes.shape({
-        mediaItemUrl: PropTypes.string
-      })
+        mediaItemUrl: PropTypes.string,
+      }),
     }),
     title: PropTypes.string,
     excerpt: PropTypes.string,

@@ -93,17 +93,21 @@ export const Slide = styled.ul`
 
 export const Item = styled.li`
   width: 100%;
-  height: 100%;
   grid-area: ${({ area }) => area || 0};
   position: relative;
   cursor: pointer;
-  padding-top: 0 56.25%;
 
   article {
     /* background-image: ${({ photo }) => (photo ? `url(${photo})` : '')}; */
     /* background-repeat: no-repeat; */
     /* background-position: center; */
     /* background-size: land; */
+  }
+
+  :first-of-type {
+    article {
+      height: 100%;
+    }
   }
 
   :first-of-type h1 {

@@ -4,7 +4,7 @@ export async function getAll() {
   const data = await fetchAPI(
     `
       query MyQuery {
-        mostrasVirtuais {
+        mostrasVirtuais(last: 100) {
           nodes {
             id
             title

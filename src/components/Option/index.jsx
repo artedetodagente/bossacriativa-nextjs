@@ -16,7 +16,7 @@ export default function Option({
 }
 
 Option.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   selected: PropTypes.bool,
   click: PropTypes.func,

@@ -44,8 +44,8 @@ export default function Home({
         <figure>
           <Image
             src={require('@/images/logo.svg')}
-            height="250px"
-            width="250px"
+            height="200px"
+            width="200px"
           />
         </figure>
       </div>
@@ -91,13 +91,14 @@ export default function Home({
                 excerpt={item.excerpt}
                 title={item.title}
                 click={() => push(`lives/${item.slug}`)}
+                h={200}
               />
             )}
           />
         </Section>
-        <Section title="Calendário">
+        {/* <Section title="Calendário">
           <Schedule />
-        </Section>
+        </Section> */}
       </Fluid>
     </Page>
   );

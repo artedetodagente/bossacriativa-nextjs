@@ -10,11 +10,18 @@ export default function CardThumb({
 
   return (
     <Card
-      image={thumb}
       onClick={click}
       h={h}
       w={w}
     >
+      <figure>
+        <img
+          src={thumb}
+          alt={title}
+          width="100%"
+          height="100%"
+        />
+      </figure>
       <h1>{title}</h1>
       <div>
         <p>

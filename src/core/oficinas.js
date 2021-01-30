@@ -1,20 +1,29 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll() {
+export async function getAll({ param = 'before', cursor = '', search = '' }) {
+  console.log(search);
   const data = await fetchAPI(
     `
       query MyQuery {
-        oficinasClasses {
+        oficinasClasses(where: {nameLike: "${search}"}, last: 100, ${param}: "${cursor}") {
           nodes {
             id
             name
             slug
             description
             acf_data {
+              categoria {
+                name
+                slug
+              }
               imagemDestacada {
                 mediaItemUrl
               }
             }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
           }
         }
       }    

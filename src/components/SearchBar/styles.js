@@ -44,7 +44,7 @@ export const Search = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
     list-style: none;
     margin: 0;
     padding: 0;
