@@ -4,7 +4,7 @@ export async function getAll() {
   const data = await fetchAPI(
     `
     query MyQuery {
-      eventos {
+      eventos (first: 999){
         nodes {
           title
           id
