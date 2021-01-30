@@ -10,12 +10,17 @@ import core from '@/core';
 import Schedule from '@/components/agenda';
 import CarouselBanner from '@/components/CarouselBanner';
 import Page from '@/components/Page';
+import CardImage from '@/components/CardImage';
+import styles from '@/styles/home.module.css';
+import Image from 'next/image';
+import { FaPlay } from 'react-icons/fa';
+import CardImage from '@/components/CardImage';
 import styles from '@/styles/home.module.css';
 import Image from 'next/image';
 import { FaPlay } from 'react-icons/fa';
 
 export default function Home({
-  mostras, posts, lives, menus, slides,
+  mostras, posts, lives, menus, slides, eventos,
 }) {
   const { push } = useRouter();
 
@@ -96,9 +101,26 @@ export default function Home({
             )}
           />
         </Section>
+<<<<<<< HEAD
         {/* <Section title="Calendário">
           <Schedule />
         </Section> */}
+=======
+        <Section title="Calendário">
+          <Schedule 
+            source={eventos}
+            renderItem={(item) => (
+              <CardImage 
+                title={item.title}
+                excerpt={item.excerpt}
+                click={null}
+                image={null}
+                h={350}
+              />
+            )}
+          />
+        </Section>
+>>>>>>> 419ba2b94f5cc38fc522ee68fa085c099ddd0072
       </Fluid>
     </Page>
   );
@@ -109,6 +131,7 @@ export async function getStaticProps() {
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
   const slides = await core.slides.getAll();
+  const eventos = await core.eventos.getAll();
   const menus = await core.menus.getAll();
 
   return {
@@ -117,6 +140,7 @@ export async function getStaticProps() {
       posts: posts.nodes || [],
       lives: lives.nodes || [],
       slides: slides.nodes || [],
+      eventos: eventos.nodes || [],
       menus: menus.nodes || [],
     },
     revalidate: 1,

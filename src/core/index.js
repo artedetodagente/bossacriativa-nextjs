@@ -6,6 +6,7 @@ import * as mostras from './mostras';
 import * as categories from './categories';
 import * as menus from './menus';
 import * as slides from './slides';
+import * as eventos from './eventos';
 import * as releases from './releases';
 import * as clippings from './clippings';
 
@@ -18,6 +19,7 @@ export default {
   categories,
   menus,
   slides,
+  eventos,
   releases,
   clippings,
 };

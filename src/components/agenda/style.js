@@ -24,6 +24,7 @@ export const Toolbar = styled.div`
     height: 35px;
     border: solid 2px #313131;  
     cursor: pointer;
+    outline: none;
   }
 
   .months-nav {
@@ -72,7 +73,7 @@ export const Toolbar = styled.div`
       padding: 0 20px;
 
       &:hover {
-        background-color: #313131;
+        background-color: #313131 !important;
         color: rgb(230, 231, 233);
       }
     }
@@ -80,3 +81,10 @@ export const Toolbar = styled.div`
 
 `;
 
+export const AgendaFeed = styled.div`
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+
+`;

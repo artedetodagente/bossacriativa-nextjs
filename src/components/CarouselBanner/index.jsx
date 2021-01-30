@@ -64,6 +64,7 @@ export default function CarouselBanner({
         onMouseOver={() => setSettings({ ...settings, autoplay: false })}
         onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
       >
+<<<<<<< HEAD
         <div className="scroll" ref={carousel}>
           {
           settings.slides.map((slide, index) => (
@@ -79,6 +80,25 @@ export default function CarouselBanner({
               </Item>
             </Slide>
           ))
+=======
+        <div className='scroll' ref={carousel}>
+        {
+          settings.slides.map((slide, index) =>{ 
+            return(
+              <Slide key={index}>
+                <Item
+                  key={slide.id}
+                  photo={slide.featuredImage?.node?.mediaItemUrl}
+                >
+                  <div className="text-container">
+                    <h1>{slide.title}</h1>
+                    <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+                  </div>
+                </Item>
+              </Slide>
+            )
+          })
+>>>>>>> 419ba2b94f5cc38fc522ee68fa085c099ddd0072
         }
         </div>
         <Dots>
