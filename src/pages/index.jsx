@@ -101,11 +101,6 @@ export default function Home({
             )}
           />
         </Section>
-<<<<<<< HEAD
-        {/* <Section title="Calendário">
-          <Schedule />
-        </Section> */}
-=======
         <Section title="Calendário">
           <Schedule 
             source={eventos}
@@ -120,7 +115,6 @@ export default function Home({
             )}
           />
         </Section>
->>>>>>> 419ba2b94f5cc38fc522ee68fa085c099ddd0072
       </Fluid>
     </Page>
   );

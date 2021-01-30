@@ -65,7 +65,6 @@ export default function AgendaCarousel({
       <Dots>
         {dots}
       </Dots>
-<<<<<<< HEAD
       <div className="scroll" ref={carousel}>
         {
         settings.slides.map((slide, index) => (
@@ -84,28 +83,6 @@ export default function AgendaCarousel({
             </Card>
           </Slide>
         ))
-=======
-      <div className='scroll' ref={carousel}>
-      {
-        settings.slides.map((slide, index) =>{ 
-          return(
-            <Slide key={index}>
-              <Card
-                key={slide.id}
-                image="https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg"
-              >
-                <div className='header'>
-                  <h1 className='date'>{slide.date}</h1>
-                  <h1 className='title'>{slide.title}</h1>
-                </div>
-                <div className='excerpt'>
-                  <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
-                </div>
-              </Card>
-            </Slide>
-          )
-        })
->>>>>>> 419ba2b94f5cc38fc522ee68fa085c099ddd0072
       }
       </div>
     </Wrapper>
