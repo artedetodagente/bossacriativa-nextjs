@@ -12,7 +12,7 @@ export const Card = styled.article`
 
       p {
         margin: 0;
-        text-align: justify;
+        /* text-align: justify; */
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

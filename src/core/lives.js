@@ -1,10 +1,10 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll() {
+export async function getAll({ page = 1, end = '' }) {
   const data = await fetchAPI(
     `
     query MyQuery {
-      lives(first: 9999) {
+      lives(last: ${100 * page}, before: "${end}") {
         nodes {
           id
           slug
@@ -13,6 +13,10 @@ export async function getAll() {
           acf_data {
             videoUrl
           }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
         }
       }
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Info from '@/components/Info';
 import FlatList from '@/components/FlatList';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -7,13 +7,26 @@ import Fluid from '@/components/Fluid';
 import core from '@/core';
 import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
+import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Realities({ mostras, menus }) {
   const { push } = useRouter();
+  const [modal, setModal] = useState({ player: false });
+  const [video, setVideo] = useState('');
+
+  function selectVideo(video) {
+    setVideo(video);
+    setModal({ ...modal, player: true });
+  }
 
   return (
     <Page menus={menus}>
       <Breadcrumb name="Mostra Virtual" />
+      <ModalPlayer
+        open={modal.player}
+        video={video}
+        close={() => setModal({ ...modal, player: false })}
+      />
       <Info
         title="Mostra Virtual"
         text="No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da humanidade. São mais de 180 artistas e educadores, de várias regiões
@@ -35,8 +48,9 @@ export default function Realities({ mostras, menus }) {
               excerpt={item.excerpt}
               w={300}
               h={200}
-              click={() => push(`realidades/${item.slug}`)}
+              click={() => selectVideo(item.acf_data?.videoUrl)}
             />
+            // push(`realidades/${item.slug}`)
           )}
         />
       </Fluid>

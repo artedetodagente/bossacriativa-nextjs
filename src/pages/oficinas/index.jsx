@@ -11,17 +11,23 @@ import core from '@/core';
 import styles from '@/styles/oficinas.module.css';
 import Page from '@/components/Page';
 
-export default function Workshops({ workshops, categories, menus }) {
+export default function Workshops({
+  workshops, categories, menus,
+}) {
   const { push } = useRouter();
-  const [category, setCategory] = useState(0);
+  const [category, setCategory] = useState('todas');
 
-  function changeCategory(id) {
-    setCategory(id);
+  function changeCategory(slug) {
+    setCategory(slug);
+  }
+
+  async function find({ search }) {
+    push(`/oficinas?search=${search}`);
   }
 
   return (
     <Page menus={menus}>
-      <Breadcrumb />
+      <Breadcrumb name="Oficinas" />
       <Info
         title="Oficinas"
         text="No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da humanidade. São mais de 180 artistas e educadores, de várias regiões
@@ -31,17 +37,23 @@ export default function Workshops({ workshops, categories, menus }) {
       <Fluid>
         <SearchBar
           filters={categories}
+          submit={(filter) => find(filter)}
           renderFilter={(item) => (
             <Option
-              id={item.termTaxonomyId}
+              id={item.slug}
               name={item.name}
-              selected={category === item.termTaxonomyId}
+              selected={category === item.slug}
               click={changeCategory}
             />
           )}
         />
         <FlatList
-          source={workshops}
+          source={
+            category !== 'todas' ? workshops.filter(
+              (item) => item.acf_data.categoria
+                && item.acf_data.categoria.findIndex((cat) => cat.slug === category) !== -1,
+            ) : workshops
+          }
           colsxss={1}
           colsmd={2}
           cols={4}
@@ -65,15 +77,18 @@ export default function Workshops({ workshops, categories, menus }) {
 }
 
 export async function getStaticProps() {
-  const workshops = await core.oficinas.getAll();
-  const categories = await core.categories.getAll();
   const menus = await core.menus.getAll();
+  const workshops = await core.oficinas.getAll();
+  let categories = workshops.nodes.filter((item) => item.acf_data.categoria !== null)
+    .reduce((acc, cur) => [...acc, ...cur.acf_data.categoria], []);
+  categories = categories
+    .filter((item) => categories.findIndex((cat) => cat.slug === item.slug) !== -1);
 
   return {
     props: {
       workshops: workshops.nodes || [],
       menus: menus.nodes || [],
-      categories: [{ termTaxonomyId: 0, name: 'Todas' }, ...categories.nodes] || [],
+      categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
     },
     revalidate: 1,
   };

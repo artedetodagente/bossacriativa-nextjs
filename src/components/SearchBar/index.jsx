@@ -20,8 +20,8 @@ export default function SearchBar({
 
   return (
     <Search>
-      <form action="POST" onSubmit={(e) => handleSubmit(e)}>
-        <button type="submit">
+      <form>
+        <button type="button" onClick={(e) => handleSubmit(e)}>
           <BiSearch />
         </button>
         <input

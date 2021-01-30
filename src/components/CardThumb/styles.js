@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
 export const Card = styled.article`
-  background-image: ${({ image }) => (image ? `url(${image})` : '')};
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   position: relative;
   border-radius: 2px;
   min-height: 200px;
   height: ${({ h }) => (h > 0 ? `${h}px` : '100%')};
   width: ${({ w }) => (w > 0 ? `${w}px` : '100%')};
   cursor: pointer;
+
+  figure {
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 591.44px / 1127.34px * 100%;
+  }
 
   h1 {
     font-size: 1.5em;

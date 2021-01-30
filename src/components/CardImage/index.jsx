@@ -12,6 +12,14 @@ export default function CardImage({
       h={h}
       w={w}
     >
+      <figure>
+        <img
+          src={image}
+          alt={title}
+          width="100%"
+          height="100%"
+        />
+      </figure>
       <h1>{title}</h1>
       <div>
         <p>{excerpt && excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>

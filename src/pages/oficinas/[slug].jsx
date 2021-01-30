@@ -95,7 +95,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const { nodes } = await core.oficinas.getAll();
+  const { nodes } = await core.oficinas.getAll({ param: 'before' });
   return {
     paths: nodes.map((node) => `/oficinas/${node.slug}`) || [],
     fallback: true,
