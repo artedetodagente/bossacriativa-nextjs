@@ -1,6 +1,6 @@
 import React from 'react';
 import Page from '@/components/Page';
-import Schedule from '@/components/Agenda';
+import Schedule from '@/components/agenda';
 import Fluid from '@/components/Fluid';
 import CardImage from '@/components/CardImage';
 import core from '@/core';
