@@ -1,10 +1,11 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll({ page = 1, end = '' }) {
+//export async function getAll({ page = 1, end = '' }) {
+export async function getAll() {
   const data = await fetchAPI(
     `
     query MyQuery {
-      lives(last: ${100 * page}, before: "${end}") {
+      lives(last: 100, before: "") {
         nodes {
           id
           slug

@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import CardFigure from '@/components/CardFigure';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
-import Schedule from '@/components/agenda';
 import CarouselBanner from '@/components/CarouselBanner';
 import Page from '@/components/Page';
 import CardImage from '@/components/CardImage';
@@ -97,20 +96,6 @@ export default function Home({
             )}
           />
         </Section>
-        <Section title="Calendário">
-          <Schedule 
-            source={eventos}
-            renderItem={(item) => (
-              <CardImage 
-                title={item.title}
-                excerpt={item.excerpt}
-                click={null}
-                image={null}
-                h={350}
-              />
-            )}
-          />
-        </Section>
       </Fluid>
     </Page>
   );
@@ -121,7 +106,6 @@ export async function getStaticProps() {
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
   const slides = await core.slides.getAll();
-  const eventos = await core.eventos.getAll();
   const menus = await core.menus.getAll();
 
   return {
@@ -130,7 +114,6 @@ export async function getStaticProps() {
       posts: posts.nodes || [],
       lives: lives.nodes || [],
       slides: slides.nodes || [],
-      eventos: eventos.nodes || [],
       menus: menus.nodes || [],
     },
     revalidate: 1,

@@ -67,8 +67,8 @@ export default function AgendaCarousel({
       </Dots>
       <div className="scroll" ref={carousel}>
         {
-        settings.slides.map((slide, index) => (
-          <Slide key={index}>
+        settings.slides.map((slide) => (
+          <Slide>
             <Card
               key={slide.id}
               image="https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg"

@@ -55,13 +55,18 @@ export const Toolbar = styled.div`
 
     .filter {
       margin-right: 20px;
+      display: flex;
+      flex-direction: row;
 
       #query {
         height: 30px;
         width: 200px;
         border-radius: 0 15px 15px 0;
         border: none; 
-        color: #E4E8E8;
+        outline: none;
+        ::placeholder {
+          color: #E4E8E8;
+        }
       }
       #search-button {
         height: 30px;
@@ -70,6 +75,10 @@ export const Toolbar = styled.div`
         border: none;
         width: 40px;
         cursor: pointer;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 
@@ -86,17 +95,16 @@ export const Toolbar = styled.div`
   }
 
 .modal-window {
-  position: fixed;
+  position: relative;
+  top: 5px;
+  left: 150px;
   background-color: rgba(255, 255, 255, 0.25);
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   z-index: 999;
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s;
+
   
   &:target {
     visibility: visible;
@@ -104,12 +112,9 @@ export const Toolbar = styled.div`
     pointer-events: auto;
   }
   &>div {
-    width: 400px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2em;
+    width: 25vw;
+    height: auto;
+    padding: 1em;
     background: #E4BE2B;
     border-radius: 3px 15px 15px 15px;
   }
@@ -127,25 +132,59 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin: 0;
 
-  p{
-    color: #313131;
+  .month{
+    color: #454545;
+    font-size: larger;
+    margin-left: 5px;
+  }
+  .year {
+    color: #898989;
+    font-size: small;
+    margin-left: 5px;
+    margin-bottom: 7px;
   }
 }
 
 body{
   background-color: #E4BE2B;
-  
-  .day-button{
-    height: 35px;
-    width: 35px;
-    background-color: #E4BE2B;
-    border: none;
+
+  .week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     
-    &:hover {
-      background-color: rgb(230, 231, 233);
+    .week-day {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #454545;
     }
   }
+
+  .days {
+    
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+
+    .day-1 {
+      grid-column-start: ${({ columnStart }) => columnStart};
+    }
+    
+    .day-button{
+      height: 35px;
+      width: 35px;
+      background-color: #E4BE2B;
+      border: none;
+      margin: auto;
+      color: #313131;
+      
+      &:hover {
+        background-color: rgb(230, 231, 233);
+      }
+    }  
+  }
+  
 }
 
 .modal-close {

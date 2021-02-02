@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import AgendaCarousel from '../AgendaCarousel';
+import { BiSearch } from 'react-icons/bi';
 import {
   WrapperCarousel, WrapperAgenda, Toolbar, AgendaFeed,
 } from './style';
@@ -11,17 +12,24 @@ export default function Schedule({
   const week = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB']
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(1);
-  const [now, setNow] = useState({});
+  const [now, setNow] = useState({
+    date: "", day: null, month: null, year: null,
+  });
   const [monthCards, setMonthCards] = useState({current: [], prev: []});
-  const[selected, setSelected] = useState('todas')
-  const[calendar, setCalendar] = useState({});
-  const image = require('@/images/loupe.svg');
+  const[filter, setFilter] = useState({
+    selected: 'todas', search: ""
+  })
+  const[calendar, setCalendar] = useState({
+    days: null, selectedDay: null, dayOne: null, buttonPushed: false,
+  });
+  
   useEffect(() => {
     const date = new Date();
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
-    setNow({ date: `${months[month]} - ${year}`, day, month, year });
+    setNow({ date: `${months[month]} - ${year}`, day: day, month: month, year: year });
+    setCalendar({...calendar, selectedDay: now.day})
   }, []);
   useEffect(() => {
     setCards(monthCards.current?.slice((page - 1) * 6, page * 6));
@@ -42,21 +50,34 @@ export default function Schedule({
     })});
     setCards(monthCards.current?.slice(0, 6));
     let daysButtons = []
-    if((now.month + 1)/2 != 0){
+    if((now.month + 1)%2 != 0){
       for(let i = 1; i <= 31; i++){
-        if(i == calendar.selectedDay) daysButtons.push(<button className="day-button" onClick={() => {pickDay(i)}} key={i} style={{backgroundColor: 'rgb(230, 231, 233)'}}>{i}</button>)
-        else daysButtons.push(<button className="day-button" onClick={() => {pickDay(i)}} key={i} >{i}</button>)
+        if(i == calendar.selectedDay) daysButtons.push(<button className={`day-button day-${i}`} onClick={() => {pickDay(i)}} key={i} style={{backgroundColor: 'rgb(230, 231, 233)'}}>{i}</button>)
+        else daysButtons.push(<button className={`day-button day-${i}`} onClick={() => {pickDay(i)}} key={i} >{i}</button>)
+      }
+    }
+    else if((now.month + 1) == 2){
+      let dias;
+      if(now.year % 400 == 0) dias = 29;
+      else{
+        if((now.year % 4 == 0) && (now.year % 100 != 0)) dias = 29;
+        else dias = 28;
+      }
+      for(let i = 1; i <= dias; i++){
+        if(i == calendar.selectedDay) daysButtons.push(<button className={`day-button day-${i}`} onClick={() => {pickDay(i)}} key={i} style={{backgroundColor: 'rgb(230, 231, 233)'}}>{i}</button>)
+        else daysButtons.push(<button className={`day-button day-${i}`} onClick={() => {pickDay(i)}} key={i} >{i}</button>)
       }
     }
     else{
       for(let i = 1; i <= 30; i++){
-        if(i == calendar.selectedDay) daysButtons.push(<button className="day-button" onClick={() => {pickDay(i)}} key={i} style={{backgroundColor: 'rgb(230, 231, 233)'}}>{i}</button>)
-        else daysButtons.push(<button className="day-button" onClick={() => {pickDay(i)}} key={i} >{i}</button>)
+        if(i == calendar.selectedDay) daysButtons.push(<button className={`day-button day-${i}`} onClick={() => {pickDay(i)}} key={i} style={{backgroundColor: 'rgb(230, 231, 233)'}}>{i}</button>)
+        else daysButtons.push(<button className={`day-button day-${i}`} onClick={() => {pickDay(i)}} key={i} >{i}</button>)
       }
     }
-    setCalendar({days: daysButtons, selectedDay: now.day})
+    let date = new Date(now.year, now.month, 1);
+    setCalendar({...calendar, days: daysButtons, selectedDay: now.day, dayOne: date.getDate()});    
   }, [now]);
-
+  
   const nextEnabled = page < monthCards.current?.length / 6;
   const prevEnabled = page > 1;
 
@@ -69,37 +90,58 @@ export default function Schedule({
   }
 
   function nextMonth() {
-    setSelected('todas')
+    setFilter({...filter, selected:'todas'})
     if (now.month == 11) setNow({ date: `Janeiro - ${now.year + 1}`, month: 0, year: now.year + 1 });
     else setNow({ ...now, date: `${months[now.month + 1]} - ${now.year}`, month: now.month + 1 });
   }
 
   function prevMonth() {
-    setSelected('todas')
+    setFilter({...filter, selected:'todas'})
     if (now.month == 0) setNow({ date: `Dezembro - ${now.year - 1}`, month: 11, year: now.year - 1 });
     else setNow({ ...now, date: `${months[now.month - 1]} - ${now.year}`, month: now.month - 1 });
+  }
+  function calendarModal(calendar){
+    let modalButton = document.getElementById("modal-button");
+    if(calendar.buttonPushed == false){
+      modalButton.href = "#open-modal";
+      setCalendar({...calendar, buttonPushed: true});
+    }
+    else{
+      modalButton.href = "#toolbar";
+      setCalendar({...calendar, buttonPushed: false});
+    }
   }
   function pickDay(prop) {
     setNow({...now, day: prop});
     setCalendar({...calendar, selectedDay: prop});
   }
-  function filter(prop) {
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFilter({ ...filter, [name]: value });
+  }
+
+  function handleSubmit() {
+    setMonthCards({...monthCards, current: source.filter((item) => item.title == filter.search)})
+  }
+
+  function filterButton(prop) {
     const items = monthCards.prev;
     switch (prop) {
       case 'todas':
-        setSelected('todas');
+        setFilter({...filter, selected:'todas'});
         setMonthCards({...monthCards, current: items})
         break;
       case 'virtual':
-        setSelected('virtual');
+        setFilter({...filter, selected:'virtual'});
         setMonthCards({...monthCards, current: items.filter((item) => item.acf_data_evento?.tipo == 'virtual')});
         break;
       case 'online':
-        setSelected('online');
+        setFilter({...filter, selected:'online'});
         setMonthCards({...monthCards, current: items.filter((item) => item.acf_data_evento?.tipo == 'online')});
         break;
       case 'presencial':
-        setSelected('presencial');
+        setFilter({...filter, selected:'presencial'});
         setMonthCards({...monthCards, current: items.filter((item) => item.acf_data_evento?.tipo == 'presencial')});
         break;
       default:
@@ -108,6 +150,7 @@ export default function Schedule({
     return 0;
   }
 
+
   return (
     <>
       <WrapperCarousel>
@@ -115,14 +158,13 @@ export default function Schedule({
         <AgendaCarousel width="49%" />
       </WrapperCarousel>
       <WrapperAgenda>
-        <Toolbar>
+        <Toolbar id="toolbar" columnStart={calendar.dayOne + 1}>
           <div className="months-nav">
             <button className="arrow" onClick={() => previousPage()} style={{ opacity: prevEnabled ? 1 : 0.5 }}>◀</button>
             <button className="arrow" onClick={() => nextPage()} style={{ opacity: nextEnabled ? 1 : 0.5 }}>▶</button>
-            <a className="months" href="#open-modal">{now.date}</a>
+            <a className="months" id="modal-button" onClick={() => calendarModal(calendar)}>{now.date}</a>
             <div id="open-modal" class="modal-window">
               <div>
-                <a href="#" title="Close" class="modal-close">Close</a>
                 <header>
                   <button className="arrow-modal" onClick={() => prevMonth()}>◀</button>
                   <button className="arrow-modal" onClick={() => nextMonth()}>▶</button>
@@ -130,28 +172,41 @@ export default function Schedule({
                   <p className="year">{now.year}</p>
                 </header>
                 <body>
-                  {week}
-                  {calendar.days}
+                  <div className="week">
+                    {week.map((weekDay) => <p className="week-day">{weekDay}</p>)}
+                  </div>
+                  <div className="days">
+                    {calendar.days}
+                  </div>
                 </body>
               </div>
             </div>
           </div>
           <div className="filter-container">
             <form className="filter">
-              <input type="submit" value="a" id="search-button" />
-              <input type="text" id="query" value="Digite aqui para buscar..." />
+              <button id="search-button" type="button" onClick={() => handleSubmit()}>
+                <BiSearch />
+              </button>
+              <input
+                id="query"
+                name="search"
+                type="text"
+                placeholder="Digite aqui para buscar..."
+                value={filter.search}
+                onChange={(e) => handleChange(e)}
+              />
             </form>
-            <button className="filter-button" onClick={() => filter('todas')} style={{
-              backgroundColor: selected == 'todas' ? '#313131' : 'rgb(230, 231, 233)', color: selected == 'todas' ? 'rgb(230, 231, 233)' : null
+            <button className="filter-button" onClick={() => filterButton('todas')} style={{
+              backgroundColor: filter.selected == 'todas' ? '#313131' : 'rgb(230, 231, 233)', color: filter.selected == 'todas' ? 'rgb(230, 231, 233)' : null
               }}>Todas</button>
-            <button className="filter-button" onClick={() => filter('virtual')} style={{
-              backgroundColor: selected == 'virtual' ? '#313131' : 'rgb(230, 231, 233)', color: selected == 'virtual' ? 'rgb(230, 231, 233)' : null
+            <button className="filter-button" onClick={() => filterButton('virtual')} style={{
+              backgroundColor: filter.selected == 'virtual' ? '#313131' : 'rgb(230, 231, 233)', color: filter.selected == 'virtual' ? 'rgb(230, 231, 233)' : null
               }}>Virtual</button>
-            <button className="filter-button" onClick={() => filter('online')} style={{
-              backgroundColor: selected == 'online' ? '#313131' : 'rgb(230, 231, 233)', color: selected == 'online' ? 'rgb(230, 231, 233)' : null
+            <button className="filter-button" onClick={() => filterButton('online')} style={{
+              backgroundColor: filter.selected == 'online' ? '#313131' : 'rgb(230, 231, 233)', color: filter.selected == 'online' ? 'rgb(230, 231, 233)' : null
               }}>Online</button>
-            <button className="filter-button" onClick={() => filter('presencial')} style={{
-              backgroundColor: selected == 'presencial' ? '#313131' : 'rgb(230, 231, 233)', color: selected == 'presencial' ? 'rgb(230, 231, 233)' : null
+            <button className="filter-button" onClick={() => filterButton('presencial')} style={{
+              backgroundColor: filter.selected == 'presencial' ? '#313131' : 'rgb(230, 231, 233)', color: filter.selected == 'presencial' ? 'rgb(230, 231, 233)' : null
               }}>Presencial</button>
           </div>
         </Toolbar>
