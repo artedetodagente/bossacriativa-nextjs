@@ -17,7 +17,7 @@ export default function WorkshopSlug({ workshop, menus }) {
   const [teacher, setTeacher] = useState('todos');
 
   useEffect(() => {
-    const autors = workshop.oficinas.nodes
+    const autors = workshop?.oficinas.nodes
       .filter((item) => item.acf_data.autor !== null)
       .reduce((acc, cur) => [...acc, cur.acf_data.autor], [])
       .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.title === item.title) === -1);
@@ -63,10 +63,10 @@ export default function WorkshopSlug({ workshop, menus }) {
           title="Todas as Aulas"
           className={styles.videos}
           source={
-            teacher !== 'todos' ? workshop.oficinas.nodes.filter(
+            teacher !== 'todos' ? workshop?.oficinas.nodes.filter(
               (item) => item.acf_data.autor
               && item.acf_data.autor.title.slug !== teacher,
-            ) : workshop.oficinas.nodes
+            ) : workshop?.oficinas.nodes
           }
           filters={teachers}
           renderItem={(item, index) => (
