@@ -15,14 +15,22 @@ export default function Workshops({
   workshops, categories, menus,
 }) {
   const { push } = useRouter();
+  const [list, setList] = useState(workshops);
+  const [listCategories, setListCategories] = useState(categories);
   const [category, setCategory] = useState('todas');
 
   function changeCategory(slug) {
     setCategory(slug);
   }
 
-  async function find({ search }) {
-    push(`/oficinas?search=${search}`);
+  async function find(search) {
+    const { nodes } = await core.oficinas.getAll(null, search.search);
+    const cats = nodes.filter((item) => item.acf_data.categoria !== null)
+      .reduce((acc, cur) => [...acc, ...cur.acf_data.categoria], [])
+      .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+    setList(nodes);
+    setListCategories([{ name: 'Todas', slug: 'todas' }, ...cats]);
+    setCategory('todas');
   }
 
   return (
@@ -36,7 +44,7 @@ export default function Workshops({
       />
       <Fluid>
         <SearchBar
-          filters={categories}
+          filters={listCategories}
           submit={(filter) => find(filter)}
           renderFilter={(item) => (
             <Option
@@ -49,10 +57,10 @@ export default function Workshops({
         />
         <FlatList
           source={
-            category !== 'todas' ? workshops.filter(
+            category !== 'todas' ? list.filter(
               (item) => item.acf_data.categoria
                 && item.acf_data.categoria.findIndex((cat) => cat.slug === category) !== -1,
-            ) : workshops
+            ) : list
           }
           colsxss={1}
           colsmd={2}
@@ -78,16 +86,15 @@ export default function Workshops({
 
 export async function getStaticProps() {
   const menus = await core.menus.getAll();
-  const workshops = await core.oficinas.getAll();
-  let categories = workshops.nodes.filter((item) => item.acf_data.categoria !== null)
-    .reduce((acc, cur) => [...acc, ...cur.acf_data.categoria], []);
-  categories = categories
-    .filter((item) => categories.findIndex((cat) => cat.slug === item.slug) !== -1);
+  const workshops = await core.oficinas.getAll(null);
+  const categories = workshops.nodes.filter((item) => item.acf_data.categoria !== null)
+    .reduce((acc, cur) => [...acc, ...cur.acf_data.categoria], [])
+    .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
 
   return {
     props: {
-      workshops: workshops.nodes || [],
       menus: menus.nodes || [],
+      workshops: workshops.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
     },
     revalidate: 1,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import Info from '@/components/Info';
 import core from '@/core';
@@ -13,12 +13,16 @@ import Expansibled from '@/components/Expansibled';
 
 export default function WorkshopSlug({ workshop, menus }) {
   const [lesson, setLesson] = useState(0);
-  // const [teacher, setTeacher] = useState(0);
-  const [category, setCategory] = useState(0);
+  const [teachers, setTeachers] = useState([]);
+  const [teacher, setTeacher] = useState('todos');
 
-  async function changeCategory(value) {
-    setCategory(value);
-  }
+  useEffect(() => {
+    const autors = workshop.oficinas.nodes
+      .filter((item) => item.acf_data.autor !== null)
+      .reduce((acc, cur) => [...acc, cur.acf_data.autor], [])
+      .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.title === item.title) === -1);
+    setTeachers(autors ? [{ title: 'Todos', slug: 'todos' }, ...autors] : []);
+  }, []);
 
   async function changeLeasson(index) {
     setLesson(index);
@@ -58,7 +62,13 @@ export default function WorkshopSlug({ workshop, menus }) {
         <FlatList
           title="Todas as Aulas"
           className={styles.videos}
-          source={workshop?.oficinas.nodes || []}
+          source={
+            teacher !== 'todos' ? workshop.oficinas.nodes.filter(
+              (item) => item.acf_data.autor
+              && item.acf_data.autor.title.slug !== teacher,
+            ) : workshop.oficinas.nodes
+          }
+          filters={teachers}
           renderItem={(item, index) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
@@ -69,10 +79,10 @@ export default function WorkshopSlug({ workshop, menus }) {
           )}
           renderFilter={(item) => (
             <Option
-              id={item.termTaxonomyId}
-              name={item.name}
-              selected={category === item.termTaxonomyId}
-              click={changeCategory}
+              id={item.slug}
+              name={item.title}
+              selected={teacher === item.slug}
+              click={() => setTeacher(item.slug)}
             />
           )}
         />

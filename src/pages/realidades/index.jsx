@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Info from '@/components/Info';
 import FlatList from '@/components/FlatList';
 import Breadcrumb from '@/components/Breadcrumb';
-import { useRouter } from 'next/router';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
 import CardThumb from '@/components/CardThumb';
@@ -10,12 +9,11 @@ import Page from '@/components/Page';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Realities({ mostras, menus }) {
-  const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
   const [video, setVideo] = useState('');
 
-  function selectVideo(video) {
-    setVideo(video);
+  function selectVideo(url) {
+    setVideo(url);
     setModal({ ...modal, player: true });
   }
 
@@ -50,7 +48,6 @@ export default function Realities({ mostras, menus }) {
               h={200}
               click={() => selectVideo(item.acf_data?.videoUrl)}
             />
-            // push(`realidades/${item.slug}`)
           )}
         />
       </Fluid>

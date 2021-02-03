@@ -5,7 +5,7 @@ export const Search = styled.div`
   justify-content: space-between;
   align-items: center;
   
-  form {
+  > div {
     flex: .7;
     display: flex;
     width: 100%;

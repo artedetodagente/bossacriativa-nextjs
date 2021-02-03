@@ -20,7 +20,7 @@ export default function SearchBar({
 
   return (
     <Search>
-      <form>
+      <div>
         <button type="button" onClick={(e) => handleSubmit(e)}>
           <BiSearch />
         </button>
@@ -31,7 +31,7 @@ export default function SearchBar({
           value={filter.search}
           onChange={(e) => handleChange(e)}
         />
-      </form>
+      </div>
       <ul>
         {
           filters.map((item, index) => <li key={index}>{renderFilter(item)}</li>)

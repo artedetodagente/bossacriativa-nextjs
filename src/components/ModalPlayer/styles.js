@@ -29,7 +29,7 @@ export const Modal = styled.div`
       right: 0;
       top: 25px;
       background-color: transparent;
-      font-size: 1.1em;
+      font-size: 1.05em;
       border: none;
       cursor: pointer;
       align-items: center;

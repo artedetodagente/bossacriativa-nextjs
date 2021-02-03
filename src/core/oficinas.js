@@ -1,11 +1,10 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll() {
-
+export async function getAll(order, search) {
   const data = await fetchAPI(
     `
       query MyQuery {
-        oficinasClasses {
+        oficinasClasses(last: 100, ${order || 'before'}: "", where: { nameLike: "${search || ''}" }) {
           nodes {
             id
             name
@@ -26,7 +25,7 @@ export async function getAll() {
             hasNextPage
           }
         }
-      }    
+      }
     `,
     {
       variables: {},
@@ -53,6 +52,12 @@ export async function getOne(slug) {
                 excerpt
                 acf_data {
                   videoUrl
+                  autor {
+                    ... on AutoresOne {
+                      title
+                      slug
+                    }
+                  }
                 }
               }
             }

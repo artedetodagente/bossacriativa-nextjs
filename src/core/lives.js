@@ -1,6 +1,5 @@
 import { fetchAPI } from '@/services/api';
 
-//export async function getAll({ page = 1, end = '' }) {
 export async function getAll() {
   const data = await fetchAPI(
     `
