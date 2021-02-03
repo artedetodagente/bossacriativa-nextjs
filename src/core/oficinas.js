@@ -1,11 +1,11 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll({ param = 'before', cursor = '', search = '' }) {
-  console.log(search);
+export async function getAll() {
+
   const data = await fetchAPI(
     `
       query MyQuery {
-        oficinasClasses(where: {nameLike: "${search}"}, last: 100, ${param}: "${cursor}") {
+        oficinasClasses {
           nodes {
             id
             name
