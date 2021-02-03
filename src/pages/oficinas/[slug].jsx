@@ -66,7 +66,7 @@ export default function WorkshopSlug({ workshop, menus }) {
             teacher !== 'todos' ? workshop?.oficinas.nodes.filter(
               (item) => item.acf_data.autor
               && item.acf_data.autor.title.slug !== teacher,
-            ) : workshop?.oficinas.nodes
+            ) : workshop?.oficinas.nodes || []
           }
           filters={teachers}
           renderItem={(item, index) => (
