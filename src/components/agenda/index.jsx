@@ -25,11 +25,9 @@ export default function Schedule({
   
   useEffect(() => {
     const date = new Date();
-    const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
-    setNow({ date: `${months[month]} - ${year}`, day: day, month: month, year: year });
-    setCalendar({...calendar, selectedDay: now.day})
+    setNow({ ...now, date: `${months[month]} - ${year}`, month: month, year: year });
   }, []);
   useEffect(() => {
     setCards(monthCards.current?.slice((page - 1) * 6, page * 6));
@@ -40,13 +38,15 @@ export default function Schedule({
       const day = date[0];
       const month = date[2];
       const year = date[4].split(" ")[0];
-      return ((day == now.day) && ((month - 1) == now.month) && (year == now.year));
+      if(now.day) return ((day == now.day) && ((month - 1) == now.month) && (year == now.year));
+      else return (((month - 1) == now.month) && (year == now.year));
     }), prev: source.filter((item) => {
       const date = item.acf_data_evento?.dataDoEvento.split(/([d]*\/)+\s*/);
       const day = date[0];
       const month = date[2];
       const year = date[4].split(" ")[0];
-      return ((day == now.day) && ((month - 1) == now.month) && (year == now.year));
+      if(now.day) return ((day == now.day) && ((month - 1) == now.month) && (year == now.year));
+      else return (((month - 1) == now.month) && (year == now.year));
     })});
     setCards(monthCards.current?.slice(0, 6));
     let daysButtons = []
@@ -90,15 +90,17 @@ export default function Schedule({
   }
 
   function nextMonth() {
-    setFilter({...filter, selected:'todas'})
-    if (now.month == 11) setNow({ date: `Janeiro - ${now.year + 1}`, month: 0, year: now.year + 1 });
-    else setNow({ ...now, date: `${months[now.month + 1]} - ${now.year}`, month: now.month + 1 });
+    setFilter({...filter, selected:'todas'});
+    setCalendar({...calendar, selectedDay: null});
+    if (now.month == 11) setNow({ date: `Janeiro - ${now.year + 1}`, day: null, month: 0, year: now.year + 1 });
+    else setNow({ ...now, date: `${months[now.month + 1]} - ${now.year}`, day: null, month: now.month + 1 });
   }
 
   function prevMonth() {
-    setFilter({...filter, selected:'todas'})
-    if (now.month == 0) setNow({ date: `Dezembro - ${now.year - 1}`, month: 11, year: now.year - 1 });
-    else setNow({ ...now, date: `${months[now.month - 1]} - ${now.year}`, month: now.month - 1 });
+    setFilter({...filter, selected:'todas'});
+    setCalendar({...calendar, selectedDay: null});
+    if (now.month == 0) setNow({ date: `Dezembro - ${now.year - 1}`, day: null, month: 11, year: now.year - 1 });
+    else setNow({ ...now, date: `${months[now.month - 1]} - ${now.year}`, day: null, month: now.month - 1 });
   }
   function calendarModal(calendar){
     let modalButton = document.getElementById("modal-button");
