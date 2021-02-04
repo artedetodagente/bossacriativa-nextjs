@@ -21,19 +21,21 @@ export const Modal = styled.div`
     justify-content: flex-end;
     width: 100%;
     position: relative;
+    height: 30px;
 
     button {
       color: #fff;
       display: flex;
       position: absolute;
       right: 0;
-      top: 25px;
+      top: 0;
       background-color: transparent;
       font-size: 1.05em;
       border: none;
       cursor: pointer;
       align-items: center;
       outline: none;
+      z-index: 999;
 
       svg {
         margin-left: 10px;
@@ -43,10 +45,7 @@ export const Modal = styled.div`
   }
 
   main {
-    /* flex: 1; */
     width: 100%;
-    height: 50%;
-    margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
