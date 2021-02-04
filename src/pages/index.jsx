@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Section from '@/components/Section';
 import CarouselGrid from '@/components/CarouselGrid';
 import FlatList from '@/components/FlatList';
@@ -9,18 +9,30 @@ import Fluid from '@/components/Fluid';
 import core from '@/core';
 import CarouselBanner from '@/components/CarouselBanner';
 import Page from '@/components/Page';
-import CardImage from '@/components/CardImage';
 import styles from '@/styles/home.module.css';
 import Image from 'next/image';
 import { FaPlay } from 'react-icons/fa';
+import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  mostras, posts, lives, menus, slides, eventos,
+  mostras, posts, lives, menus, slides,
 }) {
   const { push } = useRouter();
+  const [modal, setModal] = useState({ player: false });
+  const [video, setVideo] = useState('');
+
+  function selectVideo(url) {
+    setVideo(url);
+    setModal({ ...modal, player: true });
+  }
 
   return (
     <Page menus={menus}>
+      <ModalPlayer
+        open={modal.player}
+        video={video}
+        close={() => setModal({ ...modal, player: false })}
+      />
       <CarouselBanner source={slides} />
       <div className={styles.description}>
         <div>
@@ -58,19 +70,19 @@ export default function Home({
                 video={item.acf_data?.videoUrl}
                 title={item.title}
                 excerpt={item.excerpt}
-                click={() => push(`realidades/${item.slug}`)}
+                click={() => selectVideo(item.acf_data?.videoUrl)}
               />
             )}
           />
         </Section>
         <Section title="Notícias">
           <FlatList
-            source={posts.slice(0, 3)}
-            cols={3}
+            source={posts.slice(0, 8)}
+            cols={4}
             colsl={4}
             colsxss={1}
             colsmd={2}
-            colsxl={7}
+            colsxl={8}
             renderItem={(item) => (
               <CardFigure
                 title={item.title}

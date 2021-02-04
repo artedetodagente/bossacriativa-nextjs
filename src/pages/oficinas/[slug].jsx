@@ -64,8 +64,7 @@ export default function WorkshopSlug({ workshop, menus }) {
           className={styles.videos}
           source={
             teacher !== 'todos' ? workshop?.oficinas.nodes.filter(
-              (item) => item.acf_data.autor
-              && item.acf_data.autor.title.slug !== teacher,
+              (item) => item.acf_data.autor && item.acf_data.autor.slug !== teacher,
             ) : workshop?.oficinas.nodes || []
           }
           filters={teachers}
