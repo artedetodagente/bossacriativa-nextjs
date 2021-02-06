@@ -28,7 +28,7 @@ export default function Press({ releases, clippings, menus }) {
             source={clippings}
             renderItem={(item) => (
               <CardHorizontal
-                image={item?.featuredImage.node?.mediaItemUrl}
+                image={item?.featuredImage?.node?.mediaItemUrl}
                 title={item.title}
                 text={item.excerpt}
               />
