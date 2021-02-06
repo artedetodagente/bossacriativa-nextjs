@@ -44,6 +44,9 @@ export async function getOne(slug) {
             name
             slug
             description
+            acf_data {
+              descricaoCompleta
+            }
             oficinas (where: {orderby: {field: TITLE, order: ASC}}) {
               nodes {
                 id

@@ -17,8 +17,6 @@ export default function Press({ releases, clippings, menus }) {
     { title: 'Contato de Assessoria de Imprensa:', text: 'imprensa@musica.ufrj.br' },
   ];
 
-  console.log(clippings);
-
   return (
     <Page menus={menus}>
       <Breadcrumb />

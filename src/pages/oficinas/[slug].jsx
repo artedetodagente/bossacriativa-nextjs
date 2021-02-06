@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import Info from '@/components/Info';
 import core from '@/core';
@@ -10,8 +10,11 @@ import CardThumb from '@/components/CardThumb';
 import Option from '@/components/Option';
 import Page from '@/components/Page';
 import Expansibled from '@/components/Expansibled';
+import ItemHeaderList from '@/components/ItemHeaderList';
+import ItemList from '@/components/ItemList';
 
 export default function WorkshopSlug({ workshop, menus }) {
+  const content = useRef(null);
   const [lesson, setLesson] = useState(0);
   const [teachers, setTeachers] = useState([]);
   const [teacher, setTeacher] = useState('todos');
@@ -22,6 +25,7 @@ export default function WorkshopSlug({ workshop, menus }) {
       .reduce((acc, cur) => [...acc, cur.acf_data.autor], [])
       .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.title === item.title) === -1);
     setTeachers(autors ? [{ title: 'Todos', slug: 'todos' }, ...autors] : []);
+    content.current.innerHTML = workshop.acf_data?.descricaoCompleta;
   }, []);
 
   async function changeLeasson(index) {
@@ -38,7 +42,21 @@ export default function WorkshopSlug({ workshop, menus }) {
         <Expansibled
           showText="Conheça os professores e mais"
           hiddenText="Fechar"
-        />
+        >
+          <Fluid className={styles.expansibledLayout}>
+            <ul>
+              <ItemHeaderList title="Conteúdo Programático" />
+              <ItemHeaderList title="Professores" />
+              {
+                teachers.map((item, index) => item.title !== 'Todos' && <ItemList key={index} title={item.title} />)
+              }
+            </ul>
+            <div>
+              <h1>Conteúdo Programático</h1>
+              <div ref={content} />
+            </div>
+          </Fluid>
+        </Expansibled>
       </Info>
       <Fluid className={styles.layout}>
         <div className={styles.player}>

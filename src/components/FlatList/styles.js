@@ -48,7 +48,7 @@ export const Container = styled.article`
 
 export const Main = styled.main`
   display: grid;
-  grid-gap: ${({ gap }) => gap || '20px'};  
+  grid-gap: ${({ gap }) => gap || '20px'};
   ${({ pt }) => pt >= 0 && `padding-top: ${pt}px`};
   ${({ pb }) => pb >= 0 && `padding-bottom: ${pb}px`};
   ${({ pl }) => pl >= 0 && `padding-left: ${pl}px`};

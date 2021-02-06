@@ -40,18 +40,21 @@ export default function CarouselBanner({
   useEffect(() => {
     const dotsList = [];
     for (let x = 0; x <= settings.slides.length - 1; x++) {
-      dotsList.push(<button
-        onClick={() => {
-          const prev = settings.selected;
-          setSettings({
-            ...settings, selected: x, prevSelected: prev, autoplay: false,
-          });
-        }}
-        key={x}
-        style={
+      dotsList.push(
+        <button
+          type="button"
+          onClick={() => {
+            const prev = settings.selected;
+            setSettings({
+              ...settings, selected: x, prevSelected: prev, autoplay: false,
+            });
+          }}
+          key={x}
+          style={
           settings.selected === x ? { backgroundColor: '#E4BE2Bcc' } : { backgroundColor: '#585858' }
         }
-      />);
+        />,
+      );
     }
     setDots(dotsList);
   }, [settings.slides, settings.selected]);
@@ -66,24 +69,22 @@ export default function CarouselBanner({
       >
         <div className="scroll" ref={carousel}>
           {
-          settings.slides.map((slide, index) => (
-            <Slide key={index}>
-              <Item
-                key={slide.id}
-                photo={slide.featuredImage?.node?.mediaItemUrl}
-              >
-                <div className="text-container">
-                  <h1>{slide.title}</h1>
-                  <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
-                </div>
-              </Item>
-            </Slide>
-          ))
-        }
+            settings.slides.map((slide, index) => (
+              <Slide key={index}>
+                <Item
+                  key={slide.id}
+                  photo={slide.featuredImage?.node?.mediaItemUrl}
+                >
+                  <div className="text-container">
+                    <h1>{slide.title}</h1>
+                    <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+                  </div>
+                </Item>
+              </Slide>
+            ))
+          }
         </div>
-        <Dots>
-          {dots}
-        </Dots>
+        <Dots>{dots}</Dots>
       </Wrapper>
     </>
 
@@ -92,7 +93,7 @@ export default function CarouselBanner({
 
 CarouselBanner.propTypes = {
   source: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     featuredImage: PropTypes.shape({
       node: PropTypes.shape({
         mediaItemUrl: PropTypes.string,
@@ -108,11 +109,11 @@ CarouselBanner.propTypes = {
 
 CarouselBanner.defaultProps = {
   source: [{
-    id: 1, featuredImage: null, title: 'banner 1', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+    id: '1', featuredImage: null, title: 'banner 1', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
   }, {
-    id: 2, featuredImage: null, title: 'banner 2', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+    id: '2', featuredImage: null, title: 'banner 2', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
   }, {
-    id: 3, featuredImage: null, title: 'banner 3', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
+    id: '3', featuredImage: null, title: 'banner 3', excerpt: 'absfkbjdkfb adfasdfisadfi adifiasndf asdfi',
   }],
   autoplay: true,
   height: 412,
