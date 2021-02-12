@@ -11,6 +11,7 @@ export async function getAll() {
             slug
             excerpt
             date
+            uri
             featuredImage {
               node {
                 mediaItemUrl

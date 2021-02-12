@@ -21,3 +21,26 @@ export async function getAll() {
   );
   return data?.pages;
 }
+
+export async function getHome() {
+  const data = await fetchAPI(
+    `
+      query MyQuery {
+        pages(where: {title: "Home"}) {
+          nodes {
+            acf_data_home {
+              info {
+                videoUrl
+                saibaMais
+              }
+            }
+          }
+        }
+      }    
+    `,
+    {
+      variables: {},
+    },
+  );
+  return data?.pages;
+}

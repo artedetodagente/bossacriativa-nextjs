@@ -11,6 +11,11 @@ export async function getAll() {
             slug
             excerpt
             date
+            acf_link_release {
+              arquivo {
+                uri
+              }
+            }
           }
         }
       }

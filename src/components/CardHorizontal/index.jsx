@@ -1,10 +1,11 @@
-import Image from 'next/image';
 import React from 'react';
 import { Card } from './styles';
 
-export default function CardHorizontal({ image, title, text }) {
+export default function CardHorizontal({
+  image, title, text, click,
+}) {
   return (
-    <Card>
+    <Card onClick={click}>
       <figure>
         <img src={image} alt={title} />
       </figure>

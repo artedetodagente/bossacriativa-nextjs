@@ -5,6 +5,7 @@ export const Card = styled.article`
   background-color: #fff;
   height: 90px;
   overflow: hidden;
+  cursor: pointer;
 
   figure {
     flex: .4;

@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  mostras, posts, lives, menus, slides,
+  mostras, posts, lives, menus, slides, home,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -45,11 +45,17 @@ export default function Home({
           </p>
         </div>
         <div>
-          <button type="button">
+          <button
+            type="button"
+            onClick={() => selectVideo(home[0].acf_data_home.info.videoUrl)}
+          >
             <FaPlay />
             Vídeo Clipe
           </button>
-          <button type="button">
+          <button
+            type="button"
+            onClick={() => selectVideo(home[0].acf_data_home.info.saibaMais)}
+          >
             Saiba Mais
           </button>
         </div>
@@ -119,6 +125,7 @@ export async function getStaticProps() {
   const mostras = await core.mostras.getAll();
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
+  const home = await core.pages.getHome();
 
   return {
     props: {
@@ -126,6 +133,7 @@ export async function getStaticProps() {
       posts: posts.nodes || [],
       lives: lives.nodes || [],
       slides: slides.nodes || [],
+      home: home.nodes || [],
       menus: menus.nodes || [],
     },
     revalidate: 1,

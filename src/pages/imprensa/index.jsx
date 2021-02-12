@@ -17,6 +17,19 @@ export default function Press({ releases, clippings, menus }) {
     { title: 'Contato de Assessoria de Imprensa:', text: 'imprensa@musica.ufrj.br' },
   ];
 
+  function dowloadRelease(url, name) {
+    const link = document.createElement('a');
+    link.setAttribute('download', name);
+    link.setAttribute('href', url);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  function navigate(url) {
+    window.location.href = url;
+  }
+
   return (
     <Page menus={menus}>
       <Breadcrumb />
@@ -31,6 +44,7 @@ export default function Press({ releases, clippings, menus }) {
                 image={item?.featuredImage?.node?.mediaItemUrl}
                 title={item.title}
                 text={item.excerpt}
+                click={() => navigate(item.uri)}
               />
             )}
           />
@@ -42,6 +56,7 @@ export default function Press({ releases, clippings, menus }) {
               <CardIcon
                 icon={<BsNewspaper />}
                 text={item.title}
+                click={() => dowloadRelease(item.acf_link_release.arquivo.uri, item.title)}
               />
             )}
           />

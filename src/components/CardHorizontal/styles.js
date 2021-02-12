@@ -5,6 +5,7 @@ export const Card = styled.article`
   background-color: #fff;
   height: 150px;
   /* width: 600px; */
+  cursor: pointer;
 
   figure {
     background-color: rgb(51, 51, 51);
