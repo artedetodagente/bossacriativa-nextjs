@@ -44,3 +44,28 @@ export async function getHome() {
   );
   return data?.pages;
 }
+
+export async function getProject() {
+  const data = await fetchAPI(
+    `
+      query MyQuery {
+        pages(where: {title: "O projeto"}) {
+          nodes {
+            acf_data {
+              blocos {
+                ... on Page_AcfData_Blocos_EditorDeTexto {
+                  fieldGroupName
+                  texto
+                }
+              }
+            }
+          }
+        }
+      }    
+    `,
+    {
+      variables: {},
+    },
+  );
+  return data?.pages;
+}
