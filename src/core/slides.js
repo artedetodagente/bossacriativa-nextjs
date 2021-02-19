@@ -15,6 +15,10 @@ export async function getAll() {
                 mediaItemUrl
               }
             }
+            acf_chamada_slider {
+              bannerHomeDataEntrada
+              bannerHomeDataSaida
+            }
           }
         }
       }

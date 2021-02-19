@@ -43,8 +43,11 @@ export default function Schedule({
         const day = date[0];
         const month = date[2];
         const year = date[4].split(' ')[0];
-        if (now.day) return ((day === now.day) && ((month - 1) == now.month) && (year == now.year));
-        return (((month - 1) === now.month) && (year == now.year));
+        if (now.day) {
+          return (
+            (day === now.day) && ((month - 1) === now.month) && (year === now.year)
+          );
+        } return (((month - 1) === now.month) && (year === now.year));
       }),
       prev: source.filter((item) => {
         const date = item.acf_data_evento?.dataDoEvento.split(/([d]*\/)+\s*/);
@@ -209,10 +212,6 @@ export default function Schedule({
 
   return (
     <>
-      <WrapperCarousel>
-        <AgendaCarousel width="49%" />
-        <AgendaCarousel width="49%" />
-      </WrapperCarousel>
       <WrapperAgenda>
         <Toolbar id="toolbar" columnStart={calendar.dayOne + 1}>
           <div className="months-nav">

@@ -4,12 +4,14 @@ import Schedule from '@/components/agenda';
 import Fluid from '@/components/Fluid';
 import CardImage from '@/components/CardImage';
 import core from '@/core';
+import Calendar from '@/components/Calendar';
 
 export default function Agenda({ menus, eventos }) {
   return (
     <>
       <Page menus={menus}>
         <Fluid>
+          <Calendar />
           <Schedule
             source={eventos}
             renderItem={(item) => (

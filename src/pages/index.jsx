@@ -126,13 +126,20 @@ export async function getStaticProps() {
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
   const home = await core.pages.getHome();
+  const filterSlides = slides.nodes.filter((item) => {
+    if (item.acf_chamada_slider?.bannerHomeDataEntrada === null) return false;
+    const [startDay, startMonth, startYear] = item.acf_chamada_slider?.bannerHomeDataEntrada.split(' ')[0].split('/');
+    const [endDay, endMonth, endYear] = item.acf_chamada_slider?.bannerHomeDataSaida.split(' ')[0].split('/');
+    return new Date().getTime() >= new Date(`${startYear}-${startMonth}-${startDay}`).getTime()
+      && new Date().getTime() <= new Date(`${endYear}-${endMonth}-${endDay}`).getTime();
+  });
 
   return {
     props: {
       mostras: mostras.nodes || [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],
-      slides: slides.nodes || [],
+      slides: filterSlides || [],
       home: home.nodes || [],
       menus: menus.nodes || [],
     },
