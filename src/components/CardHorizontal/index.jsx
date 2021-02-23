@@ -11,7 +11,7 @@ export default function CardHorizontal({
       </figure>
       <div>
         <h1>{title}</h1>
-        <p>{text}</p>
+        <p>{text.replace(/<\/?[^>]+(>|$)/g, '')}</p>
       </div>
     </Card>
   );

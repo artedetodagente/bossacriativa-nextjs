@@ -11,7 +11,9 @@ export async function getAll() {
             slug
             excerpt
             date
-            uri
+            acf_link_clipping {
+              linkDaNoticia
+            }
             featuredImage {
               node {
                 mediaItemUrl

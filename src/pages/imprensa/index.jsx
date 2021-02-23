@@ -44,7 +44,7 @@ export default function Press({ releases, clippings, menus }) {
                 image={item?.featuredImage?.node?.mediaItemUrl}
                 title={item.title}
                 text={item.excerpt}
-                click={() => navigate(item.uri)}
+                click={() => navigate(item.acf_link_clipping?.linkDaNoticia)}
               />
             )}
           />
@@ -56,7 +56,7 @@ export default function Press({ releases, clippings, menus }) {
               <CardIcon
                 icon={<BsNewspaper />}
                 text={item.title}
-                click={() => dowloadRelease(item.acf_link_release.arquivo.uri, item.title)}
+                click={() => dowloadRelease(item.acf_link_release.arquivo.link, item.title)}
               />
             )}
           />

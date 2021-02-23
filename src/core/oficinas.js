@@ -4,7 +4,7 @@ export async function getAll(order, search) {
   const data = await fetchAPI(
     `
       query MyQuery {
-        oficinasClasses(last: 100, ${order || 'before'}: "", where: { nameLike: "${search || ''}" }) {
+        oficinasClasses(last: 100, ${order || 'before'}: "", ${search ? `where: { nameLike: "${search}"}` : ''}) {
           nodes {
             id
             name
@@ -53,6 +53,11 @@ export async function getOne(slug) {
                 title
                 slug
                 excerpt
+                featuredImage {
+                  node {
+                    mediaItemUrl
+                  }
+                }
                 acf_data {
                   videoUrl
                   autor {

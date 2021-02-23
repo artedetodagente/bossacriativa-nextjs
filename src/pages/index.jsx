@@ -74,6 +74,7 @@ export default function Home({
             renderItem={(item) => (
               <CardThumb
                 video={item.acf_data?.videoUrl}
+                image={item.featuredImage?.node.mediaItemUrl}
                 title={item.title}
                 excerpt={item.excerpt}
                 click={() => selectVideo(item.acf_data?.videoUrl)}

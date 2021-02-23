@@ -20,15 +20,16 @@ export default function WorkshopSlug({ workshop, menus }) {
   const [teacher, setTeacher] = useState('todos');
 
   useEffect(() => {
-    const autors = workshop?.oficinas.nodes
+    const authors = workshop?.oficinas.nodes
       .filter((item) => item.acf_data.autor !== null)
       .reduce((acc, cur) => [...acc, cur.acf_data.autor], [])
       .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.title === item.title) === -1);
-    setTeachers(autors ? [{ title: 'Todos', slug: 'todos' }, ...autors] : []);
+    setTeachers(authors ? [{ title: 'Todos', slug: 'todos' }, ...authors] : []);
     content.current.innerHTML = workshop.acf_data?.descricaoCompleta;
   }, []);
 
-  async function changeLeasson(index) {
+  async function changeLeasson(id) {
+    const index = workshop?.oficinas.nodes.findIndex((item) => item.id === id);
     setLesson(index);
   }
 
@@ -72,8 +73,10 @@ export default function WorkshopSlug({ workshop, menus }) {
           renderItem={(item) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
+              image={item.featuredImage?.node.mediaItemUrl}
               title={item.title}
               excerpt={item.excerpt}
+              click={() => changeLeasson(item.id)}
             />
           )}
         />
@@ -86,12 +89,13 @@ export default function WorkshopSlug({ workshop, menus }) {
             ) : workshop?.oficinas.nodes || []
           }
           filters={teachers}
-          renderItem={(item, index) => (
+          renderItem={(item) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
+              image={item.featuredImage?.node.mediaItemUrl}
               title={item.title}
               excerpt={item.excerpt}
-              click={() => changeLeasson(index)}
+              click={() => changeLeasson(item.id)}
             />
           )}
           renderFilter={(item) => (

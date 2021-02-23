@@ -13,7 +13,7 @@ export async function getAll() {
             date
             acf_link_release {
               arquivo {
-                uri
+                link
               }
             }
           }

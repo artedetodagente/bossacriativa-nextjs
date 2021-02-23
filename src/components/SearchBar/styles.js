@@ -6,9 +6,9 @@ export const Search = styled.div`
   align-items: center;
   
   > div {
-    flex: .7;
+    /* flex: .7; */
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     padding-right: 5%;
 
     button {
