@@ -47,7 +47,7 @@ export async function getOne(slug) {
             acf_data {
               descricaoCompleta
             }
-            oficinas (where: {orderby: {field: TITLE, order: ASC}}) {
+            oficinas (last: 100, where: {orderby: {field: TITLE, order: ASC}}) {
               nodes {
                 id
                 title
