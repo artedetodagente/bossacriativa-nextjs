@@ -1,15 +1,20 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll() {
+export async function getAll(order) {
   const data = await fetchAPI(
     `
       query MyQuery {
-        mostrasVirtuais(last: 100) {
+        mostrasVirtuais(last: 100, ${order || 'before'}: "") {
           nodes {
             id
             title
             slug
             excerpt
+            categories {
+              nodes {
+                name
+              }
+            }
             featuredImage {
               node {
                 mediaItemUrl

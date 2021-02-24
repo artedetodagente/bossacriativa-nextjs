@@ -3,7 +3,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import core from '@/core';
 import Page from '@/components/Page';
 import Fluid from '@/components/Fluid';
-import styles from '@/styles/project-slug.module.css';
+import styles from '@/styles/projeto-slug.module.css';
 
 export default function ProjectSlug({ project, menus }) {
   const content = useRef();

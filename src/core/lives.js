@@ -1,15 +1,20 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll() {
+export async function getAll(order) {
   const data = await fetchAPI(
     `
     query MyQuery {
-      lives(last: 100, before: "") {
+      lives(last: 100, ${order || 'before'}: "") {
         nodes {
           id
           slug
           title
           excerpt
+          categories {
+            nodes {
+              name
+            }
+          }
           acf_data {
             videoUrl
           }
