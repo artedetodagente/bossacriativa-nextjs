@@ -95,7 +95,7 @@ export default function Realities({ mostras, menus, categories }) {
 export async function getStaticProps() {
   const mostras = await core.mostras.getAll();
   const menus = await core.menus.getAll();
-  const categories = mostras.nodes.filter((item) => item.categories.length > 0)
+  const categories = mostras.nodes.filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
 

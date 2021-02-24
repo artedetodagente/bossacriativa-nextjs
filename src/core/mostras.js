@@ -13,6 +13,7 @@ export async function getAll(order) {
             categories {
               nodes {
                 name
+                slug
               }
             }
             featuredImage {

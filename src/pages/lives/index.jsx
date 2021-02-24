@@ -78,7 +78,7 @@ export default function Lives({ lives, menus, categories }) {
 export async function getStaticProps() {
   const lives = await core.lives.getAll();
   const menus = await core.menus.getAll();
-  const categories = lives.nodes.filter((item) => item.categories.length > 0)
+  const categories = lives.nodes.filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
 
