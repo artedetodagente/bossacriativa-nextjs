@@ -22,16 +22,16 @@ export default function CarouselGrid({
     }
   }, []);
 
-  useEffect(() => {
-    if (!settings.autoplay) return () => null;
-    const timer = setInterval(() => {
-      const sizeOfSlides = window.innerWidth > theme.sizes.laptop
-        ? settings.slides.length - 1 : settings.slides[0].length - 1;
-      const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
-      setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
-    }, 7000);
-    return () => clearInterval(timer);
-  });
+  // useEffect(() => {
+  //   if (!settings.autoplay) return () => null;
+  //   const timer = setInterval(() => {
+  //     const sizeOfSlides = window.innerWidth > theme.sizes.laptop
+  //       ? settings.slides.length - 1 : settings.slides[0].length - 1;
+  //     const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
+  //     setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
+  //   }, 7000);
+  //   return () => clearInterval(timer);
+  // });
 
   useEffect(() => {
     if (settings.selected !== 0) {

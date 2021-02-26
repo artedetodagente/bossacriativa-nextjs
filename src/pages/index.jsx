@@ -110,7 +110,7 @@ export default function Home({
                 excerpt={item.excerpt}
                 title={item.title}
                 click={() => push(`lives/${item.slug}`)}
-                h={200}
+                // h={200}
               />
             )}
           />

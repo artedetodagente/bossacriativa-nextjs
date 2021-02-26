@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  height: ${({ h }) => h}px;
+  /*height: ${({ h }) => h}px;*/
   width: 100%;
   background-color: ${({ theme }) => theme.colors.default.background};
   margin: 0;
@@ -96,8 +96,13 @@ export const Item = styled.li`
   grid-area: ${({ area }) => area || 0};
   position: relative;
   cursor: pointer;
+  padding-top: calc( 9 / 14 * 100%);
 
   article {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 0;
     /* background-image: ${({ photo }) => (photo ? `url(${photo})` : '')}; */
     /* background-repeat: no-repeat; */
     /* background-position: center; */
