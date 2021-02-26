@@ -16,6 +16,12 @@ export const Card = styled.article`
     padding-top: 591.44px / 1127.34px * 100%;
   }
 
+  img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
   h1 {
     font-size: 1.5em;
     background-color: rgba(2, 2, 2, .6);
