@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image } from './styles';
+import { Card, ImageContainer } from './styles';
 
 export default function CardFigure({
   title, image, excerpt, click,
 }) {
   return (
     <Card onClick={click}>
-      <Image image={image}>
+      <ImageContainer>
+        <img src={image} alt=""/>
         <h1>{title}</h1>
-      </Image>
+      </ImageContainer>
       <div>
         <p>
           {excerpt && excerpt.replace(/<\/?[^>]+(>|$)/g, '')}

@@ -85,8 +85,8 @@ export default function Home({
         <Section title="Notícias">
           <FlatList
             source={posts.slice(0, 8)}
-            cols={4}
-            colsl={4}
+            cols={3}
+            colsl={3}
             colsxss={1}
             colsmd={2}
             colsxl={8}
