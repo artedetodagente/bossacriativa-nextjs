@@ -26,7 +26,7 @@ export default function NavBar({ menus }) {
               <Fragment key={menu.id}>
                 <li>
                   <Link href={menu.url}>
-                    <a>{menu.label}</a>
+                    <a>{menu.label.replace(/ /g, '\u00a0')}</a>
                   </Link>
                   {
                     menus[index + 1]?.parentId && (
