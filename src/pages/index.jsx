@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  ultimasMostras, mostras, posts, lives, menus, slides, home,
+  ultimasMostras, mostras, posts, ultimasLives, lives, menus, slides, home,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -102,7 +102,7 @@ export default function Home({
         </Section>
         <Section title="Lives">
           <CarouselGrid
-            source={lives}
+            source={ultimasLives}
             reverse
             renderItem={(item) => (
               <CardThumb
@@ -122,6 +122,7 @@ export default function Home({
 
 export async function getStaticProps() {
   const lives = await core.lives.getAll();
+  const ultimasLives = await core.lives.getLast(15);
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
   const ultimasMostras = await core.mostras.getLast(15);
@@ -142,6 +143,7 @@ export async function getStaticProps() {
       ultimasMostras: ultimasMostras.nodes || [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],
+      ultimasLives: ultimasLives.nodes || [],
       slides: filterSlides || [],
       home: home.nodes || [],
       menus: menus.nodes || [],

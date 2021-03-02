@@ -51,3 +51,28 @@ export async function getOne(slug) {
   });
   return data?.lives;
 }
+
+export async function getLast(last = 100) {
+  const data = await fetchAPI(`
+  query ($qtd: Int!){
+    lives(last: $qtd){
+        nodes {
+          id
+          slug
+          title
+          excerpt
+          categories {
+            nodes {
+              name
+            }
+          }
+          acf_data {
+            videoUrl
+          }
+        }
+    }
+  }`, {
+    variables: { qtd: last },
+  });
+  return data?.lives;
+}
