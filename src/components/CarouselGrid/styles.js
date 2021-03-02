@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  height: ${({ h }) => h}px;
+  /*height: ${({ h }) => h}px;*/
   width: 100%;
   background-color: ${({ theme }) => theme.colors.default.background};
   margin: 0;
@@ -30,9 +30,9 @@ export const Indicator = styled.div`
   width: auto;
   height: auto;
   display: flex;
-  bottom: 10px;
+  /*bottom: 10px;*/
   z-index: 998;
-  ${({ reverse }) => (reverse ? 'right: 10px' : 'left: 10px')};
+  ${({ reverse }) => (reverse ? 'right: 10px; bottom: 10px' : 'left: 10px; top: 10px')};
 `;
 
 export const IndicatorItem = styled.button`
@@ -96,8 +96,13 @@ export const Item = styled.li`
   grid-area: ${({ area }) => area || 0};
   position: relative;
   cursor: pointer;
+  padding-top: calc( 9 / 14 * 100%);
 
   article {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 0;
     /* background-image: ${({ photo }) => (photo ? `url(${photo})` : '')}; */
     /* background-repeat: no-repeat; */
     /* background-position: center; */
@@ -114,4 +119,15 @@ export const Item = styled.li`
     bottom: 20px;
     width: 50%;
   }
+
+  :first-of-type div {
+    padding: 20px;
+  }
+
+  @media ${({ theme }) => theme.devices.laptop} {
+     :first-of-type div {
+       padding: 10px;
+     }
+  }
+
 `;

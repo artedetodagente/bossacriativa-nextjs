@@ -3,17 +3,23 @@ import styled from 'styled-components';
 export const Card = styled.article`
   position: relative;
   border-radius: 2px;
-  min-height: 200px;
-  height: ${({ h }) => (h > 0 ? `${h}px` : '100%')};
-  width: ${({ w }) => (w > 0 ? `${w}px` : '100%')};
   cursor: pointer;
+  padding-top: calc(9 / 14 * 100%);
+  width: 100%;
 
   figure {
     margin: 0;
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    padding-top: 591.44px / 1127.34px * 100%;
+  }
+
+  img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
 
   h1 {
@@ -37,6 +43,7 @@ export const Card = styled.article`
   div {
     position: absolute;
     left: 0;
+    top: 0;
     height: 100%;
     width: 100%;
     padding: 10px;

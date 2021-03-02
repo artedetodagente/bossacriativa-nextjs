@@ -23,15 +23,20 @@ export const Card = styled.article`
   }
 `;
 
-export const Image = styled.div`
-  height: 300px;
-  background-size: conver;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #444;
+export const ImageContainer = styled.div`
+  padding-top: calc(9 / 14 * 100%);
   position: relative;
-  ${({ image }) => image && `background-image: url(${image})`};
+  background-color: #444;
 
+  img {
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
   h1 {
     font-size: 1.5em;
     background-color: rgba(2, 2, 2, .9);
@@ -52,3 +57,15 @@ export const Image = styled.div`
     font-weight: 600;
   }
 `;
+
+// export const Image = styled.div`
+//   height: 300px;
+//   background-size: conver;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-color: #444;
+//   position: relative;
+//   ${({ image }) => image && `background-image: url(${image})`};
+
+  
+// `;

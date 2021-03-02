@@ -6,7 +6,7 @@ import {
 } from './styles';
 
 export default function CarouselGrid({
-  autoplay, source, reverse, h, renderItem,
+  autoplay, source, reverse, renderItem, // h,
 }) {
   const slideScroll = useRef();
   const [settings, setSettings] = useState({
@@ -52,7 +52,7 @@ export default function CarouselGrid({
 
   return (
     <Wrapper
-      h={h}
+      // h={h}
       onMouseOver={() => setSettings({ ...settings, autoplay: false })}
       onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
     >
@@ -112,7 +112,7 @@ CarouselGrid.propTypes = {
   renderItem: PropTypes.func,
   reverse: PropTypes.bool,
   autoplay: PropTypes.bool,
-  h: PropTypes.number,
+  // h: PropTypes.number,
 };
 
 CarouselGrid.defaultProps = {
@@ -120,5 +120,5 @@ CarouselGrid.defaultProps = {
   renderItem: null,
   reverse: false,
   autoplay: true,
-  h: 412,
+  // h: 412,
 };

@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  mostras, posts, lives, menus, slides, home, links,
+  ultimasMostras, mostras, posts, ultimasLives, lives, menus, slides, home, links,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -70,7 +70,7 @@ export default function Home({
       <Fluid>
         <Section title="Mostra Virtual Bossa Criativa">
           <CarouselGrid
-            source={mostras}
+            source={ultimasMostras}
             renderItem={(item) => (
               <CardThumb
                 video={item.acf_data?.videoUrl}
@@ -85,8 +85,8 @@ export default function Home({
         <Section title="Notícias">
           <FlatList
             source={posts.slice(0, 8)}
-            cols={4}
-            colsl={4}
+            cols={3}
+            colsl={3}
             colsxss={1}
             colsmd={2}
             colsxl={8}
@@ -102,7 +102,7 @@ export default function Home({
         </Section>
         <Section title="Lives">
           <CarouselGrid
-            source={lives}
+            source={ultimasLives}
             reverse
             renderItem={(item) => (
               <CardThumb
@@ -110,7 +110,7 @@ export default function Home({
                 excerpt={item.excerpt}
                 title={item.title}
                 click={() => push(`lives/${item.slug}`)}
-                h={200}
+                // h={200}
               />
             )}
           />
@@ -122,8 +122,10 @@ export default function Home({
 
 export async function getStaticProps() {
   const lives = await core.lives.getAll();
+  const ultimasLives = await core.lives.getLast(15);
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
+  const ultimasMostras = await core.mostras.getLast(15);
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
@@ -139,8 +141,10 @@ export async function getStaticProps() {
   return {
     props: {
       mostras: mostras.nodes || [],
+      ultimasMostras: ultimasMostras.nodes || [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],
+      ultimasLives: ultimasLives.nodes || [],
       slides: filterSlides || [],
       home: home.nodes || [],
       menus: menus.nodes || [],

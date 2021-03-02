@@ -9,15 +9,15 @@ export default function CardImage({
     <Card
       image={image}
       onClick={click}
-      h={h}
-      w={w}
+      // h={h}
+      // w={w}
     >
       <figure>
         <img
           src={image}
           alt={title}
-          width="100%"
-          height="100%"
+          // width="100%"
+          // height="100%"
         />
       </figure>
       <h1>{title}</h1>
