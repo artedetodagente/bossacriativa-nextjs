@@ -78,7 +78,7 @@ export default function Lives({
 }
 
 export async function getServerSideProps({ query }) {
-  const lives = await core.lives.getAll();
+  const lives = await core.lives.getAll(null, query?.search);
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
   const categories = lives.nodes.filter((item) => item.categories.nodes.length > 0)

@@ -85,7 +85,7 @@ export default function Workshops({
 export async function getServerSideProps({ query }) {
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
-  const workshops = await core.oficinas.getAll();
+  const workshops = await core.oficinas.getAll(null, query?.search);
   const categories = workshops.nodes.filter((item) => item.acf_data.categoria !== null)
     .reduce((acc, cur) => [...acc, ...cur.acf_data.categoria], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);

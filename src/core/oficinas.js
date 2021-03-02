@@ -40,7 +40,7 @@ export async function getAll(quant, name) {
 export async function getOne(slug) {
   const data = await fetchAPI(
     `
-      query MyQuery ($slug: String!) {
+      query MyQuery ($slug: [String]) {
         oficinasClasses(where: {slug: $slug}) {
           nodes {
             id
@@ -67,6 +67,7 @@ export async function getOne(slug) {
                     ... on AutoresOne {
                       title
                       slug
+                      content
                     }
                   }
                 }

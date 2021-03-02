@@ -37,7 +37,7 @@ export default function Notices({ notices, menus, links }) {
 export async function getServerSideProps({ query }) {
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
-  const notices = await core.posts.getAll();
+  const notices = await core.posts.getAll(null, query?.search);
 
   return {
     props: {

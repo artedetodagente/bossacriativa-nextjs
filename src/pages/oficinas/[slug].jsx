@@ -16,6 +16,7 @@ import ItemList from '@/components/ItemList';
 export default function WorkshopSlug({ workshop, menus, links }) {
   const content = useRef(null);
   const [lesson, setLesson] = useState(0);
+  const [title, setTitle] = useState('Conteúdo Programático');
   const [teachers, setTeachers] = useState([]);
   const [teacher, setTeacher] = useState('todos');
 
@@ -33,6 +34,11 @@ export default function WorkshopSlug({ workshop, menus, links }) {
     setLesson(index);
   }
 
+  function changeContent(info) {
+    setTitle(info.title);
+    content.current.innerHTML = info.content;
+  }
+
   return (
     <Page menus={menus} links={links}>
       <Breadcrumb />
@@ -46,14 +52,26 @@ export default function WorkshopSlug({ workshop, menus, links }) {
         >
           <Fluid className={styles.expansibledLayout}>
             <ul>
-              <ItemHeaderList title="Conteúdo Programático" />
+              <ItemHeaderList
+                title="Conteúdo Programático"
+                click={() => changeContent({
+                  title: 'Conteúdo Programático',
+                  content: workshop.acf_data?.descricaoCompleta,
+                })}
+              />
               <ItemHeaderList title="Professores" />
               {
-                teachers.map((item, index) => item.title !== 'Todos' && <ItemList key={index} title={item.title} />)
+                teachers.map((item, index) => item.title !== 'Todos' && (
+                  <ItemList
+                    key={index}
+                    title={item.title}
+                    click={() => changeContent(item)}
+                  />
+                ))
               }
             </ul>
             <div>
-              <h1>Conteúdo Programático</h1>
+              <h1>{title}</h1>
               <div ref={content} />
             </div>
           </Fluid>

@@ -14,7 +14,7 @@ function YouEmbed({ url, stop }) {
       <iframe
         ref={player}
         title={vid}
-        src={`https://www.youtube.com/embed/${vid}?autoplay=1`}
+        src={`https://www.youtube.com/embed/${vid}?autoplay=0`}
         frameBorder="0"
         allow="autoplay;fullscreen"
       />

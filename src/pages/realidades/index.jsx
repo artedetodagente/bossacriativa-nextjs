@@ -95,7 +95,7 @@ export default function Realities({
 }
 
 export async function getServerSideProps({ query }) {
-  const mostras = await core.mostras.getAll();
+  const mostras = await core.mostras.getAll(null, query?.search);
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
   const categories = mostras.nodes.filter((item) => item.categories.nodes.length > 0)
