@@ -45,7 +45,7 @@ export const ImageContainer = styled.div`
     margin: 0;
     position: absolute;
     width: 100%;
-    height: 90px;
+    /*height: 90px;*/
     bottom: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -53,7 +53,7 @@ export const ImageContainer = styled.div`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     z-index: 3;
-    font-family: 'Barlow Condensed';
+    /*font-family: 'Barlow Condensed';*/
     font-weight: 600;
   }
 `;
