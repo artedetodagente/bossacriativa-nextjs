@@ -45,6 +45,5 @@ export async function getServerSideProps({ query }) {
       links: links.nodes || [],
       notices: notices.nodes || [],
     },
-    revalidate: 1,
   };
 }

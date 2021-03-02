@@ -1,39 +1,45 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll(order) {
+export async function getAll(quant, search) {
   const data = await fetchAPI(
     `
-    query MyQuery {
-      lives(last: 100, ${order || 'before'}: "") {
-        nodes {
-          id
-          slug
-          title
-          excerpt
-          categories {
-            nodes {
-              name
+      query MyQuery ($quant: Int, $search: String) {
+        lives(last: $quant, before: "", where: { search: $search }) {
+          nodes {
+            id
+            slug
+            title
+            excerpt
+            categories {
+              nodes {
+                name
+              }
+            }
+            acf_data {
+              videoUrl
             }
           }
-          acf_data {
-            videoUrl
+          pageInfo {
+            endCursor
+            hasNextPage
           }
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
       }
-    }
     `,
+    {
+      variables: {
+        quant: quant || 100,
+        search: search || '',
+      },
+    },
   );
   return data?.lives;
 }
 
 export async function getOne(slug) {
   const data = await fetchAPI(`
-  query MyQuery {
-    lives(where: {name: "${slug}"}) {
+  query MyQuery ($slug: String!) {
+    lives(where: {name: $slug}) {
       nodes {
         id
         slug
@@ -47,7 +53,7 @@ export async function getOne(slug) {
   }
   `,
   {
-    variables: {},
+    variables: { slug },
   });
   return data?.lives;
 }

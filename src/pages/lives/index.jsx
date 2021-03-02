@@ -92,6 +92,5 @@ export async function getServerSideProps({ query }) {
       links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
     },
-    revalidate: 1,
   };
 }

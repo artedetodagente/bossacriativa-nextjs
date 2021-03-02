@@ -1,10 +1,10 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll(order, search) {
+export async function getAll(quant, name) {
   const data = await fetchAPI(
     `
-      query MyQuery {
-        oficinasClasses(last: 100, ${order || 'before'}: "", ${search ? `where: { nameLike: "${search}"}` : ''}) {
+      query MyQuery ($quant: Int, $name: String) {
+        oficinasClasses(last: $quant, before: "", where: { nameLike: $name}) {
           nodes {
             id
             name
@@ -28,7 +28,10 @@ export async function getAll(order, search) {
       }
     `,
     {
-      variables: {},
+      variables: {
+        quant: quant || 100,
+        name: name || '',
+      },
     },
   );
   return data?.oficinasClasses;
@@ -37,8 +40,8 @@ export async function getAll(order, search) {
 export async function getOne(slug) {
   const data = await fetchAPI(
     `
-      query MyQuery {
-        oficinasClasses(where: {slug: "${slug}"}) {
+      query MyQuery ($slug: String!) {
+        oficinasClasses(where: {slug: $slug}) {
           nodes {
             id
             name
@@ -74,7 +77,7 @@ export async function getOne(slug) {
       }
     `,
     {
-      variables: {},
+      variables: { slug },
     },
   );
   return data?.oficinasClasses;

@@ -3,7 +3,7 @@ import { fetchAPI } from '@/services/api';
 export async function getAll() {
   const data = await fetchAPI(
     `
-    query MyQuery {
+      query MyQuery {
         slides {
           nodes {
             id

@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  ultimasMostras, mostras, posts, ultimasLives, lives, menus, slides, home, links,
+  ultimasMostras, posts, ultimasLives, menus, slides, home, links,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -84,7 +84,7 @@ export default function Home({
         </Section>
         <Section title="Notícias">
           <FlatList
-            source={posts.slice(0, 8)}
+            source={posts}
             cols={3}
             colsl={3}
             colsxss={1}
@@ -121,11 +121,9 @@ export default function Home({
 }
 
 export async function getStaticProps() {
-  const lives = await core.lives.getAll();
   const ultimasLives = await core.lives.getLast(15);
-  const posts = await core.posts.getAll();
-  const mostras = await core.mostras.getAll();
   const ultimasMostras = await core.mostras.getLast(15);
+  const posts = await core.posts.getAll(6);
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
@@ -140,10 +138,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      mostras: mostras.nodes || [],
       ultimasMostras: ultimasMostras.nodes || [],
       posts: posts.nodes || [],
-      lives: lives.nodes || [],
       ultimasLives: ultimasLives.nodes || [],
       slides: filterSlides || [],
       home: home.nodes || [],

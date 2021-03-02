@@ -1,28 +1,33 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll() {
+export async function getAll(quant) {
   const data = await fetchAPI(
     `
-    query MyQuery {
-      eventos (first: 999){
-        nodes {
-          title
-          id
-          excerpt
-          featuredImage {
-            node {
-              mediaItemUrl
+      query MyQuery ($quant: Int) {
+        eventos (first: $quant){
+          nodes {
+            title
+            id
+            excerpt
+            featuredImage {
+              node {
+                mediaItemUrl
+              }
             }
-          }
-          slug
-          acf_data_evento {
-            dataDoEvento
-            tipo
+            slug
+            acf_data_evento {
+              dataDoEvento
+              tipo
+            }
           }
         }
       }
-    }
     `,
+    {
+      variables: {
+        quant: quant || 999,
+      },
+    },
   );
   return data?.eventos;
 }

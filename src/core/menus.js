@@ -1,10 +1,10 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll() {
+export async function getAll(quant) {
   const data = await fetchAPI(
     `
-      query MyQuery {
-        menuItems(first: 1000) {
+      query MyQuery ($quant: Int) {
+        menuItems(first: $quant) {
           nodes {
             id
             label
@@ -16,7 +16,9 @@ export async function getAll() {
       }
     `,
     {
-      variables: {},
+      variables: {
+        quant: quant || 1000,
+      },
     },
   );
   return data?.menuItems;

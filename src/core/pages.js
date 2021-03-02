@@ -3,23 +3,23 @@ import { fetchAPI } from '@/services/api';
 export async function getAll() {
   const data = await fetchAPI(
     `
-    query MyQuery {
-      pages {
-        nodes {
-          id
-          title
-          slug
-          acf_data {
-            blocos {
-              ... on Page_AcfData_Blocos_EditorDeTexto {
-                fieldGroupName
-                texto
+      query MyQuery {
+        pages {
+          nodes {
+            id
+            title
+            slug
+            acf_data {
+              blocos {
+                ... on Page_AcfData_Blocos_EditorDeTexto {
+                  fieldGroupName
+                  texto
+                }
               }
             }
           }
         }
       }
-    }    
     `,
     {
       variables: {},
@@ -31,41 +31,41 @@ export async function getAll() {
 export async function getOne(slug) {
   const data = await fetchAPI(
     `
-    query MyQuery {
-      pageBy(uri: "${slug}") {
-        id
-        title
-        slug
-        acf_data {
-          fieldGroupName
-          blocos {
-            ... on Page_AcfData_Blocos_EditorDeTexto {
-              fieldGroupName
-              texto
-            }
-            ... on Page_AcfData_Blocos_ImagemFull {
-              fieldGroupName
-              imagem {
-                altText
-                mediaItemUrl
-                sizes
+      query MyQuery ($slug: String) {
+        pageBy(uri: $slug) {
+          id
+          title
+          slug
+          acf_data {
+            fieldGroupName
+            blocos {
+              ... on Page_AcfData_Blocos_EditorDeTexto {
+                fieldGroupName
+                texto
               }
-            }
-            ... on Page_AcfData_Blocos_Galeria {
-              fieldGroupName
-              fotos {
-                mediaItemUrl
-                altText
-                sizes
+              ... on Page_AcfData_Blocos_ImagemFull {
+                fieldGroupName
+                imagem {
+                  altText
+                  mediaItemUrl
+                  sizes
+                }
+              }
+              ... on Page_AcfData_Blocos_Galeria {
+                fieldGroupName
+                fotos {
+                  mediaItemUrl
+                  altText
+                  sizes
+                }
               }
             }
           }
         }
       }
-    }    
     `,
     {
-      variables: {},
+      variables: { slug },
     },
   );
   return data?.pageBy;

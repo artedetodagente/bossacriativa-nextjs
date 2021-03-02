@@ -1,24 +1,32 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll() {
-  const data = await fetchAPI(`
-    query MyQuery {
-      posts(last: 100) {
-        nodes {
-          id
-          slug
-          title
-          acf_chamada_post {
-            chamadaHome
-          }
-          featuredImage {
-            node {
-              mediaItemUrl
+export async function getAll(quant) {
+  const data = await fetchAPI(
+    `
+      query MyQuery ($quant: Int) {
+        posts(last: $quant) {
+          nodes {
+            id
+            slug
+            title
+            acf_chamada_post {
+              chamadaHome
+            }
+            featuredImage {
+              node {
+                mediaItemUrl
+              }
             }
           }
         }
       }
-    }`);
+    `,
+    {
+      variables: {
+        quant: quant || 100,
+      },
+    },
+  );
   return data?.posts;
 }
 

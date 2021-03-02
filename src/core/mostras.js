@@ -1,10 +1,10 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll(order) {
+export async function getAll(quant, slug) {
   const data = await fetchAPI(
     `
-      query MyQuery {
-        mostrasVirtuais(last: 100, ${order || 'before'}: "") {
+      query MyQuery($quant: Int, $slug: String) {
+        mostrasVirtuais(last: $quant, before: "", where: {search: $slug}) {
           nodes {
             id
             title
@@ -29,7 +29,10 @@ export async function getAll(order) {
       }
     `,
     {
-      variables: {},
+      variables: {
+        quant: quant || 100,
+        slug: slug || '',
+      },
     },
   );
   return data?.mostrasVirtuais;
@@ -38,8 +41,8 @@ export async function getAll(order) {
 export async function getOne(slug) {
   const data = await fetchAPI(
     `
-      query MyQuery {
-        mostrasVirtuais {
+      query MyQuery($slug: String!) {
+        mostrasVirtuais (where: {name: $slug}) {
           nodes {
             id
             title
