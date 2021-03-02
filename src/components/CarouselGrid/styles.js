@@ -119,4 +119,15 @@ export const Item = styled.li`
     bottom: 20px;
     width: 50%;
   }
+
+  :first-of-type div {
+    padding: 20px;
+  }
+
+  @media ${({ theme }) => theme.devices.laptop} {
+     :first-of-type div {
+       padding: 10px;
+     }
+  }
+
 `;
