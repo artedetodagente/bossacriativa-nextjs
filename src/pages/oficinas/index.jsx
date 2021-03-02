@@ -12,7 +12,7 @@ import styles from '@/styles/oficinas.module.css';
 import Page from '@/components/Page';
 
 export default function Workshops({
-  workshops, categories, menus,
+  workshops, categories, menus, links,
 }) {
   const { push } = useRouter();
   const [list, setList] = useState(workshops);
@@ -34,7 +34,7 @@ export default function Workshops({
   }
 
   return (
-    <Page menus={menus}>
+    <Page menus={menus} links={links}>
       <Breadcrumb name="Oficinas" />
       <Info
         title="Oficinas"
@@ -82,8 +82,9 @@ export default function Workshops({
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps({ query }) {
   const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
   const workshops = await core.oficinas.getAll(null);
   const categories = workshops.nodes.filter((item) => item.acf_data.categoria !== null)
     .reduce((acc, cur) => [...acc, ...cur.acf_data.categoria], [])
@@ -92,9 +93,9 @@ export async function getStaticProps() {
   return {
     props: {
       menus: menus.nodes || [],
+      links: links.nodes || [],
       workshops: workshops.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
     },
-    revalidate: 1,
   };
 }

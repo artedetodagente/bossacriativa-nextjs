@@ -4,7 +4,7 @@ import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 import SchoolBar from '@/components/SchoolBar';
 
-export default function Page({ menus, children }) {
+export default function Page({ menus, links, children }) {
   return (
     <>
       <Head>
@@ -12,7 +12,7 @@ export default function Page({ menus, children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
-        <SchoolBar />
+        <SchoolBar data={links} />
         { menus?.length > 0 && <NavBar menus={menus} /> }
       </header>
       <main>{children}</main>

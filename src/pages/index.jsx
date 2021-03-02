@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  mostras, posts, lives, menus, slides, home,
+  mostras, posts, lives, menus, slides, home, links,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -27,7 +27,7 @@ export default function Home({
   }
 
   return (
-    <Page menus={menus}>
+    <Page menus={menus} links={links}>
       <ModalPlayer
         open={modal.player}
         video={video}
@@ -126,6 +126,7 @@ export async function getStaticProps() {
   const mostras = await core.mostras.getAll();
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
   const home = await core.pages.getHome();
   const filterSlides = slides.nodes.filter((item) => {
     if (item.acf_chamada_slider?.bannerHomeDataEntrada === null) return false;
@@ -143,6 +144,7 @@ export async function getStaticProps() {
       slides: filterSlides || [],
       home: home.nodes || [],
       menus: menus.nodes || [],
+      links: links.nodes || [],
     },
     revalidate: 1,
   };

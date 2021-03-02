@@ -13,7 +13,7 @@ import Expansibled from '@/components/Expansibled';
 import ItemHeaderList from '@/components/ItemHeaderList';
 import ItemList from '@/components/ItemList';
 
-export default function WorkshopSlug({ workshop, menus }) {
+export default function WorkshopSlug({ workshop, menus, links }) {
   const content = useRef(null);
   const [lesson, setLesson] = useState(0);
   const [teachers, setTeachers] = useState([]);
@@ -34,7 +34,7 @@ export default function WorkshopSlug({ workshop, menus }) {
   }
 
   return (
-    <Page menus={menus}>
+    <Page menus={menus} links={links}>
       <Breadcrumb />
       <Info
         title={workshop?.name}
@@ -115,10 +115,12 @@ export default function WorkshopSlug({ workshop, menus }) {
 export async function getStaticProps({ params }) {
   const { nodes } = await core.oficinas.getOne(params.slug);
   const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
 
   return {
     props: {
       menus: menus.nodes || [],
+      links: links.nodes || [],
       workshop: nodes[0] || {},
     },
     revalidate: 1,

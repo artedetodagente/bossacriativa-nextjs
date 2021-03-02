@@ -5,7 +5,7 @@ import Page from '@/components/Page';
 import Fluid from '@/components/Fluid';
 import styles from '@/styles/projeto-slug.module.css';
 
-export default function ProjectSlug({ project, menus }) {
+export default function ProjectSlug({ project, menus, links }) {
   const content = useRef();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function ProjectSlug({ project, menus }) {
   }, []);
 
   return (
-    <Page menus={menus}>
+    <Page menus={menus} links={links}>
       <Breadcrumb />
       <Fluid className={styles.content}>
         <div ref={content} />
@@ -35,11 +35,13 @@ export default function ProjectSlug({ project, menus }) {
 export async function getStaticProps({ params }) {
   const project = await core.pages.getOne(params.slug);
   const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
 
   return {
     props: {
       project: project || {},
       menus: menus.nodes || [],
+      links: links.nodes || [],
     },
     revalidate: 1,
   };

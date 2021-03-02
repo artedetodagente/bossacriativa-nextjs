@@ -11,7 +11,9 @@ import { BsNewspaper } from 'react-icons/bs';
 import CardHorizontal from '@/components/CardHorizontal';
 import core from '@/core';
 
-export default function Press({ releases, clippings, menus }) {
+export default function Press({
+  releases, clippings, menus, links,
+}) {
   const contacts = [
     { title: 'Funarte - Assessoria de Comunicação:', text: 'ascomfunarte@funarte.gov.br' },
     { title: 'Contato de Assessoria de Imprensa:', text: 'imprensa@musica.ufrj.br' },
@@ -31,7 +33,7 @@ export default function Press({ releases, clippings, menus }) {
   }
 
   return (
-    <Page menus={menus}>
+    <Page menus={menus} links={links}>
       <Breadcrumb />
       <Info title="Imprensa" />
       <Fluid>
@@ -82,12 +84,14 @@ export async function getStaticProps() {
   const releases = await core.releases.getAll();
   const clippings = await core.clippings.getAll();
   const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
 
   return {
     props: {
       releases: releases.nodes || [],
       clippings: clippings.nodes || [],
       menus: menus.nodes || [],
+      links: links.nodes || [],
     },
     revalidate: 1,
   };

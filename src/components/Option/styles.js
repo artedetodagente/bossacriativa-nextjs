@@ -13,4 +13,5 @@ export const Item = styled.button`
   white-space: nowrap;
   display: block;
   text-overflow: ellipsis;
+  margin: 0 5px;
 `;

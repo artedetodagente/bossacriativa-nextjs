@@ -11,7 +11,9 @@ import SearchBar from '@/components/SearchBar';
 import Option from '@/components/Option';
 import styles from '@/styles/lives.module.css';
 
-export default function Lives({ lives, menus, categories }) {
+export default function Lives({
+  lives, menus, categories, links,
+}) {
   const { push } = useRouter();
   const [list, setList] = useState(lives);
   const [listCategories, setListCategories] = useState(categories);
@@ -32,7 +34,7 @@ export default function Lives({ lives, menus, categories }) {
   }
 
   return (
-    <Page menus={menus}>
+    <Page menus={menus} links={links}>
       <Breadcrumb />
       <Info title="Lives" />
       <Fluid>
@@ -75,9 +77,10 @@ export default function Lives({ lives, menus, categories }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps({ query }) {
   const lives = await core.lives.getAll();
   const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
   const categories = lives.nodes.filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
@@ -86,6 +89,7 @@ export async function getStaticProps() {
     props: {
       lives: lives.nodes || [],
       menus: menus.nodes || [],
+      links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
     },
     revalidate: 1,

@@ -6,10 +6,10 @@ import CardImage from '@/components/CardImage';
 import core from '@/core';
 import Calendar from '@/components/Calendar';
 
-export default function Agenda({ menus, eventos }) {
+export default function Agenda({ menus, eventos, links }) {
   return (
     <>
-      <Page menus={menus}>
+      <Page menus={menus} links={links}>
         <Fluid>
           <Calendar />
           <Schedule
@@ -33,11 +33,13 @@ export default function Agenda({ menus, eventos }) {
 export async function getStaticProps() {
   const eventos = await core.eventos.getAll();
   const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
 
   return {
     props: {
       eventos: eventos.nodes || [],
       menus: menus.nodes || [],
+      links: links.nodes || [],
     },
     revalidate: 1,
   };

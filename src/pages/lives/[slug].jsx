@@ -8,9 +8,9 @@ import core from '@/core';
 import Page from '@/components/Page';
 import Breadcrumb from '@/components/Breadcrumb';
 
-export default function LiveSlug({ live, menus }) {
+export default function LiveSlug({ live, menus, links }) {
   return (
-    <Page menus={menus}>
+    <Page menus={menus} links={links}>
       <Breadcrumb />
       <div className={styles.container}>
         <h3>
@@ -30,11 +30,13 @@ export default function LiveSlug({ live, menus }) {
 export async function getStaticProps({ params }) {
   const { nodes } = await core.lives.getOne(params.slug);
   const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
 
   return {
     props: {
       live: nodes[0] || {},
       menus: menus.nodes || [],
+      links: links.nodes || [],
     },
     revalidate: 1,
   };
