@@ -5,6 +5,7 @@ export const Card = styled.article`
   border-radius: 2px;
   cursor: pointer;
   padding-top: calc(9 / 14 * 100%);
+  width: 100%;
 
   figure {
     margin: 0;

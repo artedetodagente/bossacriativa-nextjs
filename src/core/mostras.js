@@ -59,3 +59,36 @@ export async function getOne(slug) {
   );
   return data?.mostrasVirtuais;
 }
+
+export async function getLast(last = 2) {
+  const data = await fetchAPI(
+    `query ($qtd: Int!){
+      mostrasVirtuais(last: $qtd){
+          nodes {
+              id
+              title
+              slug
+              excerpt
+              categories {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              featuredImage {
+                node {
+                  mediaItemUrl
+                }
+              }
+              acf_data {
+                videoUrl
+              }
+            }
+      }
+    }`,
+    {
+      variables: { qtd: last },
+    },
+  );
+  return data?.mostrasVirtuais;
+}

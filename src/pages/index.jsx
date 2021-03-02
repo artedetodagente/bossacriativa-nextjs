@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  mostras, posts, lives, menus, slides, home,
+  ultimasMostras, mostras, posts, lives, menus, slides, home,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -70,7 +70,7 @@ export default function Home({
       <Fluid>
         <Section title="Mostra Virtual Bossa Criativa">
           <CarouselGrid
-            source={mostras}
+            source={ultimasMostras}
             renderItem={(item) => (
               <CardThumb
                 video={item.acf_data?.videoUrl}
@@ -124,6 +124,7 @@ export async function getStaticProps() {
   const lives = await core.lives.getAll();
   const posts = await core.posts.getAll();
   const mostras = await core.mostras.getAll();
+  const ultimasMostras = await core.mostras.getLast(15);
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
   const home = await core.pages.getHome();
@@ -138,6 +139,7 @@ export async function getStaticProps() {
   return {
     props: {
       mostras: mostras.nodes || [],
+      ultimasMostras: ultimasMostras.nodes || [],
       posts: posts.nodes || [],
       lives: lives.nodes || [],
       slides: filterSlides || [],
