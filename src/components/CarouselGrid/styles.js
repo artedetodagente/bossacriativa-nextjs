@@ -30,9 +30,9 @@ export const Indicator = styled.div`
   width: auto;
   height: auto;
   display: flex;
-  bottom: 10px;
+  /*bottom: 10px;*/
   z-index: 998;
-  ${({ reverse }) => (reverse ? 'right: 10px' : 'left: 10px')};
+  ${({ reverse }) => (reverse ? 'right: 10px; bottom: 10px' : 'left: 10px; top: 10px')};
 `;
 
 export const IndicatorItem = styled.button`

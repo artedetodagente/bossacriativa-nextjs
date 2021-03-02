@@ -67,7 +67,7 @@ export default function CarouselGrid({
             />
           ))
         }
-        {
+        {/* {
           settings.slides[0].length > 0 && settings.slides[0].map((item, index) => (
             <IndicatorItem
               type="button"
@@ -77,7 +77,7 @@ export default function CarouselGrid({
               onClick={() => goPosition(index)}
             />
           ))
-        }
+        } */}
       </Indicator>
       <div className="scroll" ref={slideScroll}>
         {
