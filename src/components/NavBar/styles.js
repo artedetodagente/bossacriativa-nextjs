@@ -14,7 +14,7 @@ export const Nav = styled.nav`
     margin: 0;
   }
 
-  ul { 
+  > ul { 
     flex: 1;
     display: flex;
     justify-content: flex-end;
@@ -23,7 +23,7 @@ export const Nav = styled.nav`
     padding: 0;
     list-style: none;
 
-    li {
+    > li {
       position: relative;
       color: #000;
       margin: 0 15px;

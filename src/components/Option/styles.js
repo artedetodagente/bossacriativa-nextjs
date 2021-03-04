@@ -5,7 +5,7 @@ export const Item = styled.button`
   border: 0;
   border-radius: 150px;
   outline: none;
-  padding: 10px 30px;
+  padding: ${({ selected }) => (selected ? '10px 30px' : '10px 0px')};
   font-size: 1.1em;
   background-color: ${({ selected }) => (selected ? '#222' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#222')};
