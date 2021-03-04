@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  ultimasMostras, posts, ultimasLives, menus, slides, home, links,
+  ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -100,6 +100,19 @@ export default function Home({
             )}
           />
         </Section>
+        <Section title="Oficinas">
+          <CarouselGrid
+            source={oficinas}
+            renderItem={(item) => (
+              <CardThumb
+                excerpt={item.description}
+                title={item.name}
+                image={item.acf_data.imagemDestacada.mediaItemUrl}
+                click={() => push(`oficinas/${item.slug}`)}
+              />
+            )}
+          />
+        </Section>
         <Section title="Lives">
           <CarouselGrid
             source={ultimasLives}
@@ -110,7 +123,7 @@ export default function Home({
                 excerpt={item.excerpt}
                 title={item.title}
                 click={() => push(`lives/${item.slug}`)}
-                // h={200}
+              // h={200}
               />
             )}
           />
@@ -128,6 +141,7 @@ export async function getStaticProps() {
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
   const home = await core.pages.getHome();
+  const oficinas = await core.oficinas.getAll();
   const filterSlides = slides.nodes.filter((item) => {
     if (item.acf_chamada_slider?.bannerHomeDataEntrada === null) return false;
     const [startDay, startMonth, startYear] = item.acf_chamada_slider?.bannerHomeDataEntrada.split(' ')[0].split('/');
@@ -135,6 +149,22 @@ export async function getStaticProps() {
     return new Date().getTime() >= new Date(`${startYear}-${startMonth}-${startDay}`).getTime()
       && new Date().getTime() <= new Date(`${endYear}-${endMonth}-${endDay}`).getTime();
   });
+  const escolhidos = [];
+
+  const randOficinas = (ofc, qtd) => {
+    const chaves = [...Array(ofc.length).keys()];
+    let j;
+    const retorno = [];
+    while (ofc && chaves.length > qtd) {
+      j = Math.floor(Math.random() * (ofc.length + 1));
+      chaves.splice(j, 1);
+    }
+    chaves.forEach((indice) => {
+      retorno.push(ofc[indice]);
+      escolhidos.push(indice);
+    });
+    return retorno;
+  };
 
   return {
     props: {
@@ -145,6 +175,8 @@ export async function getStaticProps() {
       home: home.nodes || [],
       menus: menus.nodes || [],
       links: links.nodes || [],
+      oficinas: randOficinas(oficinas.nodes, 5) || [],
+      escolhidos: escolhidos || [],
     },
     revalidate: 1,
   };
