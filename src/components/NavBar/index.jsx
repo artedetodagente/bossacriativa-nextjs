@@ -1,12 +1,16 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BsCircleFill } from 'react-icons/bs';
+import { BsCircleFill, BsFillCaretDownFill } from 'react-icons/bs';
+import { FaBars } from 'react-icons/fa';
 import { Nav } from './styles';
 
+
 export default function NavBar({ menus }) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Nav>
+    <Nav open={open}>
       <div>
         <Link href="/">
           <a>
@@ -18,6 +22,9 @@ export default function NavBar({ menus }) {
             />
           </a>
         </Link>
+        <a className="hamburguer" href="#" onClick={() => setOpen(!open)}>
+          <FaBars />
+        </a>
       </div>
       <ul>
         {
@@ -45,7 +52,7 @@ export default function NavBar({ menus }) {
                     )
                   }
                 </li>
-                <li><BsCircleFill /></li>
+                <li className="circulo"><BsCircleFill /></li>
               </Fragment>
             )
           ))
@@ -54,3 +61,6 @@ export default function NavBar({ menus }) {
     </Nav>
   );
 }
+
+
+
