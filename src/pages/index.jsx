@@ -155,7 +155,7 @@ export async function getStaticProps() {
       j = Math.floor(Math.random() * (ofc.length + 1));
       ofc.splice(j, 1);
     }
-    return ofc;
+    return ofc.sort(() => Math.random() - 0.5);
   };
 
   return {
