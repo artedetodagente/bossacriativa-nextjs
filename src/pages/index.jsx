@@ -149,21 +149,13 @@ export async function getStaticProps() {
     return new Date().getTime() >= new Date(`${startYear}-${startMonth}-${startDay}`).getTime()
       && new Date().getTime() <= new Date(`${endYear}-${endMonth}-${endDay}`).getTime();
   });
-  const escolhidos = [];
-
   const randOficinas = (ofc, qtd) => {
-    const chaves = [...Array(ofc.length).keys()];
     let j;
-    const retorno = [];
-    while (ofc && chaves.length > qtd) {
+    while (ofc && ofc.length > qtd) {
       j = Math.floor(Math.random() * (ofc.length + 1));
-      chaves.splice(j, 1);
+      ofc.splice(j, 1);
     }
-    chaves.forEach((indice) => {
-      retorno.push(ofc[indice]);
-      escolhidos.push(indice);
-    });
-    return retorno;
+    return ofc;
   };
 
   return {
@@ -176,7 +168,6 @@ export async function getStaticProps() {
       menus: menus.nodes || [],
       links: links.nodes || [],
       oficinas: randOficinas(oficinas.nodes, 15) || [],
-      escolhidos: escolhidos || [],
     },
     revalidate: 1,
   };
