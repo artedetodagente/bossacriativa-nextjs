@@ -175,7 +175,7 @@ export async function getStaticProps() {
       home: home.nodes || [],
       menus: menus.nodes || [],
       links: links.nodes || [],
-      oficinas: randOficinas(oficinas.nodes, 5) || [],
+      oficinas: randOficinas(oficinas.nodes, 15) || [],
       escolhidos: escolhidos || [],
     },
     revalidate: 1,
