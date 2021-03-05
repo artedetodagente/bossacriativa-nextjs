@@ -23,6 +23,7 @@ export const Nav = styled.nav`
       background-color: #000;
       color: #fff;
       font-weight: 400;
+      margin-left: .2em;
     }
     
   }
