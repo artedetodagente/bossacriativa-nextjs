@@ -1,8 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BsCircleFill, BsFillCaretDownFill } from 'react-icons/bs';
-import { FaBars } from 'react-icons/fa';
+import { BsCircleFill } from 'react-icons/bs';
 import { Nav } from './styles';
 
 
@@ -23,7 +22,8 @@ export default function NavBar({ menus }) {
           </a>
         </Link>
         <a className="hamburguer" href="#" onClick={() => setOpen(!open)}>
-          <FaBars />
+          Menu
+          <span className="hamburgerSymbol">&#9776;</span>
         </a>
       </div>
       <ul>

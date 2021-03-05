@@ -18,6 +18,12 @@ export const Nav = styled.nav`
     position: absolute;
     right: 0;
     padding: .35em .5em;
+
+    span{
+      background-color: #000;
+      color: #fff;
+      font-weight: 400;
+    }
     
   }
 
