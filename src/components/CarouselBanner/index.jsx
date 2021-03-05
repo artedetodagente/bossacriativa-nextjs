@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -41,6 +42,7 @@ export default function CarouselBanner({
     const dotsList = [];
     for (let x = 0; x <= settings.slides.length - 1; x++) {
       dotsList.push(
+        // eslint-disable-next-line jsx-a11y/control-has-associated-label
         <button
           type="button"
           onClick={() => {
