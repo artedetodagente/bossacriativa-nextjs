@@ -65,10 +65,8 @@ export default function Calendar({ getDate, getCurrent, mark }) {
         <ul>
           {
             [...Array(
-              week.findIndex(
-                (item) => new Date(`${year}-${month + 1}-1`)
-                  .toLocaleString('pt-BR', { weekday: 'short' }) === `${item.toLowerCase()}.`,
-              ) || 0,
+              week.findIndex((item) => new Date(`${year}-${month + 1}-1`)
+                .toLocaleString('pt-BR', { weekday: 'short' }) === `${item.toLowerCase()}.`),
             ).keys(),
             ].map((item, index) => <li key={index} />)
           }
