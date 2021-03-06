@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  margin: 50px 0;
+  margin: 0;
 
   header {
     display: inline-block;
@@ -35,6 +35,10 @@ export const Container = styled.section`
       position: absolute;
       bottom: 0px;
     }
+  }
+
+  @media ${({ theme }) => theme.devices.laptop} {
+    margin: 50px 0;
   }
 
 `;
