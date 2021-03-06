@@ -22,7 +22,7 @@ export default function Calendar({ getDate, getCurrent, mark }) {
       setMonth(11);
       setYear(year - 1);
       getCurrent({ month: 12, year: year - 1 });
-    } else if (value + month >= months.length) {
+    } else if (value + month >= 12) {
       setMonth(0);
       setYear(year + 1);
       getCurrent({ month: 1, year: year + 1 });
