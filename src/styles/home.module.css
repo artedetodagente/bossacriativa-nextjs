@@ -4,28 +4,66 @@
 
 .description {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-areas: 
-    "text text text text text text action action image image"
+    "text text" "action action"
   ;
   background-color: #E7C032;
   width: 100%;
-  height: calc(240px - 20px);
-  padding: 10px 3%;
-  grid-gap: 30px;
+  /* height: calc(240px - 20px);*/
+  padding: 10px 3% 2em 3%;
+  grid-gap: 5px;
+
 }
 
+.description div{
+  text-align: center;
+}
+
+
 .description div:first-of-type {
-  grid-area: text;
   display: flex;
   align-items: center;
+  grid-column: 1 / 2 span;
+  text-align: justify;
+  text-align-last: right;
 }
 
 .description div:first-of-type p {
-  font-size: 1.1em;
-  line-height: 1.7em;
+  font-size: 1.2em;
+  /* line-height: 1.7em; */
 }
 
+.description button {
+  width: 90%;
+  padding: 10px 15px;
+  font-size: 1.1em;
+  border: 0;
+  border-radius: 5px;
+  text-transform: uppercase;
+  color: #fff;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+
+}
+
+.botaovideo button{
+  background-color: #231f20;
+}
+
+.botaovideo svg {
+  margin-right: 10px;
+}
+
+.botaomais button {
+  background-color: #3bb54a;
+}
+
+/*
 .description div:last-of-type {
   display: flex;
   flex-direction: column;
@@ -56,11 +94,62 @@
 
 .description div:last-of-type button > svg {
   margin-right: 10px;
-}
+} */
 
 .description figure {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  grid-area: image;
+  display: none;
+}
+
+
+@media only screen and (min-width: 1024px){
+  .description {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-areas: 
+      "text text text text text text action action image image"
+      "text text text text text text action action image image"
+    ;
+    background-color: #E7C032;
+    width: 100%;
+    height: calc(240px - 20px);
+    padding: 10px 3%;
+    grid-gap: 1em;
+  
+  }
+
+  .description div:first-of-type {
+    display: flex;
+    align-items: center;
+    grid-column: 1 / 6 span;
+    grid-row: 1 / 2 span;
+    text-align: justify;
+    text-align-last: right;
+  }
+
+  .botaovideo{
+    grid-column: 7 / 2 span;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .botaomais {
+    grid-column: 7 / 2 span;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .description figure {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    grid-area: image;
+    grid-row: 1 / 2 span;
+    grid-column: 9 / 2 span;
+  }
 }

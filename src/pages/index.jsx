@@ -35,7 +35,7 @@ export default function Home({
       />
       <CarouselBanner source={slides} />
       <div className={styles.description}>
-        <div>
+        <div area="text">
           <p>
             No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da
             humanidade. São mais de 180 artistas e educadores, de várias regiões do país, em
@@ -44,7 +44,7 @@ export default function Home({
             estão no ar, com foco na diversidade e democratização da cultura.
           </p>
         </div>
-        <div>
+        <div area="action" className={styles.botaovideo}>
           <button
             type="button"
             onClick={() => selectVideo(home[0].acf_data_home.info.videoUrl)}
@@ -52,6 +52,8 @@ export default function Home({
             <FaPlay />
             Vídeo Clipe
           </button>
+        </div>
+        <div area="action" className={styles.botaomais} >
           <button
             type="button"
             onClick={() => selectVideo(home[0].acf_data_home.info.saibaMais)}
