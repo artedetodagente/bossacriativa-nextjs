@@ -87,10 +87,10 @@ export default function Home({
         <Section title="Notícias">
           <FlatList
             source={posts}
-            cols={3}
-            colsl={3}
-            colsxss={1}
+            colsxss={2}
             colsmd={2}
+            cols={3}
+            colsl={4}
             colsxl={8}
             renderItem={(item) => (
               <CardFigure
