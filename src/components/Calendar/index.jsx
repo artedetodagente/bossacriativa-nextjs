@@ -64,11 +64,11 @@ export default function Calendar({ getDate, getCurrent, mark }) {
         </div>
         <ul>
           {
-            [...Array(
-              week.findIndex((item) => new Date(`${year}-${month + 1}-1`)
-                .toLocaleString('pt-BR', { weekday: 'short' }) === `${item.toLowerCase()}.`),
-            ).keys(),
-            ].map((item, index) => <li key={index} />)
+            () => {
+              const spaces = week.findIndex((item) => new Date(`${year}-${month + 1}-1`)
+                .toLocaleString('pt-BR', { weekday: 'short' }) === `${item.toLowerCase()}.`);
+              return [...Array(spaces).keys()].map((item, index) => <li key={index} />);
+            }
           }
           {
             [...Array(month !== 1 ? 30 : 28).keys()]
