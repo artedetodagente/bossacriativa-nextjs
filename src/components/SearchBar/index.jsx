@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiSearch, BiCaretDown } from 'react-icons/bi';
@@ -8,6 +9,7 @@ export default function SearchBar({
 }) {
   const [filter, setFilter] = useState({ search: '' });
   const [openCombo, setOpenCombo] = useState(false);
+  const [selectedCombo, setSelectedCombo] = useState(0);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -20,7 +22,7 @@ export default function SearchBar({
   }
 
   return (
-    <Search openCombo={openCombo}>
+    <Search props={{ openCombo, selectedCombo }}>
       <div>
         <BtnSearch type="button" onClick={(e) => handleSubmit(e)}>
           <BiSearch />
@@ -36,7 +38,7 @@ export default function SearchBar({
       <div onClick={() => setOpenCombo(!openCombo)} role="presentation">
         <ul>
           {
-            filters.map((item, index) => <li key={index}>{renderFilter(item)}</li>)
+            filters.map((item, index) => <li role="presentation" onClick={() => setSelectedCombo(index)} key={index}>{renderFilter(item)}</li>)
           }
         </ul>
         <BtnCombo type="button" onClick={() => setOpenCombo(!openCombo)}>

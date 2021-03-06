@@ -27,22 +27,32 @@ export const Search = styled.div`
   }
 
   ul {
-      display: flex;
-      list-style: none;
-      flex-direction: column;
-      margin: 0;
-      width: 100%;
-      padding: 0;
-      height: 3em;
-      overflow: visible;
-      z-index: 998;
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    height: 3em;
+    overflow: visible;
+    z-index: 998;
     
     li {
-        :not(:first-of-type){
-        visibility: ${({ openCombo }) => (openCombo ? 'visible' : 'hidden')};
-      }
-      
+      visibility: hidden;
+      height: 0;
     }
+    
+    li:nth-of-type(${({ props }) => props.selectedCombo + 1}){
+      visibility: visible;
+      height: auto;
+    }
+
+    li:not(:nth-of-type(${({ props }) => props.selectedCombo + 1})){
+      visibility: ${({ props }) => (props.openCombo ? 'visible' : 'hidden')};
+      height: ${({ props }) => (props.openCombo ? 'auto' : '0')};
+    }
+
+    
   }
 
   @media ${({ theme }) => theme.devices.laptop} {
@@ -78,14 +88,18 @@ export const Search = styled.div`
       li{
         scroll-snap-align: start;
         margin-right: 15px;
+        visibility: visible;
+        height: auto;
 
         :last-of-type {
           margin-right: 0;
         }
 
-        :not(:first-of-type){
-          visibility: visible;
-        }
+      }
+
+      li:not(:nth-of-type(${({ props }) => props.selectedCombo + 1})){
+        visibility: visible;
+        height: auto;
       }
     }
   }
