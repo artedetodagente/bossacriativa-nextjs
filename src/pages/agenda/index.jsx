@@ -65,7 +65,7 @@ export default function Agenda({
         <FilterBar>
           <ButtonsNavigations />
           <div className={styles.calendar}>
-            <ButtonCalendar mark={dates} getDate={(value) => setDate(value)} />
+            <ButtonCalendar mark={dates || []} getDate={(value) => setDate(value)} />
           </div>
           <div className={styles.search}>
             <SearchBar submit={(filter) => find(filter)} />
