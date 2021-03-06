@@ -6,7 +6,7 @@ export const Bar = styled.ul`
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 5px 0;
+  padding: 2.5vw 0;
   height: 30px;
   width: 100%;
   background-color: rgb(0, 0, 0);
@@ -33,10 +33,13 @@ export const Bar = styled.ul`
     display: none;
   }
 
+  @media ${({ theme }) => theme.devices.mobileL} {
+    padding: 5px 0;
+  }
+
   @media ${({ theme }) => theme.devices.tablet} {
     justify-content: flex-end;
     padding: 5px 4em;
-    
     li {
       font-size: 1em;
     }
