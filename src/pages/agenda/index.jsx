@@ -22,7 +22,7 @@ export default function Agenda({
   const [date, setDate] = useState('');
 
   useEffect(() => {
-    const mark = list.map((item) => item.acf_data_evento.dataDoEvento
+    const mark = list.map((item) => item.acf_data_evento && item.acf_data_evento.dataDoEvento
       .split(' ')[0]
       .split('/'));
     setDates([...dates, ...mark.map((item) => `${item[2]}-${item[1]}-${item[0]}`)]);
