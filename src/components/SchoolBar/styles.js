@@ -42,9 +42,4 @@ export const Bar = styled.ul`
     }
 
   }
-
-  @media ${({ theme }) => theme.devices.laptop} {
-    
-  }
-
 `;
