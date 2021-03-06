@@ -72,12 +72,12 @@ export default function Calendar({ getDate, getCurrent, mark }) {
                   ).toLocaleString('pt-BR', { weekday: 'short' }) === `${item.toLowerCase()}.`,
                 ),
               ).keys(),
-            ].map(() => <li />)
+            ].map((item, index) => <li key={index} />)
           }
           {
             [...Array(month !== 1 ? 30 : 28).keys()]
-              .map((item) => (
-                <li>
+              .map((item, index) => (
+                <li key={index}>
                   <Day
                     selected={new Date(date).getTime() === new Date(`${year}-${month + 1}-${item + 1}`).getTime()}
                     mark={
