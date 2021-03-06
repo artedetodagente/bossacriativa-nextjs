@@ -63,7 +63,7 @@ export default function Calendar({ getDate, getCurrent, mark }) {
           }
         </div>
         <ul>
-          {
+          {/* {
             [
               ...Array(
                 week.findIndex(
@@ -73,8 +73,8 @@ export default function Calendar({ getDate, getCurrent, mark }) {
                 ),
               ).keys(),
             ].map((item, index) => <li key={index} />)
-          }
-          {/* {
+          } */}
+          {
             [...Array(month !== 1 ? 30 : 28).keys()]
               .map((item, index) => (
                 <li key={index}>
@@ -91,7 +91,7 @@ export default function Calendar({ getDate, getCurrent, mark }) {
                   </Day>
                 </li>
               ))
-          } */}
+          }
           {
             month === 1 && (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) && (
               <li>
