@@ -100,6 +100,9 @@
   display: none;
 }
 
+.noticias main article:nth-of-type(n+3){
+  display: none;
+}
 
 @media only screen and (min-width: 1024px){
   .description {
@@ -152,4 +155,9 @@
     grid-row: 1 / 2 span;
     grid-column: 9 / 2 span;
   }
+
+  .noticias main article:nth-of-type(n+3){
+    display: block;
+  }
+  
 }

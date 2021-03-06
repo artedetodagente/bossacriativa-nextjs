@@ -86,9 +86,10 @@ export default function Home({
         </Section>
         <Section title="Notícias">
           <FlatList
+            className={styles.noticias}
             source={posts}
-            colsxss={2}
-            colsmd={2}
+            colsxss={1}
+            colsmd={1}
             cols={3}
             colsl={4}
             colsxl={8}
