@@ -7,6 +7,7 @@ export default function Calendar({ getDate, getCurrent, mark }) {
   const [date, setDate] = useState('');
   const [month, setMonth] = useState(now.getMonth());
   const [year, setYear] = useState(now.getFullYear());
+  const [space, setSpace] = useState(0);
   const week = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
   const months = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -16,6 +17,11 @@ export default function Calendar({ getDate, getCurrent, mark }) {
   useEffect(() => {
     if (date !== '') getDate(date);
   }, [date]);
+
+  useEffect(() => {
+    setSpace(week.findIndex((item) => new Date(`${year}-${month + 1}-1`)
+      .toLocaleString('pt-BR', { weekday: 'short' }) === `${item.toLowerCase()}.`));
+  }, [year, month]);
 
   function navigateMonth(value) {
     if (value + month < 0) {
@@ -57,18 +63,14 @@ export default function Calendar({ getDate, getCurrent, mark }) {
       <div>
         <div>
           {
-            week.map((item) => (
-              <p>{item}</p>
+            week.map((item, index) => (
+              <p key={index}>{item}</p>
             ))
           }
         </div>
         <ul>
           {
-            () => {
-              const spaces = week.findIndex((item) => new Date(`${year}-${month + 1}-1`)
-                .toLocaleString('pt-BR', { weekday: 'short' }) === `${item.toLowerCase()}.`);
-              return [...Array(spaces).keys()].map((item, index) => <li key={index} />);
-            }
+            [...Array(space).keys()].map((item, index) => <li key={index} />)
           }
           {
             [...Array(month !== 1 ? 30 : 28).keys()]
