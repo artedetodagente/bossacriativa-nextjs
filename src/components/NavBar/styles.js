@@ -58,6 +58,10 @@ export const Nav = styled.nav`
       > ul {
         font-size: .6em;
         list-style: none;
+        a {
+          font-family: 'Barlow Condensed Light';
+        }
+        
       } 
     }
   }
