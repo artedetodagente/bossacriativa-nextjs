@@ -8,22 +8,21 @@ export default function Calendar({ getDate, getCurrent, mark }) {
   const [month, setMonth] = useState(now.getMonth());
   const [year, setYear] = useState(now.getFullYear());
   const week = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-  const [months] = useState([
+  const months = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
-  ]);
+  ];
 
   useEffect(() => {
     if (date !== '') getDate(date);
   }, [date]);
 
   function navigateMonth(value) {
-    const quantMonth = months.length || 0;
     if (value + month < 0) {
       setMonth(11);
       setYear(year - 1);
       getCurrent({ month: 12, year: year - 1 });
-    } else if (value + month >= quantMonth) {
+    } else if (value + month >= months.length) {
       setMonth(0);
       setYear(year + 1);
       getCurrent({ month: 1, year: year + 1 });
