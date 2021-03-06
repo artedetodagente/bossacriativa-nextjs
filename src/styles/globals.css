@@ -79,3 +79,8 @@ a {
   width: 100%;
   height: 100%;
 }
+
+/* para lidar com imagens vindas do wp com tamanho grande */
+img{
+  max-width: 100%;
+}
