@@ -8,17 +8,17 @@ export default function Calendar({ getDate, getCurrent, mark }) {
   const [month, setMonth] = useState(now.getMonth());
   const [year, setYear] = useState(now.getFullYear());
   const week = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-  const months = [
+  const [months] = useState([
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
-  ];
+  ]);
 
   useEffect(() => {
     if (date !== '') getDate(date);
   }, [date]);
 
   function navigateMonth(value) {
-    const quantMonth = months?.length;
+    const quantMonth = months.length || 0;
     if (value + month < 0) {
       setMonth(11);
       setYear(year - 1);
@@ -140,7 +140,7 @@ Calendar.propType = {
 };
 
 Calendar.defaultProps = {
-  getDate: (date) => null,
-  getCurrent: (current) => null,
+  getDate: null,
+  getCurrent: null,
   mark: [],
 };
