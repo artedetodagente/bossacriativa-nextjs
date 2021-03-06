@@ -2,49 +2,126 @@ import styled from 'styled-components';
 
 export const Nav = styled.nav`
   display: flex;
+  right: 0px;
+  background-color: #fff;
+  position: relative;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff;
-  height: calc(110px - 10px);
-  padding: 5px 40px;
   overflow: none;
+  height: calc(110px - 10px);
+  padding: 0 40px;
 
-  div {
-    flex: .15;
-    margin: 0;
+  .hamburguer{
+    display: inline-block;
+    font-size: 3em;
+    position: absolute;
+    right: 0;
+    padding: .35em .5em;
+
+    span{
+      background-color: #000;
+      color: #fff;
+      font-weight: 400;
+      margin-left: .2em;
+    }
+    
   }
 
-  > ul { 
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 0;
-    padding: 0;
+  > div {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  > ul {
+    transition: transform 0.3s ease-in-out;
+    transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: right;
+    max-height: 80vh;
+    text-align: right;
+    padding-right: 2rem;
+    position: absolute;
+    top: calc(100%);
+    margin-top: 0;
+    right: 0;
     list-style: none;
+    font-size: 2em;
+    overflow-y: scroll;
 
+
+    > li.circulo {
+      display: none;
+    }
     > li {
-      position: relative;
-      color: #000;
-      margin: 0 15px;
-
-      :hover {
-        ul {
-          display: grid;
+      > ul {
+        font-size: .6em;
+        list-style: none;
+        a {
+          font-family: 'Barlow Condensed Light';
         }
+        
+      } 
+    }
+  }
+  
+  @media ${({ theme }) => theme.devices.laptop} {
+    .hamburguer{
+      display: none;
+    }
+
+    div {
+      flex: .15;
+      margin: 0;
+    }
+
+    > ul {
+      text-align: left;
+      position: relative;
+      flex: 1;
+      font-size: 1em;
+      display: flex;
+      transform: none;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      overflow: visible;   
+      top: auto;  
+
+      > li.circulo {
+        display: inline;
+        position: relative;
+        font-size: .5em;
+        bottom: 1px;
       }
 
-      :nth-of-type(odd) {
-        margin: 0;
-      }
+      > li {
+        position: relative;
+        color: #000;
+        margin: 0 15px;
 
-      :last-of-type {
-        margin-right: 0;
-        display: none;
-      }
+        :hover {
+          ul {
+            display: grid;
+          }
+        }
+
+        :nth-of-type(odd) {
+          margin: 0;
+        }
+
+        :last-of-type {
+          margin-right: 0;
+          display: none;
+        }
 
       ul {
         position: absolute;
+        flex-direction: column;
+        justify-content: left;
         width: calc(250px - 30px);
         left: calc(50% - 220px/2);
         padding: 15px;
@@ -52,10 +129,14 @@ export const Nav = styled.nav`
         z-index: 1000;
         background-color: rgb(230, 230, 230);
         display: none;
+        list-style: circle;
+        font-size: 1em;
 
         li {
           display: flex;
           margin: 0;
+          
+        
 
           a {
             flex: 1;
@@ -74,16 +155,11 @@ export const Nav = styled.nav`
           }
         }
       }
-
-      a {
-        font-size: 1.5em;
-      }
-
-      svg {
-        position: relative;
-        bottom: 1px;
-        font-size: .5em;
-      }
+      a { font-size: 1.5em;}
     }
+      
   }
+    
+  }  
+  
 `;

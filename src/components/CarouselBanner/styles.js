@@ -73,14 +73,14 @@ export const Item = styled.li`
   .text-container{
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 100%;
     margin-bottom: 50px;
+    padding: 0 20px;
   }
 
   h1 {
-    font-size: 1.2em;
+    font-size: 3em;
     color: #fff;
-    padding: 10px 5px 10px 50px;
     margin: 0;
     width: calc(100% - 10px);
     width: 100%;
@@ -90,19 +90,30 @@ export const Item = styled.li`
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     z-index: 995;
+    padding-bottom: 1.5em;
+    font-family: ${({ theme }) => theme.fonts.subtitle};
+    font-weight: 500;
   }
 
   p {
     color: #fff;
-    height: 100%;
     width: 100%;
     margin: 0;
     transition: opacity .3s linear;
-    height: calc(100% - 20px);
-    padding: 10px 5px 10px 50px;
     z-index: 998;
-    //opacity: ${(style) => (style ? '1' : '0')};
+    font-size: 1.5em;
+    height: 2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
+  @media ${({ theme }) => theme.devices.laptop} {
+    .text-container{
+      display: flex;
+      flex-direction: column;
+      width: 40%;
+    }
+  }
 
 `;

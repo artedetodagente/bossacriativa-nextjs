@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BiSearch } from 'react-icons/bi';
-import { Search } from './styles';
+import { Search, BtnSearch } from './styles';
 
 export default function SearchBar({ submit }) {
   const [filter, setFilter] = useState({ search: '' });
@@ -19,9 +20,9 @@ export default function SearchBar({ submit }) {
   return (
     <Search>
       <div>
-        <button type="button" onClick={(e) => handleSubmit(e)}>
+        <BtnSearch type="button" onClick={(e) => handleSubmit(e)}>
           <BiSearch />
-        </button>
+        </BtnSearch>
         <input
           name="search"
           type="text"

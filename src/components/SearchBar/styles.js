@@ -4,10 +4,13 @@ export const Search = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+  flex-direction: column;
+
   > div {
     display: flex;
     padding-right: 5%;
+    width: 100%;
+    margin: .3em 0;
 
     button {
       border: 0;
@@ -27,6 +30,7 @@ export const Search = styled.div`
     }
     
     input {
+      width: 100%;
       height: 35px;
       font-size: 1.1em;
       padding: 0 5px;
@@ -40,4 +44,31 @@ export const Search = styled.div`
       }
     }
   }
+
+  @media ${({ theme }) => theme.devices.laptop} {
+    flex-direction: row;
+
+    > div {
+      width: auto;
+      padding-right: 5%;
+      input{
+        width: auto;
+      }
+    }
+  }
+`;
+
+export const BtnSearch = styled.button`
+  border: 0;
+  outline: none;
+  height: 35px;
+  width: 35px;
+  font-size: 1.1em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: ${({ theme }) => theme.colors.default.btnsearch};
+  cursor: pointer;
 `;

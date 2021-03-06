@@ -15,7 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 
 export default function Home({
-  ultimasMostras, posts, ultimasLives, menus, slides, home, links,
+  ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -35,7 +35,7 @@ export default function Home({
       />
       <CarouselBanner source={slides} />
       <div className={styles.description}>
-        <div>
+        <div area="text">
           <p>
             No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da
             humanidade. São mais de 180 artistas e educadores, de várias regiões do país, em
@@ -44,7 +44,7 @@ export default function Home({
             estão no ar, com foco na diversidade e democratização da cultura.
           </p>
         </div>
-        <div>
+        <div area="action" className={styles.botaovideo}>
           <button
             type="button"
             onClick={() => selectVideo(home[0].acf_data_home.info.videoUrl)}
@@ -52,6 +52,8 @@ export default function Home({
             <FaPlay />
             Vídeo Clipe
           </button>
+        </div>
+        <div area="action" className={styles.botaomais} >
           <button
             type="button"
             onClick={() => selectVideo(home[0].acf_data_home.info.saibaMais)}
@@ -84,11 +86,12 @@ export default function Home({
         </Section>
         <Section title="Notícias">
           <FlatList
+            className={styles.noticias}
             source={posts}
-            cols={3}
-            colsl={3}
             colsxss={1}
-            colsmd={2}
+            colsmd={1}
+            cols={3}
+            colsl={4}
             colsxl={8}
             renderItem={(item) => (
               <CardFigure
@@ -96,6 +99,19 @@ export default function Home({
                 excerpt={item.acf_chamada_post?.chamadaHome}
                 image={item.featuredImage?.node?.mediaItemUrl}
                 click={() => push(`noticias/${item.slug}`)}
+              />
+            )}
+          />
+        </Section>
+        <Section title="Oficinas">
+          <CarouselGrid
+            source={oficinas}
+            renderItem={(item) => (
+              <CardThumb
+                excerpt={item.description}
+                title={item.name}
+                image={item.acf_data.imagemDestacada.mediaItemUrl}
+                click={() => push(`oficinas/${item.slug}`)}
               />
             )}
           />
@@ -110,7 +126,7 @@ export default function Home({
                 excerpt={item.excerpt}
                 title={item.title}
                 click={() => push(`lives/${item.slug}`)}
-                // h={200}
+              // h={200}
               />
             )}
           />
@@ -128,6 +144,7 @@ export async function getStaticProps() {
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
   const home = await core.pages.getHome();
+  const oficinas = await core.oficinas.getAll();
   const filterSlides = slides.nodes.filter((item) => {
     if (item.acf_chamada_slider?.bannerHomeDataEntrada === null) return false;
     const [startDay, startMonth, startYear] = item.acf_chamada_slider?.bannerHomeDataEntrada.split(' ')[0].split('/');
@@ -135,6 +152,14 @@ export async function getStaticProps() {
     return new Date().getTime() >= new Date(`${startYear}-${startMonth}-${startDay}`).getTime()
       && new Date().getTime() <= new Date(`${endYear}-${endMonth}-${endDay}`).getTime();
   });
+  const randOficinas = (ofc, qtd) => {
+    let j;
+    while (ofc && ofc.length > qtd) {
+      j = Math.floor(Math.random() * (ofc.length + 1));
+      ofc.splice(j, 1);
+    }
+    return ofc.sort(() => Math.random() - 0.5);
+  };
 
   return {
     props: {
@@ -145,6 +170,7 @@ export async function getStaticProps() {
       home: home.nodes || [],
       menus: menus.nodes || [],
       links: links.nodes || [],
+      oficinas: randOficinas(oficinas.nodes, 15) || [],
     },
     revalidate: 1,
   };
