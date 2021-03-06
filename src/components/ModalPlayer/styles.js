@@ -14,7 +14,8 @@ export const Modal = styled.div`
   justify-content: center;
   align-self: center;
   flex-direction: column;
-  padding: 0 15%;
+  padding: 0;
+  
 
   header {
     display: flex;
@@ -53,5 +54,8 @@ export const Modal = styled.div`
     div {
       flex: 1;
     }
+  }
+  @media ${({ theme }) => theme.devices.tablet} {
+    padding: 0 15%;
   }
 `;
