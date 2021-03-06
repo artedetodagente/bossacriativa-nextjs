@@ -83,4 +83,5 @@ a {
 /* para lidar com imagens vindas do wp com tamanho grande */
 img{
   max-width: 100%;
+  height: auto;
 }
