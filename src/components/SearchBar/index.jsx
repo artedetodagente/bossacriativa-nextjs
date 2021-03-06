@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { BiSearch } from 'react-icons/bi';
 import { Search } from './styles';
 
-export default function SearchBar({
-  filters, renderFilter, submit,
-}) {
+export default function SearchBar({ submit }) {
   const [filter, setFilter] = useState({ search: '' });
 
   function handleChange(e) {
@@ -32,23 +30,14 @@ export default function SearchBar({
           onChange={(e) => handleChange(e)}
         />
       </div>
-      <ul>
-        {
-          filters.map((item, index) => <li key={index}>{renderFilter(item)}</li>)
-        }
-      </ul>
     </Search>
   );
 }
 
 SearchBar.propTypes = {
-  filters: PropTypes.arrayOf(PropTypes.shape()),
-  renderFilter: PropTypes.func,
   submit: PropTypes.func,
 };
 
 SearchBar.defaultProps = {
-  filters: [],
-  renderFilter: null,
   submit: null,
 };

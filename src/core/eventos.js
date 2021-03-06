@@ -1,10 +1,10 @@
 import { fetchAPI } from '@/services/api';
 
-export async function getAll(quant) {
+export async function getAll(quant, search) {
   const data = await fetchAPI(
     `
-      query MyQuery ($quant: Int) {
-        eventos (first: $quant){
+      query MyQuery ($quant: Int, $search: String) {
+        eventos (first: $quant, where: {search: $search}){
           nodes {
             title
             id
@@ -26,6 +26,7 @@ export async function getAll(quant) {
     {
       variables: {
         quant: quant || 999,
+        search: search || '',
       },
     },
   );

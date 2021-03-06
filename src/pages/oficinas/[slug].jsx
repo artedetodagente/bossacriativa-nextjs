@@ -7,7 +7,7 @@ import YouEmbed from '@/components/YouEmbed';
 import FlatList from '@/components/FlatList';
 import styles from '@/styles/oficinas-slug.module.css';
 import CardThumb from '@/components/CardThumb';
-import Option from '@/components/Option';
+import Option from '@/components/Filter';
 import Page from '@/components/Page';
 import Expansibled from '@/components/Expansibled';
 import ItemHeaderList from '@/components/ItemHeaderList';

@@ -6,16 +6,16 @@ export const Search = styled.div`
   align-items: center;
   
   > div {
-    /* flex: .7; */
     display: flex;
-    /* width: 100%; */
     padding-right: 5%;
 
     button {
       border: 0;
+      border-top-left-radius: 100%;
+      border-bottom-left-radius: 100%;
       outline: none;
       height: 35px;
-      width: 35px;
+      width: 43px;
       font-size: 1.1em;
       margin: 0;
       display: flex;
@@ -32,40 +32,11 @@ export const Search = styled.div`
       padding: 0 5px;
       border: 0;
       outline: none;
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
 
       ::placeholder {
         color: rgb(209, 205, 205);
-      }
-    }
-  }
-
-  ul {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    overflow-x: auto;
-    overflow-y: none;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
-    
-    li {
-      scroll-snap-align: start;
-      margin-right: 15px;
-
-      :last-of-type {
-        margin-right: 0;
       }
     }
   }

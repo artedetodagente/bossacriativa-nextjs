@@ -1,0 +1,8 @@
+.calendar {
+  flex: 1.9;
+  margin-left: 10px;
+}
+
+.search {
+  flex: 1;
+}

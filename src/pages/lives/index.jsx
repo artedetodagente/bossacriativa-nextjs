@@ -8,8 +8,10 @@ import core from '@/core';
 import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
 import SearchBar from '@/components/SearchBar';
-import Option from '@/components/Option';
+import Filter from '@/components/Filter';
 import styles from '@/styles/lives.module.css';
+import FilterBar from '@/components/FilterBar';
+import FilterList from '@/components/FilterList';
 
 export default function Lives({
   lives, menus, categories, links,
@@ -38,18 +40,20 @@ export default function Lives({
       <Breadcrumb />
       <Info title="Lives" />
       <Fluid>
-        <SearchBar
-          filters={listCategories}
-          submit={(filter) => find(filter)}
-          renderFilter={(item) => (
-            <Option
-              id={item.slug}
-              name={item.name}
-              selected={category === item.slug}
-              click={changeCategory}
-            />
-          )}
-        />
+        <FilterBar>
+          <SearchBar submit={(filter) => find(filter)} />
+          <FilterList
+            source={listCategories}
+            renderItem={(item) => (
+              <Filter
+                id={item.slug}
+                name={item.name}
+                selected={category === item.slug}
+                click={changeCategory}
+              />
+            )}
+          />
+        </FilterBar>
         <FlatList
           source={
             category !== 'todas' ? list.filter(

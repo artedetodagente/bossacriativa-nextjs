@@ -6,10 +6,12 @@ import CardImage from '@/components/CardImage';
 import Breadcrumb from '@/components/Breadcrumb';
 import { useRouter } from 'next/router';
 import SearchBar from '@/components/SearchBar';
-import Option from '@/components/Option';
+import Filter from '@/components/Filter';
 import core from '@/core';
 import styles from '@/styles/oficinas.module.css';
 import Page from '@/components/Page';
+import FilterBar from '@/components/FilterBar';
+import FilterList from '@/components/FilterList';
 
 export default function Workshops({
   workshops, categories, menus, links,
@@ -43,18 +45,20 @@ export default function Workshops({
         conteúdo já estão no ar, com foco na diversidade e democratização da cultura."
       />
       <Fluid>
-        <SearchBar
-          filters={listCategories}
-          submit={(filter) => find(filter)}
-          renderFilter={(item) => (
-            <Option
-              id={item.slug}
-              name={item.name}
-              selected={category === item.slug}
-              click={changeCategory}
-            />
-          )}
-        />
+        <FilterBar>
+          <SearchBar submit={(filter) => find(filter)} />
+          <FilterList
+            source={listCategories}
+            renderItem={(item) => (
+              <Filter
+                id={item.slug}
+                name={item.name}
+                selected={category === item.slug}
+                click={changeCategory}
+              />
+            )}
+          />
+        </FilterBar>
         <FlatList
           source={
             category !== 'todas' ? list.filter(

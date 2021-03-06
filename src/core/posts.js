@@ -4,7 +4,7 @@ export async function getAll(quant, search) {
   const data = await fetchAPI(
     `
       query MyQuery ($quant: Int, $search: String) {
-        posts(last: $quant, where: { search: $search }) {
+        posts(last: $quant,  where: { search: $search, orderby: {field: DATE, order: DESC }}) {
           nodes {
             id
             slug

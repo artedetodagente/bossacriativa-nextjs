@@ -8,8 +8,10 @@ import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
 import ModalPlayer from '@/components/ModalPlayer';
 import SearchBar from '@/components/SearchBar';
-import Option from '@/components/Option';
+import Filter from '@/components/Filter';
 import styles from '@/styles/lives.module.css';
+import FilterBar from '@/components/FilterBar';
+import FilterList from '@/components/FilterList';
 
 export default function Realities({
   mostras, menus, categories, links,
@@ -54,18 +56,20 @@ export default function Realities({
         conteúdo já estão no ar, com foco na diversidade e democratização da cultura."
       />
       <Fluid>
-        <SearchBar
-          filters={listCategories}
-          submit={(filter) => find(filter)}
-          renderFilter={(item) => (
-            <Option
-              id={item.slug}
-              name={item.name}
-              selected={category === item.slug}
-              click={changeCategory}
-            />
-          )}
-        />
+        <FilterBar>
+          <SearchBar submit={(filter) => find(filter)} />
+          <FilterList
+            source={listCategories}
+            renderItem={(item) => (
+              <Filter
+                id={item.slug}
+                name={item.name}
+                selected={category === item.slug}
+                click={changeCategory}
+              />
+            )}
+          />
+        </FilterBar>
         <FlatList
           source={
             category !== 'todas' ? list.filter(
