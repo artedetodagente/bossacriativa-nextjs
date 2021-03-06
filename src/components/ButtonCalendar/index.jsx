@@ -18,13 +18,13 @@ export default function ButtonCalendar({ mark, getDate }) {
       >
         {`${months[date.getMonth()]} - ${date.getFullYear()}`}
       </Button>
-      {/* <Modal isOpen={enable}>
+      <Modal isOpen={enable}>
         <Calendar
           getDate={(value) => getDate(value)}
           getCurrent={(data) => setDate(new Date(`${data.year}-${data.month + 1}-1`))}
           mark={mark}
         />
-      </Modal> */}
+      </Modal>
     </Block>
   );
 }
