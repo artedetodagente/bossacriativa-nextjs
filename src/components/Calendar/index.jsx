@@ -18,7 +18,7 @@ export default function Calendar({ getDate, getCurrent, mark }) {
   }, [date]);
 
   function navigateMonth(value) {
-    const quantMonth = months.length || 0;
+    const quantMonth = months?.length;
     if (value + month < 0) {
       setMonth(11);
       setYear(year - 1);
