@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Calendar from '../Calendar';
 import { Block, Button, Modal } from './styles';
 
-export default function ButtonCalendar({ mark, getDate }) {
+export default function ButtonCalendar({
+  mark, getDate, getMonth, changeMonth, changeYear, getYear,
+}) {
   const [enable, setEnable] = useState(false);
   const [date, setDate] = useState(new Date());
   const months = [
@@ -21,8 +23,12 @@ export default function ButtonCalendar({ mark, getDate }) {
       <Modal isOpen={enable}>
         <Calendar
           getDate={(value) => getDate(value)}
+          getMonth={getMonth}
+          getYear={getYear}
           getCurrent={(data) => setDate(new Date(`${data.year}-${data.month + 1}-1`))}
           mark={mark}
+          changeYear={changeYear}
+          changeMonth={changeMonth}
         />
       </Modal>
     </Block>
