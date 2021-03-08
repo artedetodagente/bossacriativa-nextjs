@@ -17,6 +17,14 @@ export const List = styled.ul`
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 
+  @media ${({ theme }) => theme.devices.mobile} {
+    display: none;
+  }
+
+  @media ${({ theme }) => theme.devices.laptop} {
+    display: flex;
+  }
+
   ::-webkit-scrollbar {
     display: none;
   }
@@ -28,5 +36,15 @@ export const List = styled.ul`
     :last-of-type {
       margin-right: 0;
     }
+  }
+`;
+
+export const Select = styled.select`
+  width: 100%;
+  flex: 1;
+  font-size: 1.3em;
+
+  @media ${({ theme }) => theme.devices.laptop} {
+    display: none;
   }
 `;

@@ -72,7 +72,7 @@ export default function Agenda({
     const res = await core.eventos.getAll();
     const events = res.nodes.filter((item) => {
       const [d, m, y] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
-      return parseInt(m, 10) === month && parseInt(y, 10) === year;
+      return parseInt(m, 10) === month + value + 1 && parseInt(y, 10) === year;
     });
     const cats = events.filter((item) => item.acf_data_evento.tipo !== null)
       .reduce((acc, cur) => [...acc, {
