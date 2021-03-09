@@ -44,6 +44,7 @@ export default function Lives({
           <SearchBar submit={(filter) => find(filter)} />
           <FilterList
             source={listCategories}
+            action={changeCategory}
             renderItem={(item) => (
               <Filter
                 id={item.slug}
