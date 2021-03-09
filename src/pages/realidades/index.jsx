@@ -9,7 +9,7 @@ import Page from '@/components/Page';
 import ModalPlayer from '@/components/ModalPlayer';
 import SearchBar from '@/components/SearchBar';
 import Filter from '@/components/Filter';
-import styles from '@/styles/lives.module.css';
+import styles from '@/styles/realidades.module.css';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
 
@@ -60,6 +60,7 @@ export default function Realities({
           <SearchBar submit={(filter) => find(filter)} />
           <FilterList
             source={listCategories}
+            action={changeCategory}
             renderItem={(item) => (
               <Filter
                 id={item.slug}
