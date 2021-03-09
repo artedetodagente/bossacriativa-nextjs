@@ -49,6 +49,7 @@ export default function Workshops({
           <SearchBar submit={(filter) => find(filter)} />
           <FilterList
             source={listCategories}
+            action={changeCategory}
             renderItem={(item) => (
               <Filter
                 id={item.slug}

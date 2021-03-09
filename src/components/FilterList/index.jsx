@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List, Select } from './styles';
 
-export default function FilterList({ source, renderItem }) {
+export default function FilterList({ source, action, renderItem }) {
   return (
     <>
       <List>
@@ -10,9 +10,9 @@ export default function FilterList({ source, renderItem }) {
           source.map((item, index) => <li key={index}>{renderItem(item)}</li>)
         }
       </List>
-      <Select>
+      <Select onChange={(e) => action(e.target.value)}>
         {
-          source.map((item, index) => <option key={index}>{renderItem(item)}</option>)
+          source.map((item, index) => <option key={index} value={item?.slug}>{item?.name}</option>)
         }
       </Select>
     </>
