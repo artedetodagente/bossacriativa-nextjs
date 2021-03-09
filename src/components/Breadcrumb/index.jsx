@@ -8,6 +8,7 @@ export default function Breadcrumb({ name }) {
   const router = useRouter();
   const paths = (router.asPath.split('/'))
     .filter((item) => item.trim() !== '')
+    .filter((item, index) => !(item.trim() === 'automatica' && index === 0))
     .map((item) => item.split('-').join(' '));
 
   return (
