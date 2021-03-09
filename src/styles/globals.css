@@ -41,6 +41,7 @@ h6 {
 
 p {
   font-family: 'Barlow Semi Condensed';
+  word-wrap:break-word; /* para lidar com URLs muito grandes*/
 }
 
 nav a {
@@ -82,6 +83,11 @@ a {
 
 /* para lidar com imagens vindas do wp com tamanho grande */
 img{
+  max-width: 100%;
+  height: auto;
+}
+
+iframe{
   max-width: 100%;
   height: auto;
 }
