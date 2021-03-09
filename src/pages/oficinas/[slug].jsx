@@ -6,13 +6,13 @@ import core from '@/core';
 import Fluid from '@/components/Fluid';
 import YouEmbed from '@/components/YouEmbed';
 import FlatList from '@/components/FlatList';
-import styles from '@/styles/oficinas-slug.module.css';
 import CardThumb from '@/components/CardThumb';
 import Option from '@/components/Filter';
 import Page from '@/components/Page';
 import Expansibled from '@/components/Expansibled';
 import ItemHeaderList from '@/components/ItemHeaderList';
 import ItemList from '@/components/ItemList';
+import styles from '@/styles/oficinas-slug.module.css';
 
 export default function WorkshopSlug({ workshop, menus, links }) {
   const content = useRef(null);

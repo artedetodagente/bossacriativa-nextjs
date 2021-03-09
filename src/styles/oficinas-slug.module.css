@@ -31,6 +31,11 @@
 
 .listContainer{
   grid-area: list;
+  margin-top: 0 !important;
+}
+
+.listContainer > header {
+  margin-top: 0 !important;
 }
 
 .list {
@@ -49,9 +54,14 @@
 
 .videosContainer {
   grid-area: videos;
+  margin-top: 0 !important;
 }
 
-.videosContainer > main > article > header > ul {
+.videosContainer > header {
+  margin-top: 0 !important;
+}
+
+.videosContainer > main > article > header {
   display: none;
 }
 
@@ -67,7 +77,8 @@
       "videos videos videos videos";
   }
 
-  .videosContainer > main > article > header > ul {
+  .videosContainer > main > article > header {
     display: inline-flex;
   }
+
 }
