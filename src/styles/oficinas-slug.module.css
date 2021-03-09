@@ -1,5 +1,6 @@
 .expansibledLayout {
   display: flex;
+  flex-direction: column;
 }
 
 .expansibledLayout ul {
@@ -17,7 +18,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas: 
-    "player player player list" 
+    "player player player player" 
+    "list list list list"
     "videos videos videos videos";
   grid-column-gap: 20px;
   grid-row-gap: 50px;
@@ -27,17 +29,45 @@
   grid-area: player;
 }
 
-.list {
+.listContainer{
   grid-area: list;
+}
+
+.list {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+.list h1{
+  width: fit-content; 
 }
 
 .list h2 {
   font-size: 2em;
 }
 
-.videos {
+.videosContainer {
   grid-area: videos;
+}
+
+.videosContainer > main > article > header > ul {
+  display: none;
+}
+
+@media only screen and (min-width: 1024px){
+  .expansibledLayout {
+    flex-direction: row;
+  }
+
+  .layout {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: 
+      "player player player list" 
+      "videos videos videos videos";
+  }
+
+  .videosContainer > main > article > header > ul {
+    display: inline-flex;
+  }
 }

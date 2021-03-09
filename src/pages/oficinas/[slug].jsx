@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Section from '@/components/Section';
 import Breadcrumb from '@/components/Breadcrumb';
 import Info from '@/components/Info';
 import core from '@/core';
@@ -83,48 +84,56 @@ export default function WorkshopSlug({ workshop, menus, links }) {
             url={workshop?.oficinas.nodes[lesson]?.acf_data.videoUrl}
           />
         </div>
-        <FlatList
-          title="Próximas Aulas"
-          className={styles.list}
-          source={workshop?.oficinas.nodes.slice(lesson + 1, lesson + 3) || []}
-          cols={1}
-          renderItem={(item) => (
-            <CardThumb
-              video={item.acf_data?.videoUrl}
-              image={item.featuredImage?.node.mediaItemUrl}
-              title={item.title}
-              excerpt={item.excerpt}
-              click={() => changeLeasson(item.id)}
-            />
-          )}
-        />
-        <FlatList
-          title="Todas as Aulas"
-          className={styles.videos}
-          source={
-            teacher !== 'todos' ? workshop?.oficinas.nodes.filter(
-              (item) => item.acf_data.autor && item.acf_data.autor.slug !== teacher,
-            ) : workshop?.oficinas.nodes || []
-          }
-          filters={teachers}
-          renderItem={(item) => (
-            <CardThumb
-              video={item.acf_data?.videoUrl}
-              image={item.featuredImage?.node.mediaItemUrl}
-              title={item.title}
-              excerpt={item.excerpt}
-              click={() => changeLeasson(item.id)}
-            />
-          )}
-          renderFilter={(item) => (
-            <Option
-              id={item.slug}
-              name={item.title}
-              selected={teacher === item.slug}
-              click={() => setTeacher(item.slug)}
-            />
-          )}
-        />
+        <Section title="Próximas Aulas" className={styles.listContainer}>
+          <FlatList
+            className={styles.list}
+            source={workshop?.oficinas.nodes.slice(lesson + 1, lesson + 3) || []}
+            colsxss={2}
+            cols={1}
+            renderItem={(item) => (
+              <CardThumb
+                video={item.acf_data?.videoUrl}
+                image={item.featuredImage?.node.mediaItemUrl}
+                title={item.title}
+                excerpt={item.excerpt}
+                click={() => changeLeasson(item.id)}
+              />
+            )}
+          />
+        </Section>
+        <Section title="Todas as Aulas" className={styles.videosContainer}>
+          <FlatList
+            className={styles.videos}
+            source={
+              teacher !== 'todos' ? workshop?.oficinas.nodes.filter(
+                (item) => item.acf_data.autor && item.acf_data.autor.slug !== teacher,
+              ) : workshop?.oficinas.nodes || []
+            }
+            colsxss={1}
+            colsmd={2}
+            cols={3}
+            colsl={4}
+            colsxl={8}
+            filters={teachers}
+            renderItem={(item) => (
+              <CardThumb
+                video={item.acf_data?.videoUrl}
+                image={item.featuredImage?.node.mediaItemUrl}
+                title={item.title}
+                excerpt={item.excerpt}
+                click={() => changeLeasson(item.id)}
+              />
+            )}
+            renderFilter={(item) => (
+              <Option
+                id={item.slug}
+                name={item.title}
+                selected={teacher === item.slug}
+                click={() => setTeacher(item.slug)}
+              />
+            )}
+          />
+        </Section>
       </Fluid>
     </Page>
   );
