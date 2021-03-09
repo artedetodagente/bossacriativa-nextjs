@@ -26,7 +26,7 @@ export default function Workshops({
   }
 
   useEffect(() => {
-    if (selectedCategory) {
+    if (selectedCategory && selectedCategory.length > 1) {
       setCategory(selectedCategory);
     }
   }, []);

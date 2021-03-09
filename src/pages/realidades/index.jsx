@@ -32,7 +32,7 @@ export default function Realities({
   }
 
   useEffect(() => {
-    if (selectedCategory) {
+    if (selectedCategory && selectedCategory.length > 1) {
       setCategory(selectedCategory);
     }
   }, []);

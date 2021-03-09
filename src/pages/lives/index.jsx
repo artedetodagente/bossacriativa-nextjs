@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Info from '@/components/Info';
 import FlatList from '@/components/FlatList';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -14,7 +14,7 @@ import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
 
 export default function Lives({
-  lives, menus, categories, links,
+  lives, menus, categories, links, selectedCategory,
 }) {
   const { push } = useRouter();
   const [list, setList] = useState(lives);
@@ -24,6 +24,12 @@ export default function Lives({
   function changeCategory(slug) {
     setCategory(slug);
   }
+
+  useEffect(() => {
+    if (selectedCategory && selectedCategory.length > 1) {
+      setCategory(selectedCategory);
+    }
+  }, []);
 
   async function find(search) {
     const { nodes } = await core.lives.getAll(null, search.search);
@@ -89,6 +95,7 @@ export async function getServerSideProps({ query }) {
   const categories = lives.nodes.filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+  const selectedCategory = query?.category;
 
   return {
     props: {
@@ -96,6 +103,7 @@ export async function getServerSideProps({ query }) {
       menus: menus.nodes || [],
       links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
+      selectedCategory: selectedCategory || [],
     },
   };
 }
