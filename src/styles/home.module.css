@@ -1,5 +1,5 @@
 .container {
-  padding: 100px;
+  padding: .5em 1em;
 }
 
 .description {
@@ -105,6 +105,10 @@
 }
 
 @media only screen and (min-width: 1024px){
+  .container{
+    padding: 100px;
+  }
+
   .description {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
