@@ -106,6 +106,7 @@ export default function Agenda({
           </div>
           <FilterList
             source={listCategories}
+            action={setCategory}
             renderItem={(item) => (
               <Filter
                 id={item.slug}
