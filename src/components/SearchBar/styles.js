@@ -8,7 +8,7 @@ export const Search = styled.div`
 
   > div {
     display: flex;
-    padding-right: 5%;
+    padding-right: 0;
     width: 100%;
     margin: .3em 0;
 

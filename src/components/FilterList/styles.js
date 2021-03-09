@@ -43,7 +43,7 @@ export const Select = styled.select`
   width: 100%;
   flex: 1;
   font-size: 1.3em;
-
+  
   @media ${({ theme }) => theme.devices.laptop} {
     display: none;
   }
