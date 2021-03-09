@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Info from '@/components/Info';
 import Fluid from '@/components/Fluid';
 import FlatList from '@/components/FlatList';
@@ -14,7 +14,7 @@ import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
 
 export default function Workshops({
-  workshops, categories, menus, links,
+  workshops, categories, menus, links, selectedCategory,
 }) {
   const { push } = useRouter();
   const [list, setList] = useState(workshops);
@@ -24,6 +24,12 @@ export default function Workshops({
   function changeCategory(slug) {
     setCategory(slug);
   }
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setCategory(selectedCategory);
+    }
+  }, []);
 
   async function find(search) {
     const { nodes } = await core.oficinas.getAll(null, search.search);
@@ -94,6 +100,7 @@ export async function getServerSideProps({ query }) {
   const categories = workshops.nodes.filter((item) => item.acf_data.categoria !== null)
     .reduce((acc, cur) => [...acc, ...cur.acf_data.categoria], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+  const selectedCategory = query?.category;
 
   return {
     props: {
@@ -101,6 +108,7 @@ export async function getServerSideProps({ query }) {
       links: links.nodes || [],
       workshops: workshops.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
+      selectedCategory: selectedCategory || [],
     },
   };
 }
