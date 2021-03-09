@@ -14,7 +14,7 @@ import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
 
 export default function Realities({
-  mostras, menus, categories, links, selectedCategory
+  mostras, menus, categories, links, selectedCategory,
 }) {
   const [modal, setModal] = useState({ player: false });
   const [video, setVideo] = useState('');
