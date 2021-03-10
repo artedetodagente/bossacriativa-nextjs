@@ -91,3 +91,7 @@ iframe{
   max-width: 100%;
   height: auto;
 }
+
+.btnMenuVazio{
+  cursor: default !important;
+}

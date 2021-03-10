@@ -20,6 +20,7 @@ export default function Lives({
   const [list, setList] = useState(lives);
   const [listCategories, setListCategories] = useState(categories);
   const [category, setCategory] = useState('todas');
+  const quadros = [];
 
   function changeCategory(slug) {
     setCategory(slug);
@@ -80,9 +81,10 @@ export default function Lives({
           renderItem={(item) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
+              image={item.featuredImage?.node.mediaItemUrl}
               title={item.title}
               excerpt={item.excerpt}
-              click={() => push(`lives/${item.slug}`)}
+              click={() => push(`${item.slug_url}`)}
             />
           )}
         />
@@ -92,21 +94,40 @@ export default function Lives({
 }
 
 export async function getServerSideProps({ query }) {
-  const lives = await core.lives.getAll(null, query?.search);
+  const quadros = [];
+  const lives = [];
+  const fullLives = await core.lives.getAll(null, query?.search);
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
-  const categories = lives.nodes.filter((item) => item.categories.nodes.length > 0)
+  const categories = fullLives.nodes.filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
   const selectedCategory = query?.category;
 
+  fullLives.nodes.forEach((item) => {
+    if (item.livesQuadros.nodes.length > 0 && !quadros.includes(item.livesQuadros.nodes[0].slug)) {
+      quadros.push(item.livesQuadros.nodes[0].slug);
+      // eslint-disable-next-line no-param-reassign
+      item.slug_url = `lives-quadros/${item.livesQuadros.nodes[0].slug}`;
+      lives.push(item);
+    } else if (item.livesQuadros.nodes.length === 0) {
+      // eslint-disable-next-line no-param-reassign
+      item.slug_url = `lives/${item.slug}`;
+      lives.push(item);
+    }
+  });
+  // let quadros = lives.nodes.filter((item) => item.livesQuadros?.nodes.length > 0)
+  //   .map((item) => item.livesQuadros.nodes);
+  // quadros = [...new Set(quadros)],
+
   return {
     props: {
-      lives: lives.nodes || [],
+      lives: lives || [],
       menus: menus.nodes || [],
       links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
       selectedCategory: selectedCategory || [],
+      // quadros: [...new Set(quadros)],
     },
   };
 }
