@@ -78,6 +78,7 @@ export default function Lives({
           renderItem={(item) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
+              image={item.featuredImage?.node.mediaItemUrl}
               title={item.title}
               excerpt={item.excerpt}
               click={() => push(`${item.slug_url}`)}

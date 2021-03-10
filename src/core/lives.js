@@ -18,6 +18,11 @@ export async function getAll(quant, search) {
             acf_data {
               videoUrl
             }
+            featuredImage {
+              node {
+                mediaItemUrl
+              }
+            }
             livesQuadros {
               nodes {
                       id
@@ -59,6 +64,11 @@ export async function getOne(slug) {
         acf_data {
           videoUrl
         }
+        featuredImage {
+          node {
+            mediaItemUrl
+          }
+        }
       }
     }
   }
@@ -85,6 +95,11 @@ export async function getLast(last = 100) {
           }
           acf_data {
             videoUrl
+          }
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
           }
           livesQuadros {
             edges {
