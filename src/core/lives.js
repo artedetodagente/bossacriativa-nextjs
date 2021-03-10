@@ -18,6 +18,17 @@ export async function getAll(quant, search) {
             acf_data {
               videoUrl
             }
+            livesQuadros {
+              nodes {
+                      id
+                      slug
+                      name
+                      acf_data {
+                          dataPublicar
+                      }
+                  
+              }
+            }
           }
           pageInfo {
             endCursor
@@ -75,10 +86,53 @@ export async function getLast(last = 100) {
           acf_data {
             videoUrl
           }
+          livesQuadros {
+            edges {
+                node {
+                    id
+                    slug
+                    name
+                    acf_data {
+                        dataPublicar
+                    }
+                }
+            }
+          }
         }
     }
   }`, {
     variables: { qtd: last },
   });
   return data?.lives;
+}
+
+export async function getQuadro(slug, qtd = 100) {
+  const data = await fetchAPI(`
+    query ($slug : [String], $qtd : Int!) {
+      livesQuadros(where: {slug: $slug}) {
+        nodes {
+          id
+          name
+          slug
+          description
+          acf_data {
+            descricaoCompleta
+          }
+          lives(last: $qtd) {
+            nodes {
+              id
+              slug
+              title
+              excerpt
+              acf_data {
+                videoUrl
+              }
+            }
+          }
+        }
+      }
+    }`, {
+    variables: { slug, qtd },
+  });
+  return data?.livesQuadros;
 }
