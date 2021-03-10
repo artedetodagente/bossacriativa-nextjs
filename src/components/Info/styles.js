@@ -29,5 +29,9 @@ export const Container = styled.div`
       font-size: 1.2em;
       padding-bottom: 8vh;
     }
+
+    :last-of-type p{
+      margin-bottom: 0;
+    }
   }
 `;

@@ -1,8 +1,29 @@
 .calendar {
   flex: 1.9;
+  display: flex;
+}
+
+.buttonav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 30px;
+  width: 90px;
+  height: 37.78px;
+  border: 2px solid #666;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.buttonav:last-of-type {
   margin-left: 10px;
+  margin-right: 0;
 }
 
 .search {
   flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }

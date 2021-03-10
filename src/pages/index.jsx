@@ -70,7 +70,7 @@ export default function Home({
         </figure>
       </div>
       <Fluid>
-        <Section title="Mostra Virtual Bossa Criativa">
+        <Section title="Apresentações" link="/realidades">
           <CarouselGrid
             source={ultimasMostras}
             renderItem={(item) => (
@@ -84,7 +84,7 @@ export default function Home({
             )}
           />
         </Section>
-        <Section title="Notícias">
+        <Section title="Notícias" link="/noticias">
           <FlatList
             className={styles.noticias}
             source={posts}
@@ -103,7 +103,7 @@ export default function Home({
             )}
           />
         </Section>
-        <Section title="Oficinas">
+        <Section title="Oficinas" link="/oficinas">
           <CarouselGrid
             source={oficinas}
             renderItem={(item) => (
@@ -116,7 +116,7 @@ export default function Home({
             )}
           />
         </Section>
-        <Section title="Lives">
+        <Section title="Lives" link="/lives">
           <CarouselGrid
             source={ultimasLives}
             reverse

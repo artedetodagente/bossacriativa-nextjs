@@ -1,10 +1,7 @@
+.card_list {
+  margin-top: 0;
+}
 
-  .card_list {
-    margin-top: 1em;
-  }
-
-@media only screen and (min-width: 1024px){
-  .card_list {
-    margin-top: 5%;
-  }
+.content_container{
+  padding-top: 10px !important;
 }

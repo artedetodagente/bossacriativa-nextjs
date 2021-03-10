@@ -32,7 +32,7 @@ export default function Realities({
   }
 
   useEffect(() => {
-    if (selectedCategory) {
+    if (selectedCategory && selectedCategory.length > 1) {
       setCategory(selectedCategory);
     }
   }, []);
@@ -57,11 +57,9 @@ export default function Realities({
       />
       <Info
         title="Mostra Virtual"
-        text="No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da humanidade. São mais de 180 artistas e educadores, de várias regiões
-        do país, em apresentações, lives e oficinas de capacitação nas áreas de música, circo, artes visuais, dança, teatro e gestão cultural. Mais de 200 horas de
-        conteúdo já estão no ar, com foco na diversidade e democratização da cultura."
+        text="Música, teatro, dança, poesia, circo e artes visuais, em performance e compartilhamento de experiências e saberes. No Bossa Criativa, os holofotes estão sempre acesos para os vários gêneros de manifestações artísticas brasileiras, de diferentes inspirações e com os mais variados sotaques. Confira aqui o nosso cardápio variado, clique e aproveite."
       />
-      <Fluid>
+      <Fluid className={styles.content_container}>
         <FilterBar>
           <SearchBar submit={(filter) => find(filter)} />
           <FilterList

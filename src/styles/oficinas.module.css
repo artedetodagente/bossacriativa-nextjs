@@ -1,3 +1,7 @@
 .card_list {
-  margin-top: 5%;
+  margin-top: 0;
+}
+
+.content_container{
+  padding-top: 10px !important;
 }
