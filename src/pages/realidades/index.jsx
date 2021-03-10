@@ -61,7 +61,7 @@ export default function Realities({
         do país, em apresentações, lives e oficinas de capacitação nas áreas de música, circo, artes visuais, dança, teatro e gestão cultural. Mais de 200 horas de
         conteúdo já estão no ar, com foco na diversidade e democratização da cultura."
       />
-      <Fluid>
+      <Fluid className={styles.content_container}>
         <FilterBar>
           <SearchBar submit={(filter) => find(filter)} />
           <FilterList

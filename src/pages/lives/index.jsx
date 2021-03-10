@@ -45,7 +45,7 @@ export default function Lives({
     <Page menus={menus} links={links}>
       <Breadcrumb />
       <Info title="Lives" />
-      <Fluid>
+      <Fluid className={styles.content_container}>
         <FilterBar>
           <SearchBar submit={(filter) => find(filter)} />
           <FilterList

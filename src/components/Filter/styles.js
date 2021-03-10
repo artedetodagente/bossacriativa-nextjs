@@ -29,7 +29,7 @@ export const Item = styled.button`
     display: block;
     text-overflow: ellipsis;
     margin: 0 5px;
-    text-transform: capitalize;
+    // text-transform: capitalize;
   }
 `;
 

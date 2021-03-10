@@ -14,10 +14,10 @@ export const Container = styled.div`
   }
 
   @media ${({ theme }) => theme.devices.laptop} {
-    padding: 4em;
+    padding: 3em;
   }
 
   @media ${({ theme }) => theme.devices.desktop} {
-    padding: 4em 6em;
+    padding: 3em 6em;
   }
 `;

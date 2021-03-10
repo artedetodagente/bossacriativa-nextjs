@@ -8,10 +8,10 @@ import { useRouter } from 'next/router';
 import SearchBar from '@/components/SearchBar';
 import Filter from '@/components/Filter';
 import core from '@/core';
-import styles from '@/styles/oficinas.module.css';
 import Page from '@/components/Page';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
+import styles from '@/styles/oficinas.module.css';
 
 export default function Workshops({
   workshops, categories, menus, links, selectedCategory,
@@ -50,7 +50,7 @@ export default function Workshops({
         do país, em apresentações, lives e oficinas de capacitação nas áreas de música, circo, artes visuais, dança, teatro e gestão cultural. Mais de 200 horas de
         conteúdo já estão no ar, com foco na diversidade e democratização da cultura."
       />
-      <Fluid>
+      <Fluid className={styles.content_container}>
         <FilterBar>
           <SearchBar submit={(filter) => find(filter)} />
           <FilterList
