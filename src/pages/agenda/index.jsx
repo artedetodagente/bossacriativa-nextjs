@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Page from '@/components/Page';
 import Fluid from '@/components/Fluid';
-import CardImage from '@/components/CardImage';
 import core from '@/core';
 import ButtonCalendar from '@/components/ButtonCalendar';
 import FilterBar from '@/components/FilterBar';
@@ -11,6 +10,7 @@ import FilterList from '@/components/FilterList';
 import Filter from '@/components/Filter';
 import styles from '@/styles/agenda.module.css';
 import FlatList from '@/components/FlatList';
+import CardHour from '@/components/CardHour';
 
 export default function Agenda({
   menus, eventos, links, categories,
@@ -120,12 +120,13 @@ export default function Agenda({
         <FlatList
           source={list}
           renderItem={(item) => (
-            <CardImage
+            <CardHour
               title={item.title}
               excerpt={item.excerpt}
               click={null}
               image={item.featuredImage?.node.mediaItemUrl}
               h={350}
+              hour={item.acf_data_evento.dataDoEvento.split(' ')[1].split(':')[0]}
             />
           )}
         />

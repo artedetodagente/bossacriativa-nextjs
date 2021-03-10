@@ -10,6 +10,7 @@ export const Bar = styled.div`
     padding: 10px;
     border-radius: 30px;
     width: 90px;
+    height: 37.78px;
     border: 2px solid #666;
     background-color: transparent;
     cursor: pointer;
