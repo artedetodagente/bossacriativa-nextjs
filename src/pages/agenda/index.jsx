@@ -10,7 +10,7 @@ import FilterList from '@/components/FilterList';
 import Filter from '@/components/Filter';
 import styles from '@/styles/agenda.module.css';
 import FlatList from '@/components/FlatList';
-import CardHour from '@/components/CardHour';
+import CardDate from '@/components/CardDate';
 
 export default function Agenda({
   menus, eventos, links, categories,
@@ -120,13 +120,14 @@ export default function Agenda({
         <FlatList
           source={list}
           renderItem={(item) => (
-            <CardHour
+            <CardDate
               title={item.title}
               excerpt={item.excerpt}
               click={null}
               image={item.featuredImage?.node.mediaItemUrl}
               h={350}
-              hour={item.acf_data_evento.dataDoEvento.split(' ')[1].split(':')[0]}
+              day={item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0]}
+              month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10)}
             />
           )}
         />

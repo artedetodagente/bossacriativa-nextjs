@@ -2,9 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from './styles';
 
-export default function CardHour({
-  image, title, excerpt, click, h, w, hour,
+export default function CardDate({
+  image, title, excerpt, click, h, w, day, month,
 }) {
+  const months = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
+  ];
+
   return (
     <Card
       image={image}
@@ -23,8 +28,7 @@ export default function CardHour({
       <div>
         <div>
           <p>
-            {hour}
-            h
+            {`${day} ${months[month].slice(0, 3)}`}
           </p>
         </div>
         <div>
@@ -38,20 +42,22 @@ export default function CardHour({
   );
 }
 
-CardHour.propTypes = {
+CardDate.propTypes = {
   title: PropTypes.string,
   excerpt: PropTypes.string,
   click: PropTypes.func,
   h: PropTypes.number,
   w: PropTypes.number,
-  hour: PropTypes.number,
+  day: PropTypes.number,
+  month: PropTypes.number,
 };
 
-CardHour.defaultProps = {
+CardDate.defaultProps = {
   title: '',
   excerpt: '',
   click: null,
   h: 0,
   w: 0,
-  hour: 11,
+  day: 1,
+  month: 1,
 };
