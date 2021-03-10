@@ -25,4 +25,9 @@ export const Modal = styled.div`
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   transition: visibility .3s, opacity .3s linear;
   z-index: 998;
+
+  :hover {
+    visibility: visible;
+    opacity: 1;
+  }
 `;

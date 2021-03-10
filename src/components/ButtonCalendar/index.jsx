@@ -20,7 +20,7 @@ export default function ButtonCalendar({
       >
         {`${months[date.getMonth()]} - ${date.getFullYear()}`}
       </Button>
-      <Modal isOpen={enable}>
+      <Modal isOpen={enable} onMouseLeave={() => setEnable(!enable)}>
         <Calendar
           getDate={(value) => getDate(value)}
           getMonth={getMonth}
