@@ -49,14 +49,14 @@ export default function Realities({
 
   return (
     <Page menus={menus} links={links}>
-      <Breadcrumb name="Mostra Virtual" />
+      <Breadcrumb name="Apresentações" />
       <ModalPlayer
         open={modal.player}
         video={video}
         close={() => setModal({ ...modal, player: false })}
       />
       <Info
-        title="Mostra Virtual"
+        title="Apresentações"
         text="Música, teatro, dança, poesia, circo e artes visuais, em performance e compartilhamento de experiências e saberes. No Bossa Criativa, os holofotes estão sempre acesos para os vários gêneros de manifestações artísticas brasileiras, de diferentes inspirações e com os mais variados sotaques. Confira aqui o nosso cardápio variado, clique e aproveite."
       />
       <Fluid className={styles.content_container}>
