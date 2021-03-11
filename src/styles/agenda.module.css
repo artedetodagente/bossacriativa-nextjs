@@ -27,3 +27,11 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.section{
+  margin: 0 !important;
+}
+
+.section header{
+  margin-top: 0 !important;
+}
