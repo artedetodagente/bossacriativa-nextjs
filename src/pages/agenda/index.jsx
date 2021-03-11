@@ -5,19 +5,15 @@ import core from '@/core';
 import ButtonCalendar from '@/components/ButtonCalendar';
 import FilterBar from '@/components/FilterBar';
 import SearchBar from '@/components/SearchBar';
-import ButtonsNavigations from '@/components/ButtonsNavigations';
-import FilterList from '@/components/FilterList';
-import Filter from '@/components/Filter';
 import styles from '@/styles/agenda.module.css';
 import FlatList from '@/components/FlatList';
 import CardDate from '@/components/CardDate';
+import { BiRightArrow, BiLeftArrow } from 'react-icons/bi';
 
 export default function Agenda({
-  menus, eventos, links, categories,
+  menus, eventos, links,
 }) {
   const [list, setList] = useState(eventos);
-  const [listCategories, setListCategories] = useState(categories);
-  const [category, setCategory] = useState('todas');
   const [dates, setDates] = useState([]);
   const [date, setDate] = useState('');
   const [month, setMonth] = useState(new Date().getMonth());
@@ -31,34 +27,33 @@ export default function Agenda({
   }, [eventos]);
 
   useEffect(() => {
-    let source = eventos;
-    if (category !== 'todas') {
-      source = eventos.filter(
-        (item) => item.acf_data_evento && item.acf_data_evento.tipo === category,
-      );
-    } else {
-      source = eventos;
-    } if (date !== '') {
+    if (date !== '') {
       const [y, m, d] = date.split('-');
       const formatDate = `${`0${d}`.slice(-2)}/${`0${m}`.slice(-2)}/${y}`;
-      source = source.filter(
-        (item) => item.acf_data_evento
-          && item.acf_data_evento.dataDoEvento.split(' ')[0] === formatDate,
-      );
+      const source = eventos
+        .filter(
+          (item) => item.acf_data_evento
+            && item.acf_data_evento.dataDoEvento.split(' ')[0] === formatDate,
+        )
+        .sort((a, b) => {
+          const [da, ma, ya] = a.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+          const [db, mb, yb] = b.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+          return new Date(`${ya}-${parseInt(ma, 10)}-${parseInt(da, 10)}`).getTime()
+            - new Date(`${yb}-${parseInt(mb, 10)}-${parseInt(db, 10)}`).getTime();
+        });
+      setList(source);
     }
-    setList(source);
-  }, [category, date]);
+  }, [date]);
 
   async function find(search) {
-    const { nodes } = await core.eventos.getAll(null, search.search);
-    const cats = nodes.filter((item) => item.acf_data_evento.tipo !== null)
-      .reduce((acc, cur) => [...acc, {
-        name: cur.acf_data_evento.tipo, slug: cur.acf_data_evento.tipo,
-      }], [])
-      .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+    const { nodes } = await core.eventos.getAll(null, search.search)
+      .sort((a, b) => {
+        const [da, ma, ya] = a.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+        const [db, mb, yb] = b.acf_data_evento.dataDoEvento.split(' ')[0].split('-');
+        return new Date(`${ya}-${parseInt(ma, 10)}-${parseInt(da, 10)}`).getTime()
+          - new Date(`${yb}-${parseInt(mb, 10)}-${parseInt(db, 10)}`).getTime();
+      });
     setList(nodes);
-    setListCategories([{ name: 'Todas', slug: 'todas' }, ...cats]);
-    setCategory('todas');
   }
 
   async function changeMonth(value) {
@@ -70,28 +65,32 @@ export default function Agenda({
       setYear(year + 1);
     } else setMonth(month + value);
     const res = await core.eventos.getAll();
-    const events = res.nodes.filter((item) => {
-      const [d, m, y] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
-      return parseInt(m, 10) === month + value + 1 && parseInt(y, 10) === year;
-    });
-    const cats = events.filter((item) => item.acf_data_evento.tipo !== null)
-      .reduce((acc, cur) => [...acc, {
-        name: cur.acf_data_evento.tipo, slug: cur.acf_data_evento.tipo,
-      }], [])
-      .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+    const events = res.nodes
+      .filter((item) => {
+        const [, m, y] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+        return parseInt(m, 10) === month + value + 1 && parseInt(y, 10) === year;
+      })
+      .sort((a, b) => {
+        const [da, ma, ya] = a.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+        const [db, mb, yb] = b.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+        return new Date(`${ya}-${parseInt(ma, 10)}-${parseInt(da, 10)}`).getTime()
+          - new Date(`${yb}-${parseInt(mb, 10)}-${parseInt(db, 10)}`).getTime();
+      });
     setList(events);
-    setListCategories([{ name: 'Todas', slug: 'todas' }, ...cats]);
   }
 
   return (
     <Page menus={menus} links={links}>
       <Fluid>
         <FilterBar>
-          <ButtonsNavigations
-            onNext={() => changeMonth(1)}
-            onPrev={() => changeMonth(-1)}
-          />
           <div className={styles.calendar}>
+            <button
+              type="button"
+              className={styles.buttonav}
+              onClick={() => changeMonth(-1)}
+            >
+              <BiLeftArrow />
+            </button>
             <ButtonCalendar
               mark={dates || []}
               getDate={(value) => setDate(value)}
@@ -100,22 +99,17 @@ export default function Agenda({
               changeMonth={month}
               changeYear={year}
             />
+            <button
+              type="button"
+              className={styles.buttonav}
+              onClick={() => changeMonth(1)}
+            >
+              <BiRightArrow />
+            </button>
           </div>
           <div className={styles.search}>
             <SearchBar submit={(filter) => find(filter)} />
           </div>
-          <FilterList
-            source={listCategories}
-            action={setCategory}
-            renderItem={(item) => (
-              <Filter
-                id={item.slug}
-                name={item.name}
-                selected={category === item.slug}
-                click={(slug) => setCategory(slug)}
-              />
-            )}
-          />
         </FilterBar>
         <FlatList
           source={list}
@@ -127,7 +121,7 @@ export default function Agenda({
               image={item.featuredImage?.node.mediaItemUrl}
               h={350}
               day={item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0]}
-              month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10)}
+              month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10) - 1}
             />
           )}
         />
@@ -139,25 +133,27 @@ export default function Agenda({
 export async function getStaticProps() {
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
-  const eventos = (await core.eventos.getAll()).nodes.filter(
-    (item) => {
-      const cur = new Date();
-      const [day, month, year] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
-      return parseInt(month, 10) === cur.getMonth() + 1 && parseInt(year, 10) === cur.getFullYear();
-    },
-  );
-  const categories = eventos.filter((item) => item.acf_data_evento.tipo !== null)
-    .reduce((acc, cur) => [...acc, {
-      name: cur.acf_data_evento.tipo, slug: cur.acf_data_evento.tipo,
-    }], [])
-    .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+  const eventos = (await core.eventos.getAll()).nodes
+    .filter(
+      (item) => {
+        const cur = new Date();
+        const [, month, year] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+        return parseInt(month, 10) === cur.getMonth() + 1
+          && parseInt(year, 10) === cur.getFullYear();
+      },
+    )
+    .sort((a, b) => {
+      const [da, ma, ya] = a.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+      const [db, mb, yb] = b.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+      return new Date(`${ya}-${parseInt(ma, 10)}-${parseInt(da, 10)}`).getTime()
+        - new Date(`${yb}-${parseInt(mb, 10)}-${parseInt(db, 10)}`).getTime();
+    });
 
   return {
     props: {
       eventos: eventos || [],
       menus: menus.nodes || [],
       links: links.nodes || [],
-      categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
     },
     revalidate: 1,
   };

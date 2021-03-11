@@ -46,9 +46,7 @@ export default function Workshops({
       <Breadcrumb name="Oficinas" />
       <Info
         title="Oficinas"
-        text="No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da humanidade. São mais de 180 artistas e educadores, de várias regiões
-        do país, em apresentações, lives e oficinas de capacitação nas áreas de música, circo, artes visuais, dança, teatro e gestão cultural. Mais de 200 horas de
-        conteúdo já estão no ar, com foco na diversidade e democratização da cultura."
+        text="Da voz ao violão, da dança à interpretação e à produção. Em vídeos curtos, de linguagem acessível, artistas e especialistas oferecem informação e capacitação, tanto para quem quer se iniciar quanto para os que desejam avançar em sua carreira profissional, em diferentes formas de arte. Nos vídeos aqui disponíveis, você vai encontrar ajuda para desenvolver-se tecnicamente, incrementar sua performance e ampliar seus horizontes de atuação."
       />
       <Fluid className={styles.content_container}>
         <FilterBar>

@@ -45,7 +45,10 @@ export default function Lives({
   return (
     <Page menus={menus} links={links}>
       <Breadcrumb />
-      <Info title="Lives" />
+      <Info
+        title="Lives"
+        text="Desde seu lançamento, em junho de 2020, o Bossa Criativa vem promovendo uma série de lives, com diferentes temas e convidados. Em clima de conversa, esses especialistas abordam aspectos de suas áreas de atuação e obras e, também, fornecem um precioso conteúdo sobre projetos e produções culturais, em diferentes contextos. Confira aqui a gravação, na íntegra, de todos esses encontros."
+      />
       <Fluid className={styles.content_container}>
         <FilterBar>
           <SearchBar submit={(filter) => find(filter)} />
