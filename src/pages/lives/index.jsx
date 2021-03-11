@@ -13,6 +13,7 @@ import Filter from '@/components/Filter';
 import styles from '@/styles/lives.module.css';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
+import ItemHeaderList from '@/components/ItemHeaderList';
 
 export default function Lives({
   lives, menus, categories, links, selectedCategory,
@@ -81,7 +82,8 @@ export default function Lives({
           renderItem={(item) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
-              image={item.featuredImage?.node.mediaItemUrl}
+              image={item.featuredImage?.node.mediaItemUrl
+                || item.acf_data.imagemDestacada?.mediaItemUrl}
               title={item.title}
               excerpt={item.excerpt || item.description}
               click={() => push(`${item.slug_url}`)}
