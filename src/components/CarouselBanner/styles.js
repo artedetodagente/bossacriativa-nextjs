@@ -75,17 +75,18 @@ export const Item = styled.li`
     flex-direction: column;
     width: 100%;
     margin-bottom: 50px;
-    padding: 0 20px;
+    
   }
 
   h1 {
     font-size: 2em;
     color: #fff;
     margin: 0;
-    width: calc(100% - 10px);
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 8px;
+    // width: calc(100% - 10px);
+    // width: 100%;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -98,7 +99,8 @@ export const Item = styled.li`
 
   p {
     color: #fff;
-    width: 100%;
+    // width: 100%;
+    padding: 8px;
     margin: 0;
     transition: opacity .3s linear;
     z-index: 998;
@@ -115,6 +117,15 @@ export const Item = styled.li`
       display: flex;
       flex-direction: column;
       width: 40%;
+      padding: 0 20px;
+    }
+
+    h1{
+      width: fit-content;
+    }
+
+    p{
+      width: fit-content;
     }
   }
 
