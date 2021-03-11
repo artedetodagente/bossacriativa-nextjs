@@ -44,7 +44,7 @@ export const Card = styled.article`
           justify-content: center;
 
           p {
-            font-size: 1.5em;
+            font-size: 1em;
             color: #fff;
             padding: 5px 10px;
             text-align: center;
@@ -59,7 +59,7 @@ export const Card = styled.article`
           width: 100%;
           
           h1 {
-            font-size: 1.5em;
+            font-size: 1em;
             color: #fff;
             padding: 5px 10px;
             text-align: center;
