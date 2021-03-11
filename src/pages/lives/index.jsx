@@ -20,7 +20,6 @@ export default function Lives({
   const [list, setList] = useState(lives);
   const [listCategories, setListCategories] = useState(categories);
   const [category, setCategory] = useState('todas');
-  const quadros = [];
 
   function changeCategory(slug) {
     setCategory(slug);
@@ -108,7 +107,8 @@ export async function getServerSideProps({ query }) {
     if (item.livesQuadros.nodes.length > 0 && !quadros.includes(item.livesQuadros.nodes[0].slug)) {
       quadros.push(item.livesQuadros.nodes[0].slug);
       // eslint-disable-next-line no-param-reassign
-      item.slug_url = `lives-quadros/${item.livesQuadros.nodes[0].slug}`;
+      item.slug = item.livesQuadros.nodes[0].slug;
+      item.slug_url = `lives-quadros/${item.slug}`;
       lives.push(item);
     } else if (item.livesQuadros.nodes.length === 0) {
       // eslint-disable-next-line no-param-reassign

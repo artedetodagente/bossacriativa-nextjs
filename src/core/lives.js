@@ -13,6 +13,7 @@ export async function getAll(quant, search) {
             categories {
               nodes {
                 name
+                slug
               }
             }
             acf_data {
