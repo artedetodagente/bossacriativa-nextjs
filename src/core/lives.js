@@ -153,17 +153,28 @@ export async function getQuadro(slug, qtd = 100) {
   return data?.livesQuadros;
 }
 
-export async function getQuadros() {
+export async function getQuadros(qtd = 100) {
   const data = await fetchAPI(`
-    query {
-      livesQuadros {
+    query ($qtd: Int!){
+      livesQuadros (last: $qtd){
         nodes {
           id
           name
           slug
           description
+          acf_data{
+            imagemDestacada {
+              mediaItemUrl
+            }
+            categoria {
+              name
+              slug
+            }
+          }
         }
       }
-    }`, {});
+    }`, {
+    variables: { qtd },
+  });
   return data?.livesQuadros;
 }
