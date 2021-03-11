@@ -113,6 +113,7 @@ export default function Agenda({
         </FilterBar>
         <FlatList
           source={list}
+          cols={3}
           renderItem={(item) => (
             <CardDate
               title={item.title}
