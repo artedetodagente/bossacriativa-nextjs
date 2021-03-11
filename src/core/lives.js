@@ -151,3 +151,18 @@ export async function getQuadro(slug, qtd = 100) {
   });
   return data?.livesQuadros;
 }
+
+export async function getQuadros() {
+  const data = await fetchAPI(`
+    query {
+      livesQuadros {
+        nodes {
+          id
+          name
+          slug
+          description
+        }
+      }
+    }`, {});
+  return data?.livesQuadros;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Section from '@/components/Section';
 import Breadcrumb from '@/components/Breadcrumb';
 import core from '@/core';
@@ -7,33 +7,15 @@ import YouEmbed from '@/components/YouEmbed';
 import FlatList from '@/components/FlatList';
 import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
-import Expansibled from '@/components/Expansibled';
-import ItemHeaderList from '@/components/ItemHeaderList';
-import ItemList from '@/components/ItemList';
 import styles from '@/styles/lives-quadro-slug.module.css';
 
 export default function QuadroSlug({ quadro, menus, links }) {
-  const content = useRef(null);
   const [video, setVideo] = useState(0);
-
-  // useEffect(() => {
-  //   const authors = workshop?.oficinas.nodes
-  //     .filter((item) => item.acf_data.autor !== null)
-  //     .reduce((acc, cur) => [...acc, cur.acf_data.autor], [])
-  //     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.title === item.title) === -1);
-  //   setTeachers(authors ? [{ title: 'Todos', slug: 'todos' }, ...authors] : []);
-  //   content.current.innerHTML = workshop.acf_data?.descricaoCompleta;
-  // }, []);
 
   async function changeVideo(id) {
     const index = quadro?.lives.nodes.findIndex((item) => item.id === id);
     setVideo(index);
   }
-
-  // function changeContent(info) {
-  //   setTitle(info.title);
-  //   content.current.innerHTML = info.content;
-  // }
 
   return (
     <Page menus={menus} links={links}>
@@ -101,9 +83,10 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const { nodes } = await core.lives.getAll();
+  const { quadros } = await core.lives.getQuadros();
+
   return {
-    paths: nodes.map((node) => `/lives-quadros/${node.slug}`) || [],
+    paths: quadros?.map((node) => `/lives-quadros/${node.slug}`) || [],
     fallback: true,
   };
 }
