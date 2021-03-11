@@ -109,8 +109,10 @@ export async function getServerSideProps({ query }) {
   });
   const fullLives = await core.lives.getAll(null, query?.search);
   fullLives.nodes.forEach((element) => {
-    element.slug_url = `lives/${element.slug}`;
-    lives.push(element);
+    if (element.livesQuadros.nodes.length === 0) {
+      element.slug_url = `lives/${element.slug}`;
+      lives.push(element);
+    }
   });
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
@@ -118,7 +120,6 @@ export async function getServerSideProps({ query }) {
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
 
- 
   const selectedCategory = query?.category;
 
   // fullLives.nodes.forEach((item) => {
