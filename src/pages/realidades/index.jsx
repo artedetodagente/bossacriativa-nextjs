@@ -8,6 +8,7 @@ import Fluid from '@/components/Fluid';
 import core from '@/core';
 import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
+import ModalPlayer from '@/components/ModalPlayer';
 import SearchBar from '@/components/SearchBar';
 import Filter from '@/components/Filter';
 import styles from '@/styles/realidades.module.css';
@@ -18,9 +19,16 @@ export default function Apresentacoes({
   mostrasVirtuais, menus, categories, links, selectedCategory,
 }) {
   const { push } = useRouter();
+  const [modal, setModal] = useState({ player: false });
+  const [video, setVideo] = useState('');
   const [list, setList] = useState(mostrasVirtuais);
   const [listCategories, setListCategories] = useState(categories);
   const [category, setCategory] = useState('todas');
+
+  function selectVideo(url) {
+    setVideo(url);
+    setModal({ ...modal, player: true });
+  }
 
   function changeCategory(slug) {
     setCategory(slug);
@@ -45,6 +53,11 @@ export default function Apresentacoes({
   return (
     <Page menus={menus} links={links}>
       <Breadcrumb />
+      <ModalPlayer
+        open={modal.player}
+        video={video}
+        close={() => setModal({ ...modal, player: false })}
+      />
       <Info
         title="Lives"
         text="Desde seu lançamento, em junho de 2020, o Bossa Criativa vem promovendo uma série de lives, com diferentes temas e convidados. Em clima de conversa, esses especialistas abordam aspectos de suas áreas de atuação e obras e, também, fornecem um precioso conteúdo sobre projetos e produções culturais, em diferentes contextos. Confira aqui a gravação, na íntegra, de todos esses encontros."
@@ -85,7 +98,13 @@ export default function Apresentacoes({
                 || item.acf_data.imagemDestacada?.mediaItemUrl}
               title={item.title}
               excerpt={item.excerpt || item.description}
-              click={() => push(`${item.slug_url}`)}
+              click={() => {
+                if (item.slug_url) {
+                  push(`${item.slug_url}`);
+                } else {
+                  selectVideo(`${item.acf_data?.videoUrl}`);
+                }
+              }}
             />
           )}
         />
@@ -111,7 +130,7 @@ export async function getServerSideProps({ query }) {
   const fullApresentacoes = await core.mostras.getAll(null, query?.search);
   fullApresentacoes.nodes.forEach((element) => {
     if (element.apresentacoesSeries.nodes.length === 0) {
-      element.slug_url = `realidades/${element.slug}`;
+      // element.slug_url = `realidades/${element.slug}`;
       mostrasVirtuais.push(element);
     }
   });
