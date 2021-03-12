@@ -13,9 +13,10 @@ import styles from '@/styles/home.module.css';
 import Image from 'next/image';
 import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
+import CardDate from '@/components/CardDate';
 
 export default function Home({
-  ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links,
+  ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links, events,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -25,6 +26,8 @@ export default function Home({
     setVideo(url);
     setModal({ ...modal, player: true });
   }
+
+  console.log(events);
 
   return (
     <Page menus={menus} links={links}>
@@ -53,7 +56,7 @@ export default function Home({
             Vídeo Clipe
           </button>
         </div>
-        <div area="action" className={styles.botaomais} >
+        <div area="action" className={styles.botaomais}>
           <button
             type="button"
             onClick={() => selectVideo(home[0].acf_data_home.info.saibaMais)}
@@ -70,6 +73,21 @@ export default function Home({
         </figure>
       </div>
       <Fluid>
+        <Section title="Programação" link="/agenda">
+          <CarouselGrid
+            source={events}
+            renderItem={(item) => (
+              <CardDate
+                image={item.featuredImage?.node.mediaItemUrl}
+                title={item.title}
+                excerpt={item.excerpt}
+                day={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0], 10)}
+                month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10)}
+                click={() => selectVideo(item.acf_data?.videoUrl)}
+              />
+            )}
+          />
+        </Section>
         <Section title="Apresentações" link="/realidades">
           <CarouselGrid
             source={ultimasMostras}
@@ -140,6 +158,7 @@ export default function Home({
 export async function getStaticProps() {
   const ultimasLives = await core.lives.getLast(15);
   const ultimasMostras = await core.mostras.getLast(15);
+  const events = await core.eventos.getAll();
   const posts = await core.posts.getAll(6);
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
@@ -161,6 +180,16 @@ export async function getStaticProps() {
     }
     return ofc.sort(() => Math.random() - 0.5);
   };
+  const lastEvents = events?.nodes.slice(0, 15)
+    .filter((item) => {
+      const [d, m, y] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+      return new Date(`${y}-${m}-${d}`).getTime() >= new Date().getTime();
+    })
+    .sort((a, b) => {
+      const [da, ma, ya] = a.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+      const [db, mb, yb] = b.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+      return new Date(`${ya}-${ma}-${da}`).getTime() - new Date(`${yb}-${mb}-${db}`).getTime();
+    });
 
   return {
     props: {
@@ -172,6 +201,7 @@ export async function getStaticProps() {
       menus: menus.nodes || [],
       links: links.nodes || [],
       oficinas: randOficinas(oficinas.nodes, 15) || [],
+      events: lastEvents || [],
     },
     revalidate: 1,
   };

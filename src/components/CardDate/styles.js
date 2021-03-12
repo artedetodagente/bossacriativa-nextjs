@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Card = styled.article`
-  // min-height: 200px;
-  // height: ${({ h }) => (h > 0 ? `${h}px` : '100%')};
-  // width: ${({ w }) => (w > 0 ? `${w}px` : '100%')};
+  min-height: 200px;
+  height: ${({ h }) => (h > 0 ? `${h}px` : '100%')};
+  width: ${({ w }) => (w > 0 ? `${w}px` : '100%')};
   position: relative;
   border-radius: 2px;
   cursor: pointer;
@@ -57,12 +57,14 @@ export const Card = styled.article`
           flex: 1;
           margin-left: 5px;
           width: 100%;
+          position: relative;
           
           h1 {
             font-size: 1em;
             color: #fff;
             padding: 5px 10px;
-            text-align: center;
+            width: 100%;
+            /* text-align: center; */
             margin: 0;
             text-overflow: ellipsis;
             display: -webkit-box;
