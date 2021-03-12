@@ -128,7 +128,7 @@ export default function Agenda({
               />
             )}
           />
-          </Section>
+        </Section>
       </Fluid>
     </Page>
   );
