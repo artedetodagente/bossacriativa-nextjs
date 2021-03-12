@@ -140,7 +140,7 @@ export default function Home({
 export async function getStaticProps() {
   const ultimasLives = await core.lives.getLast(15);
   const ultimasMostras = await core.mostras.getLast(15);
-  const posts = await core.posts.getAll(6);
+  const posts = await core.posts.getAll(3);
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
