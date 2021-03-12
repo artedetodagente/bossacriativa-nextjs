@@ -84,6 +84,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const { quadros } = await core.lives.getQuadros();
+  quadros?.filter((item) => item.lives.nodes.lenght > 0);
 
   return {
     paths: quadros?.map((node) => `/lives-quadros/${node.slug}`) || [],
