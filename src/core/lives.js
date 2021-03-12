@@ -134,6 +134,7 @@ export async function getQuadro(slug, qtd = 100) {
           description
           acf_data {
             descricaoCompleta
+            dataPublicar
           }
           lives(last: $qtd) {
             nodes {
@@ -148,6 +149,7 @@ export async function getQuadro(slug, qtd = 100) {
               }
               acf_data {
                 videoUrl
+                dataDePublicacao
               }
             }
           }

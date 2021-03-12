@@ -13,6 +13,7 @@ import Filter from '@/components/Filter';
 import styles from '@/styles/lives.module.css';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
+import { getISODateString } from '@/utils/date';
 
 export default function Lives({
   lives, menus, categories, links, selectedCategory,
@@ -95,10 +96,6 @@ export default function Lives({
 }
 
 export async function getServerSideProps({ query }) {
-  const getISODateString = (stringDate) => {
-    const [d, m, y] = stringDate.split(' ')[0].split('/');
-    return `${y}-${m}-${d}`;
-  };
   const lives = [];
   const quadros = await core.lives.getQuadros();
   quadros.nodes.forEach((element) => {

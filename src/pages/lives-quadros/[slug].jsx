@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import Section from '@/components/Section';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -8,6 +9,7 @@ import FlatList from '@/components/FlatList';
 import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
 import styles from '@/styles/lives-quadro-slug.module.css';
+import { getISODateString } from '@/utils/date';
 
 export default function QuadroSlug({ quadro, menus, links }) {
   const [video, setVideo] = useState(0);
@@ -74,6 +76,14 @@ export async function getStaticProps({ params }) {
   const { nodes } = await core.lives.getQuadro(params.slug);
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
+
+  nodes[0]?.lives?.nodes.forEach((element) => {
+    element.data_ordenacao = getISODateString(element.acf_data.dataDePublicacao);
+  });
+
+  nodes[0]?.lives?.nodes.sort((a, b) => (
+    new Date(a.data_ordenacao).getTime() - new Date(b.data_ordenacao).getTime()
+  ));
 
   return {
     props: {

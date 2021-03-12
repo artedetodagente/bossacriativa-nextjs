@@ -6,3 +6,7 @@ export const months = [
   'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
   'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
 ];
+export const getISODateString = (stringDate) => {
+  const [d, m, y] = stringDate.split(' ')[0].split('/');
+  return `${y}-${m}-${d}`;
+};
