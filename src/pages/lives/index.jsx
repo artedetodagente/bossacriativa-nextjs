@@ -13,7 +13,6 @@ import Filter from '@/components/Filter';
 import styles from '@/styles/lives.module.css';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
-import ItemHeaderList from '@/components/ItemHeaderList';
 
 export default function Lives({
   lives, menus, categories, links, selectedCategory,
@@ -124,21 +123,6 @@ export async function getServerSideProps({ query }) {
 
   const selectedCategory = query?.category;
 
-  // fullLives.nodes.forEach((item) => {
-  //   if (item.livesQuadros.nodes.length > 0 && !quadros.includes(item.livesQuadros.nodes[0].slug)) {
-  //     quadros.push(item.livesQuadros.nodes[0].slug);
-  //     // eslint-disable-next-line no-param-reassign
-  //     item.slug = item.livesQuadros.nodes[0].slug;
-  //     item.slug_url = `lives-quadros/${item.slug}`;
-  //     lives.push(item);
-  //   } else if (item.livesQuadros.nodes.length === 0) {
-  //     // eslint-disable-next-line no-param-reassign
-  //     item.slug_url = `lives/${item.slug}`;
-  //     lives.push(item);
-  //   }
-  // });
-  
-
   return {
     props: {
       lives: lives || [],
@@ -146,7 +130,6 @@ export async function getServerSideProps({ query }) {
       links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
       selectedCategory: selectedCategory || [],
-      // quadros: [...new Set(quadros)],
     },
   };
 }
