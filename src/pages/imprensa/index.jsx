@@ -37,16 +37,14 @@ export default function Press({
       <Breadcrumb />
       <Info title="Imprensa" />
       <Fluid>
-        <Section title="Clipping">
+        <Section title="Contatos">
           <FlatList
-            cols={3}
-            source={clippings}
+            source={contacts}
             renderItem={(item) => (
-              <CardHorizontal
-                image={item?.featuredImage?.node?.mediaItemUrl}
+              <CardText
+                gap="20px"
                 title={item.title}
-                text={item.excerpt}
-                click={() => navigate(item.acf_link_clipping?.linkDaNoticia)}
+                text={item.text}
               />
             )}
           />
@@ -63,14 +61,16 @@ export default function Press({
             )}
           />
         </Section>
-        <Section title="Contatos">
+        <Section title="Clipping">
           <FlatList
-            source={contacts}
+            cols={3}
+            source={clippings}
             renderItem={(item) => (
-              <CardText
-                gap="20px"
+              <CardHorizontal
+                image={item?.featuredImage?.node?.mediaItemUrl}
                 title={item.title}
-                text={item.text}
+                text={item.excerpt}
+                click={() => navigate(item.acf_link_clipping?.linkDaNoticia)}
               />
             )}
           />

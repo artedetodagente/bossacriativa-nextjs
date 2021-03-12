@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useEffect, useState } from 'react';
 import Info from '@/components/Info';
 import FlatList from '@/components/FlatList';
@@ -20,7 +21,6 @@ export default function Lives({
   const [list, setList] = useState(lives);
   const [listCategories, setListCategories] = useState(categories);
   const [category, setCategory] = useState('todas');
-  const quadros = [];
 
   function changeCategory(slug) {
     setCategory(slug);
@@ -81,9 +81,10 @@ export default function Lives({
           renderItem={(item) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
-              image={item.featuredImage?.node.mediaItemUrl}
+              image={item.featuredImage?.node.mediaItemUrl
+                || item.acf_data.imagemDestacada?.mediaItemUrl}
               title={item.title}
-              excerpt={item.excerpt}
+              excerpt={item.excerpt || item.description}
               click={() => push(`${item.slug_url}`)}
             />
           )}
@@ -94,31 +95,33 @@ export default function Lives({
 }
 
 export async function getServerSideProps({ query }) {
-  const quadros = [];
   const lives = [];
+  const quadros = await core.lives.getQuadros();
+  quadros.nodes.forEach((element) => {
+    element.title = element.name;
+    element.slug_url = `lives-quadros/${element.slug}`;
+    element.categories = {
+      nodes: [{
+        name: element.acf_data.categoria[0].name,
+        slug: element.acf_data.categoria[0].slug,
+      }],
+    };
+    lives.push(element);
+  });
   const fullLives = await core.lives.getAll(null, query?.search);
-  const menus = await core.menus.getAll();
-  const links = await core.links.getAll();
-  const categories = fullLives.nodes.filter((item) => item.categories.nodes.length > 0)
-    .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
-    .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
-  const selectedCategory = query?.category;
-
-  fullLives.nodes.forEach((item) => {
-    if (item.livesQuadros.nodes.length > 0 && !quadros.includes(item.livesQuadros.nodes[0].slug)) {
-      quadros.push(item.livesQuadros.nodes[0].slug);
-      // eslint-disable-next-line no-param-reassign
-      item.slug_url = `lives-quadros/${item.livesQuadros.nodes[0].slug}`;
-      lives.push(item);
-    } else if (item.livesQuadros.nodes.length === 0) {
-      // eslint-disable-next-line no-param-reassign
-      item.slug_url = `lives/${item.slug}`;
-      lives.push(item);
+  fullLives.nodes.forEach((element) => {
+    if (element.livesQuadros.nodes.length === 0) {
+      element.slug_url = `lives/${element.slug}`;
+      lives.push(element);
     }
   });
-  // let quadros = lives.nodes.filter((item) => item.livesQuadros?.nodes.length > 0)
-  //   .map((item) => item.livesQuadros.nodes);
-  // quadros = [...new Set(quadros)],
+  const menus = await core.menus.getAll();
+  const links = await core.links.getAll();
+  const categories = lives.filter((item) => item.categories.nodes.length > 0)
+    .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
+    .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+
+  const selectedCategory = query?.category;
 
   return {
     props: {
@@ -127,7 +130,6 @@ export async function getServerSideProps({ query }) {
       links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
       selectedCategory: selectedCategory || [],
-      // quadros: [...new Set(quadros)],
     },
   };
 }

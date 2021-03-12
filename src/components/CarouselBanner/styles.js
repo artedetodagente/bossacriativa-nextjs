@@ -75,37 +75,41 @@ export const Item = styled.li`
     flex-direction: column;
     width: 100%;
     margin-bottom: 50px;
-    padding: 0 20px;
+    
   }
 
   h1 {
-    font-size: 3em;
+    font-size: 2em;
     color: #fff;
     margin: 0;
-    width: calc(100% - 10px);
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 8px;
+    // width: calc(100% - 10px);
+    // width: 100%;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     z-index: 995;
-    padding-bottom: 1.5em;
+    margin-bottom: .5em;
     font-family: ${({ theme }) => theme.fonts.subtitle};
     font-weight: 500;
+    background-color: rgb(2,2,2,0.5);
   }
 
   p {
     color: #fff;
-    width: 100%;
+    // width: 100%;
+    padding: 8px;
     margin: 0;
     transition: opacity .3s linear;
     z-index: 998;
-    font-size: 1.5em;
-    height: 2em;
-    white-space: nowrap;
+    font-size: 1.3em;
+    // height: 2em;
+    // white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    // text-overflow: ellipsis;
+    background-color: rgb(2,2,2,0.5);
   }
 
   @media ${({ theme }) => theme.devices.laptop} {
@@ -113,6 +117,15 @@ export const Item = styled.li`
       display: flex;
       flex-direction: column;
       width: 40%;
+      padding: 0 20px;
+    }
+
+    h1{
+      width: fit-content;
+    }
+
+    p{
+      width: fit-content;
     }
   }
 

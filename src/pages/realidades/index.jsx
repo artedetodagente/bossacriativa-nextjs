@@ -1,7 +1,9 @@
+/* eslint-disable no-param-reassign */
 import React, { useEffect, useState } from 'react';
 import Info from '@/components/Info';
 import FlatList from '@/components/FlatList';
 import Breadcrumb from '@/components/Breadcrumb';
+import { useRouter } from 'next/router';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
 import CardThumb from '@/components/CardThumb';
@@ -13,12 +15,13 @@ import styles from '@/styles/realidades.module.css';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
 
-export default function Realities({
-  mostras, menus, categories, links, selectedCategory,
+export default function Apresentacoes({
+  mostrasVirtuais, menus, categories, links, selectedCategory,
 }) {
+  const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
   const [video, setVideo] = useState('');
-  const [list, setList] = useState(mostras);
+  const [list, setList] = useState(mostrasVirtuais);
   const [listCategories, setListCategories] = useState(categories);
   const [category, setCategory] = useState('todas');
 
@@ -38,7 +41,7 @@ export default function Realities({
   }, []);
 
   async function find(search) {
-    const { nodes } = await core.mostras.getAll(null, search.search);
+    const { nodes } = await core.mostrasVirtuais.getAll(null, search.search);
     const cats = nodes.filter((item) => item.categories.nodes.length > 0)
       .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
       .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
@@ -49,15 +52,15 @@ export default function Realities({
 
   return (
     <Page menus={menus} links={links}>
-      <Breadcrumb name="Mostra Virtual" />
+      <Breadcrumb />
       <ModalPlayer
         open={modal.player}
         video={video}
         close={() => setModal({ ...modal, player: false })}
       />
       <Info
-        title="Mostra Virtual"
-        text="Música, teatro, dança, poesia, circo e artes visuais, em performance e compartilhamento de experiências e saberes. No Bossa Criativa, os holofotes estão sempre acesos para os vários gêneros de manifestações artísticas brasileiras, de diferentes inspirações e com os mais variados sotaques. Confira aqui o nosso cardápio variado, clique e aproveite."
+        title="Lives"
+        text="Desde seu lançamento, em junho de 2020, o Bossa Criativa vem promovendo uma série de lives, com diferentes temas e convidados. Em clima de conversa, esses especialistas abordam aspectos de suas áreas de atuação e obras e, também, fornecem um precioso conteúdo sobre projetos e produções culturais, em diferentes contextos. Confira aqui a gravação, na íntegra, de todos esses encontros."
       />
       <Fluid className={styles.content_container}>
         <FilterBar>
@@ -91,10 +94,17 @@ export default function Realities({
           renderItem={(item) => (
             <CardThumb
               video={item.acf_data?.videoUrl}
-              image={item.featuredImage?.node.mediaItemUrl}
+              image={item.featuredImage?.node.mediaItemUrl
+                || item.acf_data.imagemDestacada?.mediaItemUrl}
               title={item.title}
-              excerpt={item.excerpt}
-              click={() => selectVideo(item.acf_data?.videoUrl)}
+              excerpt={item.excerpt || item.description}
+              click={() => {
+                if (item.slug_url) {
+                  push(`${item.slug_url}`);
+                } else {
+                  selectVideo(`${item.acf_data?.videoUrl}`);
+                }
+              }}
             />
           )}
         />
@@ -104,17 +114,37 @@ export default function Realities({
 }
 
 export async function getServerSideProps({ query }) {
-  const mostras = await core.mostras.getAll(null, query?.search);
+  const mostrasVirtuais = [];
+  const series = await core.mostras.getSeries();
+  series.nodes.forEach((element) => {
+    element.title = element.name;
+    element.slug_url = `apresentacoes-series/${element.slug}`;
+    element.categories = {
+      nodes: [{
+        name: element.acf_data.categoria[0].name,
+        slug: element.acf_data.categoria[0].slug,
+      }],
+    };
+    mostrasVirtuais.push(element);
+  });
+  const fullApresentacoes = await core.mostras.getAll(null, query?.search);
+  fullApresentacoes.nodes.forEach((element) => {
+    if (element.apresentacoesSeries.nodes.length === 0) {
+      // element.slug_url = `realidades/${element.slug}`;
+      mostrasVirtuais.push(element);
+    }
+  });
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
-  const categories = mostras.nodes.filter((item) => item.categories.nodes.length > 0)
+  const categories = mostrasVirtuais.filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+
   const selectedCategory = query?.category;
 
   return {
     props: {
-      mostras: mostras.nodes || [],
+      mostrasVirtuais: mostrasVirtuais || [],
       menus: menus.nodes || [],
       links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],

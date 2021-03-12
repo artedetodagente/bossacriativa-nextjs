@@ -9,6 +9,7 @@ import styles from '@/styles/agenda.module.css';
 import FlatList from '@/components/FlatList';
 import CardDate from '@/components/CardDate';
 import { BiRightArrow, BiLeftArrow } from 'react-icons/bi';
+import Section from '@/components/Section';
 
 export default function Agenda({
   menus, eventos, links,
@@ -82,50 +83,52 @@ export default function Agenda({
   return (
     <Page menus={menus} links={links}>
       <Fluid>
-        <FilterBar>
-          <div className={styles.calendar}>
-            <button
-              type="button"
-              className={styles.buttonav}
-              onClick={() => changeMonth(-1)}
-            >
-              <BiLeftArrow />
-            </button>
-            <ButtonCalendar
-              mark={dates || []}
-              getDate={(value) => setDate(value)}
-              getMonth={(value) => value !== month && setMonth(value)}
-              getYear={(value) => value !== year && setYear(value)}
-              changeMonth={month}
-              changeYear={year}
-            />
-            <button
-              type="button"
-              className={styles.buttonav}
-              onClick={() => changeMonth(1)}
-            >
-              <BiRightArrow />
-            </button>
-          </div>
-          <div className={styles.search}>
-            <SearchBar submit={(filter) => find(filter)} />
-          </div>
-        </FilterBar>
-        <FlatList
-          source={list}
-          cols={3}
-          renderItem={(item) => (
-            <CardDate
-              title={item.title}
-              excerpt={item.excerpt}
-              click={null}
-              image={item.featuredImage?.node.mediaItemUrl}
-              h={350}
-              day={item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0]}
-              month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10) - 1}
-            />
-          )}
-        />
+        <Section title="Agenda" className={styles.section}>
+          <FilterBar>
+            <div className={styles.calendar}>
+              <button
+                type="button"
+                className={styles.buttonav}
+                onClick={() => changeMonth(-1)}
+              >
+                <BiLeftArrow />
+              </button>
+              <ButtonCalendar
+                mark={dates || []}
+                getDate={(value) => setDate(value)}
+                getMonth={(value) => value !== month && setMonth(value)}
+                getYear={(value) => value !== year && setYear(value)}
+                changeMonth={month}
+                changeYear={year}
+              />
+              <button
+                type="button"
+                className={styles.buttonav}
+                onClick={() => changeMonth(1)}
+              >
+                <BiRightArrow />
+              </button>
+            </div>
+            <div className={styles.search}>
+              <SearchBar submit={(filter) => find(filter)} />
+            </div>
+          </FilterBar>
+          <FlatList
+            source={list}
+            cols={3}
+            renderItem={(item) => (
+              <CardDate
+                title={item.title}
+                excerpt={item.excerpt}
+                click={null}
+                image={item.featuredImage?.node.mediaItemUrl}
+                h={350}
+                day={item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0]}
+                month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10) - 1}
+              />
+            )}
+          />
+        </Section>
       </Fluid>
     </Page>
   );
