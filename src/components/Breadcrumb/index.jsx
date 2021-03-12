@@ -9,6 +9,8 @@ export default function Breadcrumb({ name }) {
   const paths = (router.asPath.split('?')[0].split('/'))
     .filter((item) => item.trim() !== '')
     .filter((item, index) => !(item.trim() === 'automatica' && index === 0))
+    .filter((item, index) => !(item.trim() === 'lives-quadros' && index === 0))
+    .filter((item, index) => !(item.trim() === 'apresentacoes-series' && index === 0))
     .map((item) => item.split('-').join(' '));
 
   return (
