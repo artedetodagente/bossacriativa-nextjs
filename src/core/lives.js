@@ -140,6 +140,11 @@ export async function getQuadro(slug, qtd = 100) {
               slug
               title
               excerpt
+              featuredImage {
+                node {
+                  mediaItemUrl
+                }
+              }
               acf_data {
                 videoUrl
               }

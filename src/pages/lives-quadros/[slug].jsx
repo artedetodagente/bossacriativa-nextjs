@@ -35,7 +35,8 @@ export default function QuadroSlug({ quadro, menus, links }) {
             renderItem={(item) => (
               <CardThumb
                 video={item.acf_data?.videoUrl}
-                image={item.featuredImage?.node.mediaItemUrl}
+                image={item.featuredImage?.node.mediaItemUrl
+                  || item.acf_data.imagemDestacada?.mediaItemUrl}
                 title={item.title}
                 excerpt={item.excerpt}
                 click={() => changeVideo(item.id)}
@@ -56,6 +57,8 @@ export default function QuadroSlug({ quadro, menus, links }) {
               <CardThumb
                 video={item.acf_data?.videoUrl}
                 title={item.title}
+                image={item.featuredImage?.node.mediaItemUrl
+                  || item.acf_data.imagemDestacada?.mediaItemUrl}
                 excerpt={item.excerpt}
                 click={() => changeVideo(item.id)}
               />
