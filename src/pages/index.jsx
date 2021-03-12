@@ -27,7 +27,7 @@ export default function Home({
     setModal({ ...modal, player: true });
   }
 
-  console.log(events);
+  // console.log(events);
 
   return (
     <Page menus={menus} links={links}>
