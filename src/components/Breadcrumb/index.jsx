@@ -11,6 +11,8 @@ export default function Breadcrumb({ name }) {
     .filter((item, index) => !(item.trim() === 'automatica' && index === 0))
     // .filter((item, index) => !(item.trim() === 'lives-quadros' && index === 0))
     // .filter((item, index) => !(item.trim() === 'apresentacoes-series' && index === 0))
+    .map((item, index) => ((item.trim() === 'lives-quadros' && index === 0) ? 'lives' : item))
+    .map((item, index) => ((item.trim() === 'apresentacoes-series' && index === 0) ? 'realidades' : item))
     .map((item) => item.split('-').join(' '));
 
   return (
