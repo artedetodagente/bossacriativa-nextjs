@@ -18,6 +18,7 @@ export async function getAll(quant, search) {
             }
             acf_data {
               videoUrl
+              dataDePublicacao
             }
             featuredImage {
               node {
@@ -168,6 +169,7 @@ export async function getQuadros(qtd = 100) {
           slug
           description
           acf_data{
+            dataPublicar
             imagemDestacada {
               mediaItemUrl
             }

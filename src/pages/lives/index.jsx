@@ -95,10 +95,16 @@ export default function Lives({
 }
 
 export async function getServerSideProps({ query }) {
+  const getISODateString = (stringDate) => {
+    const [d, m, y] = stringDate.split(' ')[0].split('/');
+    return `${y}-${m}-${d}`;
+  };
   const lives = [];
   const quadros = await core.lives.getQuadros();
   quadros.nodes.forEach((element) => {
     element.title = element.name;
+    element.data_exibicao = element.acf_data.dataPublicar || 'Sem data';
+    element.data_ordenacao = getISODateString(element.data_exibicao);
     element.slug_url = `lives-quadros/${element.slug}`;
     element.categories = {
       nodes: [{
@@ -111,10 +117,15 @@ export async function getServerSideProps({ query }) {
   const fullLives = await core.lives.getAll(null, query?.search);
   fullLives.nodes.forEach((element) => {
     if (element.livesQuadros.nodes.length === 0) {
+      element.data_exibicao = element.acf_data.dataDePublicacao || 'Sem data';
+      element.data_ordenacao = getISODateString(element.data_exibicao);
       element.slug_url = `lives/${element.slug}`;
       lives.push(element);
     }
   });
+
+  lives.sort((a, b) => new Date(b.data_ordenacao).getTime() - new Date(a.data_ordenacao).getTime());
+
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
   const categories = lives.filter((item) => item.categories.nodes.length > 0)
