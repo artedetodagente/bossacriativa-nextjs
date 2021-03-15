@@ -110,8 +110,8 @@ export default function Home({
             colsxss={1}
             colsmd={1}
             cols={3}
-            colsl={4}
-            colsxl={8}
+            colsl={3}
+            colsxl={3}
             renderItem={(item) => (
               <CardFigure
                 title={item.title}
