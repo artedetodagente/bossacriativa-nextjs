@@ -14,6 +14,7 @@ import Filter from '@/components/Filter';
 import styles from '@/styles/realidades.module.css';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
+import { getISODateString } from '@/utils/date';
 
 export default function Apresentacoes({
   mostrasVirtuais, menus, categories, links, selectedCategory,
@@ -118,6 +119,8 @@ export async function getServerSideProps({ query }) {
   const series = await core.mostras.getSeries();
   series.nodes.forEach((element) => {
     element.title = element.name;
+    element.data_exibicao = element.acf_data.dataPublicar || 'Sem data';
+    element.data_ordenacao = getISODateString(element.acf_data.dataPublicar);
     element.slug_url = `apresentacoes-series/${element.slug}`;
     element.categories = {
       nodes: [{
@@ -130,7 +133,8 @@ export async function getServerSideProps({ query }) {
   const fullApresentacoes = await core.mostras.getAll(null, query?.search);
   fullApresentacoes.nodes.forEach((element) => {
     if (element.apresentacoesSeries.nodes.length === 0) {
-      // element.slug_url = `realidades/${element.slug}`;
+      element.data_exibicao = element.acf_data.dataDePublicacao || 'Sem data';
+      element.data_ordenacao = getISODateString(element.acf_data.dataDePublicacao);
       mostrasVirtuais.push(element);
     }
   });
@@ -141,6 +145,11 @@ export async function getServerSideProps({ query }) {
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
 
   const selectedCategory = query?.category;
+
+  mostrasVirtuais.sort((a, b) => (
+    new Date(b.data_ordenacao).getTime()
+    - new Date(a.data_ordenacao).getTime()
+  ));
 
   return {
     props: {

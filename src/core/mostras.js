@@ -23,9 +23,13 @@ export async function getAll(quant, slug) {
             }
             acf_data {
               videoUrl
+              dataDePublicacao
             }
             apresentacoesSeries {
               nodes {
+                acf_data {
+                  dataPublicar
+                }
                 name
                 slug
                 id
@@ -57,9 +61,13 @@ export async function getOne(slug) {
             excerpt
             acf_data {
               videoUrl
+              dataDePublicacao
             }
             apresentacoesSeries {
               nodes {
+                acf_data {
+                  dataPublicar
+                }
                 name
                 slug
                 id
@@ -99,6 +107,7 @@ export async function getLast(last = 2) {
               }
               acf_data {
                 videoUrl
+                dataDePublicacao
               }
             }
       }
@@ -121,6 +130,7 @@ export async function getSerie(slug, qtd = 100) {
           description
           acf_data {
             descricaoCompleta
+            dataPublicar
             imagemDestacada {
               mediaItemUrl
             }
@@ -137,6 +147,7 @@ export async function getSerie(slug, qtd = 100) {
               excerpt
               acf_data {
                 videoUrl
+                dataDePublicacao
               }
               featuredImage {
                 node {
@@ -164,6 +175,7 @@ export async function getSeries(slug, qtd = 100) {
         description
         acf_data {
           descricaoCompleta
+          dataPublicar
           imagemDestacada {
             mediaItemUrl
           }
@@ -180,7 +192,7 @@ export async function getSeries(slug, qtd = 100) {
             excerpt
             acf_data {
               videoUrl
-              
+              dataDePublicacao
             }
           }
         }
@@ -190,4 +202,4 @@ export async function getSeries(slug, qtd = 100) {
     variables: { qtd },
   });
   return data?.apresentacoesSeries;
-};
+}
