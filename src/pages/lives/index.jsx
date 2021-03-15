@@ -101,7 +101,7 @@ export async function getServerSideProps({ query }) {
   quadros.nodes.forEach((element) => {
     element.title = element.name;
     element.data_exibicao = element.acf_data.dataPublicar || 'Sem data';
-    element.data_ordenacao = getISODateString(element.data_exibicao);
+    element.data_ordenacao = getISODateString(element.acf_data.dataPublicar);
     element.slug_url = `lives-quadros/${element.slug}`;
     element.categories = {
       nodes: [{
@@ -115,7 +115,7 @@ export async function getServerSideProps({ query }) {
   fullLives.nodes.forEach((element) => {
     if (element.livesQuadros.nodes.length === 0) {
       element.data_exibicao = element.acf_data.dataDePublicacao || 'Sem data';
-      element.data_ordenacao = getISODateString(element.data_exibicao);
+      element.data_ordenacao = getISODateString(element.acf_data.dataDePublicacao);
       element.slug_url = `lives/${element.slug}`;
       lives.push(element);
     }
