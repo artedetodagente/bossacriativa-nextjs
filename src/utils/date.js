@@ -9,5 +9,6 @@ export const months = [
 export const getISODateString = (stringDateInput) => {
   const stringDate = stringDateInput || '1/1/1970';
   const [d, m, y] = stringDate.split(' ')[0].split('/');
-  return `${y}-${m}-${d}`;
+  const stringTime = stringDate.split(' ')[1] || '0:00';
+  return `${y}-${m}-${d} ${stringTime}`;
 };
