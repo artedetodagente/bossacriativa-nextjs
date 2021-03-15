@@ -77,10 +77,6 @@ export async function getStaticProps({ params }) {
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
 
-  // nodes[0]?.lives?.nodes.forEach((element) => {
-  //   element.data_ordenacao = getISODateString(element.acf_data.dataDePublicacao);
-  // });
-
   nodes[0]?.lives?.nodes.sort((a, b) => (
     new Date(getISODateString(a.acf_data.dataDePublicacao)).getTime()
     - new Date(getISODateString(b.acf_data.dataDePublicacao)).getTime()
