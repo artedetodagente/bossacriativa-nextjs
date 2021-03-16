@@ -27,8 +27,6 @@ export default function Home({
     setModal({ ...modal, player: true });
   }
 
-  console.log(events);
-
   return (
     <Page menus={menus} links={links}>
       <ModalPlayer
@@ -76,6 +74,7 @@ export default function Home({
         <Section title="Programação" link="/agenda">
           <CarouselGrid
             source={events}
+            reverse
             renderItem={(item) => (
               <CardDate
                 image={item.featuredImage?.node.mediaItemUrl}
@@ -83,7 +82,7 @@ export default function Home({
                 excerpt={item.excerpt}
                 day={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0], 10)}
                 month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10)}
-                click={() => selectVideo(item.acf_data?.videoUrl)}
+                // click={() => selectVideo(item.acf_data?.videoUrl)}
               />
             )}
           />
