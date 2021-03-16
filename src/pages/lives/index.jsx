@@ -13,6 +13,7 @@ import Filter from '@/components/Filter';
 import styles from '@/styles/lives.module.css';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
+import { getISODateString } from '@/utils/date';
 
 export default function Lives({
   lives, menus, categories, links, selectedCategory,
@@ -99,6 +100,8 @@ export async function getServerSideProps({ query }) {
   const quadros = await core.lives.getQuadros();
   quadros.nodes.forEach((element) => {
     element.title = element.name;
+    element.data_exibicao = element.acf_data.dataPublicar || 'Sem data';
+    element.data_ordenacao = getISODateString(element.acf_data.dataPublicar);
     element.slug_url = `lives-quadros/${element.slug}`;
     element.categories = {
       nodes: [{
@@ -111,10 +114,15 @@ export async function getServerSideProps({ query }) {
   const fullLives = await core.lives.getAll(null, query?.search);
   fullLives.nodes.forEach((element) => {
     if (element.livesQuadros.nodes.length === 0) {
+      element.data_exibicao = element.acf_data.dataDePublicacao || 'Sem data';
+      element.data_ordenacao = getISODateString(element.acf_data.dataDePublicacao);
       element.slug_url = `lives/${element.slug}`;
       lives.push(element);
     }
   });
+
+  lives.sort((a, b) => new Date(b.data_ordenacao).getTime() - new Date(a.data_ordenacao).getTime());
+
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
   const categories = lives.filter((item) => item.categories.nodes.length > 0)

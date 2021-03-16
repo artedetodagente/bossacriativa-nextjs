@@ -12,6 +12,7 @@ import Page from '@/components/Page';
 import FilterBar from '@/components/FilterBar';
 import FilterList from '@/components/FilterList';
 import styles from '@/styles/oficinas.module.css';
+import { getISODateString } from '@/utils/date';
 
 export default function Workshops({
   workshops, categories, menus, links, selectedCategory,
@@ -99,6 +100,11 @@ export async function getServerSideProps({ query }) {
     .reduce((acc, cur) => [...acc, ...cur.acf_data.categoria], [])
     .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
   const selectedCategory = query?.category;
+
+  workshops.nodes.sort((a, b) => (
+    new Date(getISODateString(b.acf_data.dataPublicar))
+  - new Date(getISODateString(a.acf_data.dataPublicar))
+  ));
 
   return {
     props: {

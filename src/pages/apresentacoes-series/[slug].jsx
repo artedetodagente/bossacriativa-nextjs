@@ -8,6 +8,7 @@ import FlatList from '@/components/FlatList';
 import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
 import styles from '@/styles/apresentacoes-series-slug.module.css';
+import { getISODateString } from '@/utils/date';
 
 export default function SerieSlug({ serie, menus, links }) {
   const [video, setVideo] = useState(0);
@@ -71,6 +72,11 @@ export async function getStaticProps({ params }) {
   const { nodes } = await core.mostras.getSerie(params.slug);
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
+
+  nodes[0]?.mostrasVirtuais?.nodes.sort((a, b) => (
+    new Date(getISODateString(a.acf_data.dataDePublicacao)).getTime()
+    - new Date(getISODateString(b.acf_data.dataDePublicacao)).getTime()
+  ));
 
   return {
     props: {

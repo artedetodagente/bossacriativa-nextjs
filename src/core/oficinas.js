@@ -11,6 +11,7 @@ export async function getAll(quant, name) {
             slug
             description
             acf_data {
+              dataPublicar
               categoria {
                 name
                 slug
@@ -49,6 +50,7 @@ export async function getOne(slug) {
             description
             acf_data {
               descricaoCompleta
+              dataPublicar
             }
             oficinas (last: 100, where: {orderby: {field: TITLE, order: ASC}}) {
               nodes {
@@ -63,6 +65,7 @@ export async function getOne(slug) {
                 }
                 acf_data {
                   videoUrl
+                  dataDePublicacao
                   autor {
                     ... on AutoresOne {
                       title

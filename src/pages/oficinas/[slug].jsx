@@ -13,6 +13,7 @@ import Expansibled from '@/components/Expansibled';
 import ItemHeaderList from '@/components/ItemHeaderList';
 import ItemList from '@/components/ItemList';
 import styles from '@/styles/oficinas-slug.module.css';
+import { getISODateString } from '@/utils/date';
 
 export default function WorkshopSlug({ workshop, menus, links }) {
   const content = useRef(null);
@@ -143,6 +144,11 @@ export async function getStaticProps({ params }) {
   const { nodes } = await core.oficinas.getOne(params.slug);
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
+
+  nodes[0]?.oficinas.nodes.sort((a, b) => (
+    new Date(getISODateString(a.acf_data.dataDePublicacao))
+  - new Date(getISODateString(b.acf_data.dataDePublicacao))
+  ));
 
   return {
     props: {

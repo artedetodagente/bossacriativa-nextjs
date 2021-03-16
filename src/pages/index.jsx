@@ -38,11 +38,12 @@ export default function Home({
       <div className={styles.description}>
         <div area="text">
           <p>
-            No Bossa Criativa, arte, cultura e inclusão têm como palco a internet e patrimônios da
-            humanidade. São mais de 180 artistas e educadores, de várias regiões do país, em
-            apresentações, lives e oficinas de capacitação nas áreas de música, circo,
-            artes visuais, dança, teatro e gestão cultural. Mais de 200 horas de conteúdo já
-            estão no ar, com foco na diversidade e democratização da cultura.
+            No Bossa Criativa, arte, cultura e patrimônios da humanidade
+            têm como palco a internet. São mais de 180 artistas e educadores,
+            de várias regiões do país, em apresentações, oficinas de capacitação
+            e lives nas áreas de música, circo, artes visuais, dança, teatro e
+            gestão cultural. Mais de 200 horas de conteúdo já estão no ar, com
+            foco na diversidade, inclusão e democratização da cultura.
           </p>
         </div>
         <div area="action" className={styles.botaovideo}>
@@ -108,8 +109,8 @@ export default function Home({
             colsxss={1}
             colsmd={1}
             cols={3}
-            colsl={4}
-            colsxl={8}
+            colsl={3}
+            colsxl={3}
             renderItem={(item) => (
               <CardFigure
                 title={item.title}
