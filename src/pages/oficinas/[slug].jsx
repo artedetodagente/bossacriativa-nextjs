@@ -33,6 +33,9 @@ export default function WorkshopSlug({ workshop, menus, links }) {
 
   async function changeLeasson(id) {
     const index = workshop?.oficinas.nodes.findIndex((item) => item.id === id);
+    const dist = document.querySelector('.cabecalho').scrollHeight;
+    document.body.scrollTop = dist;
+    document.documentElement.scrollTop = dist;
     setLesson(index);
   }
 
@@ -43,42 +46,44 @@ export default function WorkshopSlug({ workshop, menus, links }) {
 
   return (
     <Page menus={menus} links={links}>
-      <Breadcrumb />
-      <Info
-        title={workshop?.name}
-        text={workshop?.description}
-      >
-        <Expansibled
-          showText="Conheça os professores e mais"
-          hiddenText="Fechar"
+      <div className="cabecalho">
+        <Breadcrumb />
+        <Info
+          title={workshop?.name}
+          text={workshop?.description}
         >
-          <Fluid className={styles.expansibledLayout}>
-            <ul>
-              <ItemHeaderList
-                title="Conteúdo Programático"
-                click={() => changeContent({
-                  title: 'Conteúdo Programático',
-                  content: workshop.acf_data?.descricaoCompleta,
-                })}
-              />
-              <ItemHeaderList title="Professores" />
-              {
-                teachers.map((item, index) => item.title !== 'Todos' && (
-                  <ItemList
-                    key={index}
-                    title={item.title}
-                    click={() => changeContent(item)}
-                  />
-                ))
-              }
-            </ul>
-            <div>
-              <h1>{title}</h1>
-              <div ref={content} />
-            </div>
-          </Fluid>
-        </Expansibled>
-      </Info>
+          <Expansibled
+            showText="Conheça os professores e mais"
+            hiddenText="Fechar"
+          >
+            <Fluid className={styles.expansibledLayout}>
+              <ul>
+                <ItemHeaderList
+                  title="Conteúdo Programático"
+                  click={() => changeContent({
+                    title: 'Conteúdo Programático',
+                    content: workshop.acf_data?.descricaoCompleta,
+                  })}
+                />
+                <ItemHeaderList title="Professores" />
+                {
+                  teachers.map((item, index) => item.title !== 'Todos' && (
+                    <ItemList
+                      key={index}
+                      title={item.title}
+                      click={() => changeContent(item)}
+                    />
+                  ))
+                }
+              </ul>
+              <div>
+                <h1>{title}</h1>
+                <div ref={content} />
+              </div>
+            </Fluid>
+          </Expansibled>
+        </Info>
+      </div>
       <Fluid className={styles.layout}>
         <div className={styles.player}>
           <YouEmbed

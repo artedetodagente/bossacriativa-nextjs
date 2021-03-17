@@ -15,12 +15,17 @@ export default function SerieSlug({ serie, menus, links }) {
 
   async function changeVideo(id) {
     const index = serie?.mostrasVirtuais.nodes.findIndex((item) => item.id === id);
+    const dist = document.querySelector('.cabecalho').scrollHeight;
+    document.body.scrollTop = dist;
+    document.documentElement.scrollTop = dist;
     setVideo(index);
   }
 
   return (
     <Page menus={menus} links={links}>
-      <Breadcrumb />
+      <div className="cabecalho">
+        <Breadcrumb />
+      </div>
       <Fluid className={styles.layout}>
         <div className={styles.player}>
           <YouEmbed
