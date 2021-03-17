@@ -56,7 +56,7 @@ export const Card = styled.article`
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    z-index: 999;
+    z-index: 998;
   }
 
   div {
