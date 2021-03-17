@@ -142,7 +142,8 @@ export default function Home({
             renderItem={(item) => (
               <CardThumb
                 video={item.acf_data.videoUrl}
-                image={item.featuredImage?.node.mediaItemUrl}
+                image={item.featuredImage?.node.mediaItemUrl
+                  || item.acf_data.imagemDestacada?.mediaItemUrl}
                 excerpt={item.excerpt}
                 title={item.title}
                 click={() => push(`lives/${item.slug}`)}
