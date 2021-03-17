@@ -14,6 +14,7 @@ export default function CardDate({
     <Card
       image={image}
       onClick={click}
+      isClicked={!!click}
       // h={h}
       // w={w}
     >
@@ -26,14 +27,12 @@ export default function CardDate({
         />
       </figure>
       <div>
-        <div>
-          <p>
-            {`${day} ${months[month].slice(0, 3)}`}
-          </p>
-        </div>
-        <div>
-          <h1>{title}</h1>
-        </div>
+        <p>
+          {`${day} ${months[month].slice(0, 3)}`}
+        </p>
+      </div>
+      <div>
+        <h1>{title}</h1>
       </div>
       <div>
         <p>{excerpt && excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>

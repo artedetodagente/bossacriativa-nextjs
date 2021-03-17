@@ -6,7 +6,7 @@ export const Card = styled.article`
   width: ${({ w }) => (w > 0 ? `${w}px` : '100%')};
   position: relative;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: ${({ isClicked }) => (isClicked ? 'pointer' : 'auto')};
   padding-top: calc(9/14 * 100%);
   overflow: hidden;
 
@@ -28,51 +28,46 @@ export const Card = styled.article`
   > div {
 
     :first-of-type {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: auto;
+      margin-top: 5px;
+
+      p {
+        background-color: rgba(2, 2, 2, .6);
+        font-size: 1em;
+        color: #fff;
+        padding: 10px;
+        margin: 0;
+        margin-right: 5px;
+        text-align: left;
+        width: fit-content;
+        height: fit-content;
+      }
+    }
+
+    :nth-child(3) {
       display: flex;
       position: absolute;
-      bottom: 20px;
+      bottom: 0px;
       width: 100%;
-
-      div {
+      /* height: 100%; */
+      /* flex-direction: column; */
+    
+      h1 {
         background-color: rgba(2, 2, 2, .6);
-        
-        :first-of-type {
-          flex: .2;
-          margin-right: 5px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          p {
-            font-size: 1em;
-            color: #fff;
-            padding: 5px 10px;
-            text-align: center;
-            margin: 0;
-          }
-
-        }
-
-        :last-of-type {
-          flex: 1;
-          margin-left: 5px;
-          width: 100%;
-          position: relative;
-          
-          h1 {
-            font-size: 1em;
-            color: #fff;
-            padding: 5px 10px;
-            width: 100%;
-            /* text-align: center; */
-            margin: 0;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            z-index: 1;
-          }
-        }
+        margin-left: 5px;
+        font-size: 1.3em;
+        color: #fff;
+        padding: 10px;
+        width: 100%;
+        margin: 0;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        z-index: 1;
       }
     }
 

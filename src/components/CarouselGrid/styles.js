@@ -117,7 +117,7 @@ export const Item = styled.li`
 
   :first-of-type h1 {
     bottom: 20px;
-    width: 50%;
+    width: 50% !important;
   }
 
   :first-of-type div {
