@@ -5,8 +5,10 @@ import {
   Wrapper, Indicator, IndicatorItem, Slide, Item,
 } from './styles';
 
+const blockSpin = false;
+
 export default function CarouselGrid({
-  autoplay, source, reverse, renderItem, // h,
+  autoplay, source, reverse, renderItem,
 }) {
   const slideScroll = useRef();
   const [settings, setSettings] = useState({
@@ -23,7 +25,7 @@ export default function CarouselGrid({
   }, []);
 
   useEffect(() => {
-    if (!settings.autoplay) return () => null;
+    if (!settings.autoplay || blockSpin) return () => null;
     const timer = setInterval(() => {
       const sizeOfSlides = window.innerWidth > theme.sizes.laptop
         ? settings.slides.length - 1 : settings.slides[0].length - 1;
@@ -52,7 +54,6 @@ export default function CarouselGrid({
 
   return (
     <Wrapper
-      // h={h}
       onMouseOver={() => setSettings({ ...settings, autoplay: false })}
       onMouseLeave={() => setSettings({ ...settings, autoplay: true })}
     >
