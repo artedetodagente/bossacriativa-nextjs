@@ -21,7 +21,7 @@ export default function SchoolBar({ data }) {
           <Fragment key={index}>
             <li key={item.id}>
               <Link href={item.acf_links_topo?.urlTopo || '/'}>
-                <a>
+                <a target="_blank">
                   {item.title}
                 </a>
               </Link>
