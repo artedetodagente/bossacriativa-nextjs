@@ -124,6 +124,10 @@ export const Item = styled.li`
     padding: 20px;
   }
 
+  a.infoButton {
+    bottom: 20px !important;
+  }
+
   @media ${({ theme }) => theme.devices.laptop} {
      :first-of-type div {
        padding: 10px;

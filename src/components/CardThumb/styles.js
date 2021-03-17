@@ -40,6 +40,25 @@ export const Card = styled.article`
     z-index: 1;
   }
 
+  > a.infoButton {
+    position: absolute;
+    text-align: left;
+    padding: .1em .5em;
+    margin: 0;
+    right: 0;
+    bottom: 60px;
+    font-size: 1.5em;
+    height: 1.5em;
+    width: 2em;
+    line-height: 1.5em;
+    color: #fff;
+    background-color: rgba(2, 2, 2, .6);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    z-index: 999;
+  }
+
   div {
     position: absolute;
     left: 0;
@@ -48,14 +67,10 @@ export const Card = styled.article`
     width: 100%;
     padding: 10px;
     transition: opacity .3s linear;
-    opacity: 0;
+    opacity: ${({ infoShow }) => (infoShow ? '1' : '0')};
     background-color: rgba(2, 2, 2, .8);
     z-index: 997;
     overflow: hidden;
-  }
-
-  :hover > div {
-    opacity: 1;
   }
 
   p {
@@ -67,4 +82,15 @@ export const Card = styled.article`
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
   }
+
+  @media ${({ theme }) => theme.devices.laptop} {
+    :hover > div {
+      opacity: 1;
+    }
+
+    > a.infoButton {
+      display: none;
+    }
+ }
+
 `;
