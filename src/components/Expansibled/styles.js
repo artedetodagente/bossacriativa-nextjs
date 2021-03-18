@@ -17,8 +17,8 @@ export const Content = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: ${({ theme }) => theme.colors.default.primary};
-      padding: 20px 0;
+      // background-color: ${({ theme }) => theme.colors.default.primary};
+      // padding: 20px 0;
       width: 100%;
 
       button {
@@ -27,11 +27,14 @@ export const Content = styled.div`
         border: 0;
         border-radius: 5px;
         padding: 10px 15px;
-        font-size: 1em;
+        font-size: 1.3em;
         outline: none;
         cursor: pointer;
         display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
+        width: 100%;
         
         svg {
           transition: .3s transform linear;

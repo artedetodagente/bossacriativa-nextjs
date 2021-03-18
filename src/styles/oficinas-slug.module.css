@@ -19,6 +19,7 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas: 
     "player player player player" 
+    "ementa ementa ementa ementa"
     "list list list list"
     "videos videos videos videos";
   grid-column-gap: 20px;
@@ -27,6 +28,10 @@
 
 .player {
   grid-area: player;
+}
+
+.expansibleContainer {
+  grid-area: ementa;
 }
 
 .listContainer{
@@ -66,15 +71,22 @@
 }
 
 @media only screen and (min-width: 1024px){
-  .expansibledLayout {
-    flex-direction: row;
-  }
-
   .layout {
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas: 
-      "player player player list" 
+      "player player ementa ementa" 
+      "player player list list" 
       "videos videos videos videos";
+      grid-row-gap: 0px;
+  }
+
+  .player {
+    align-self: center;
+  }
+
+  .listContainer{
+    margin: 0 !important;
+    align-self: end;
   }
 
   .videosContainer > main > article > header {

@@ -50,10 +50,18 @@ export default function WorkshopSlug({ workshop, menus, links }) {
         <Breadcrumb />
         <Info
           title={workshop?.name}
-          text={workshop?.description}
-        >
+          // text={workshop?.description}
+        />
+      </div>
+      <Fluid className={styles.layout}>
+        <div className={styles.player}>
+          <YouEmbed
+            url={workshop?.oficinas.nodes[lesson]?.acf_data.videoUrl}
+          />
+        </div>
+        <div className={styles.expansibleContainer}>
           <Expansibled
-            showText="Conheça os professores e mais"
+            showText="Sobre essa oficina, professores e conteúdo programático"
             hiddenText="Fechar"
           >
             <Fluid className={styles.expansibledLayout}>
@@ -82,20 +90,13 @@ export default function WorkshopSlug({ workshop, menus, links }) {
               </div>
             </Fluid>
           </Expansibled>
-        </Info>
-      </div>
-      <Fluid className={styles.layout}>
-        <div className={styles.player}>
-          <YouEmbed
-            url={workshop?.oficinas.nodes[lesson]?.acf_data.videoUrl}
-          />
         </div>
         <Section title="Próximas Aulas" className={styles.listContainer}>
           <FlatList
             className={styles.list}
             source={workshop?.oficinas.nodes.slice(lesson + 1, lesson + 3) || []}
             colsxss={2}
-            cols={1}
+            cols={2}
             renderItem={(item) => (
               <CardThumb
                 video={item.acf_data?.videoUrl}
