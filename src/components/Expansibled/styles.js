@@ -27,7 +27,7 @@ export const Content = styled.div`
         border: 0;
         border-radius: 5px;
         padding: 10px 15px;
-        font-size: 15px;
+        font-size: 1em;
         outline: none;
         cursor: pointer;
         display: flex;
