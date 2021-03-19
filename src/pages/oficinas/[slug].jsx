@@ -33,7 +33,15 @@ export default function WorkshopSlug({ workshop, menus, links }) {
 
   async function changeLeasson(id) {
     const index = workshop?.oficinas.nodes.findIndex((item) => item.id === id);
-    const dist = document.querySelector('.cabecalho').scrollHeight;
+    const margemSeguranca = 50;
+    let dist;
+    if (window.innerWidth >= 1024) {
+      dist = document.querySelector('.cabecalho').scrollHeight
+     + document.querySelector(`.${styles.expansibleContainer}`).scrollHeight
+     - margemSeguranca;
+    } else {
+      dist = document.querySelector('.cabecalho').scrollHeight;
+    }
     document.body.scrollTop = dist;
     document.documentElement.scrollTop = dist;
     setLesson(index);
@@ -91,6 +99,7 @@ export default function WorkshopSlug({ workshop, menus, links }) {
             </Fluid>
           </Expansibled>
         </div>
+        
         <Section title="Próximas Aulas" className={styles.listContainer}>
           <FlatList
             className={styles.list}
