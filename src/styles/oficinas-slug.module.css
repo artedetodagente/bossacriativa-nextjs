@@ -74,7 +74,7 @@
   .layout {
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas: 
-      "player player ementa ementa" 
+      "ementa ementa ementa ementa" 
       "player player list list" 
       "videos videos videos videos";
       grid-row-gap: 0px;
@@ -82,6 +82,13 @@
 
   .player {
     align-self: center;
+  }
+
+  .expansibleContainer button{
+    width: 50% !important;
+    position: absolute;
+    right: 0;
+    margin-top: 2.5em;
   }
 
   .listContainer{
