@@ -11,6 +11,7 @@ export const Content = styled.div`
       background-color: #fff;
       transition: .3s height linear;
       overflow: hidden;
+      margin-bottom: 1em;
     }
 
     :last-of-type {
