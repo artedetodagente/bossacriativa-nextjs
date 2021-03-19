@@ -91,6 +91,11 @@
     margin-top: 2.5em;
   }
 
+  .expansibledLayout{
+    flex-direction: row;
+    padding-bottom: 10px !important;
+  }
+  
   .listContainer{
     margin: 0 !important;
     align-self: end;

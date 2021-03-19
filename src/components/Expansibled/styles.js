@@ -7,7 +7,7 @@ export const Content = styled.div`
 
   > div {
     :first-of-type {
-      height: ${({ show }) => (show ? '100vh' : 0)};
+      height: ${({ show }) => (show ? 'auto' : 0)};
       background-color: #fff;
       transition: .3s height linear;
       overflow: hidden;
