@@ -96,6 +96,10 @@
     align-self: end;
   }
 
+  .videosContainer {
+    margin-top: 5em !important;
+  }
+
   .videosContainer > main > article > header {
     display: inline-flex;
   }
