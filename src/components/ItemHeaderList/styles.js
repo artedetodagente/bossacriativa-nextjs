@@ -12,4 +12,5 @@ export const Item = styled.li`
   letter-spacing: .1em;
   font-size: .9em;
   cursor: pointer;
+  font-family: ${({ theme }) => theme.fonts.text};
 `;

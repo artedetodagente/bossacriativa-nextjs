@@ -9,6 +9,7 @@ export const Item = styled.li`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  font-family: ${({ theme }) => theme.fonts.text};
 
   svg {
     font-size: 1.5em;
