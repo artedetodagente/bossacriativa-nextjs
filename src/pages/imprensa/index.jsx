@@ -10,6 +10,9 @@ import CardIcon from '@/components/CardIcon';
 import { BsNewspaper } from 'react-icons/bs';
 import CardHorizontal from '@/components/CardHorizontal';
 import core from '@/core';
+import ButtonsNavigations from '@/components/ButtonsNavigations';
+import Title from '@/components/Title';
+import styles from '@/styles/imprensa.module.css';
 
 export default function Press({
   releases, clippings, menus, links,
@@ -37,43 +40,68 @@ export default function Press({
       <Breadcrumb />
       <Info title="Imprensa" />
       <Fluid>
-        <Section title="Contatos">
-          <FlatList
-            source={contacts}
-            renderItem={(item) => (
-              <CardText
-                gap="20px"
-                title={item.title}
-                text={item.text}
-              />
-            )}
-          />
+        <Section>
+          <header>
+            <Title>Contatos</Title>
+          </header>
+          <main>
+            <FlatList
+              source={contacts}
+              renderItem={(item) => (
+                <CardText
+                  gap="20px"
+                  title={item.title}
+                  text={item.text}
+                />
+              )}
+            />
+          </main>
         </Section>
-        <Section title="Releases">
-          <FlatList
-            source={releases}
-            renderItem={(item) => (
-              <CardIcon
-                icon={<BsNewspaper />}
-                text={item.title}
-                click={() => dowloadRelease(item.acf_link_release.arquivo.link, item.title)}
-              />
-            )}
-          />
+        <Section className={styles.release}>
+          <header>
+            <div>
+              <Title>Releases</Title>
+            </div>
+            <div>
+              <ButtonsNavigations />
+            </div>
+          </header>
+          <main>
+            <FlatList
+              source={releases}
+              renderItem={(item) => (
+                <CardIcon
+                  icon={<BsNewspaper />}
+                  text={item.title}
+                  click={() => dowloadRelease(item.acf_link_release.arquivo.link, item.title)}
+                />
+              )}
+            />
+          </main>
         </Section>
-        <Section title="Clipping">
-          <FlatList
-            cols={3}
-            source={clippings}
-            renderItem={(item) => (
-              <CardHorizontal
-                image={item?.featuredImage?.node?.mediaItemUrl}
-                title={item.title}
-                text={item.excerpt}
-                click={() => navigate(item.acf_link_clipping?.linkDaNoticia)}
-              />
-            )}
-          />
+        <Section className={styles.clipping}>
+          <header>
+            <div>
+              <Title>Clippings</Title>
+            </div>
+            <div>
+              <ButtonsNavigations />
+            </div>
+          </header>
+          <main>
+            <FlatList
+              cols={3}
+              source={clippings}
+              renderItem={(item) => (
+                <CardHorizontal
+                  image={item?.featuredImage?.node?.mediaItemUrl}
+                  title={item.title}
+                  text={item.excerpt}
+                  click={() => navigate(item.acf_link_clipping?.linkDaNoticia)}
+                />
+              )}
+            />
+          </main>
         </Section>
       </Fluid>
     </Page>

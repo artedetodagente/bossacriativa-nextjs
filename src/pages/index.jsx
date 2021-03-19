@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 import CardDate from '@/components/CardDate';
+import Title from '@/components/Title';
 
 export default function Home({
   ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links, events,
@@ -72,84 +73,109 @@ export default function Home({
         </figure>
       </div>
       <Fluid>
-        <Section title="Programação" link="/agenda">
-          <CarouselGrid
-            source={events}
-            reverse
-            renderItem={(item) => (
-              <CardDate
-                image={item.featuredImage?.node.mediaItemUrl}
-                title={item.title}
-                excerpt={item.excerpt}
-                day={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0], 10)}
-                month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10) - 1}
-                // click={() => selectVideo(item.acf_data?.videoUrl)}
-              />
-            )}
-          />
+        <Section>
+          <header>
+            <Title link="/agenda">Programação</Title>
+          </header>
+          <main>
+            <CarouselGrid
+              source={events}
+              reverse
+              renderItem={(item) => (
+                <CardDate
+                  image={item.featuredImage?.node.mediaItemUrl}
+                  title={item.title}
+                  excerpt={item.excerpt}
+                  day={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0], 10)}
+                  month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10) - 1}
+                  // click={() => selectVideo(item.acf_data?.videoUrl)}
+                />
+              )}
+            />
+          </main>
         </Section>
-        <Section title="Apresentações" link="/realidades">
-          <CarouselGrid
-            source={ultimasMostras}
-            renderItem={(item) => (
-              <CardThumb
-                video={item.acf_data?.videoUrl}
-                image={item.featuredImage?.node.mediaItemUrl}
-                title={item.title}
-                excerpt={item.excerpt}
-                click={() => selectVideo(item.acf_data?.videoUrl)}
-              />
-            )}
-          />
+        <Section>
+          <header>
+            <Title link="/realidades">Apresentações</Title>
+          </header>
+          <main>
+            <CarouselGrid
+              source={ultimasMostras}
+              renderItem={(item) => (
+                <CardThumb
+                  video={item.acf_data?.videoUrl}
+                  image={item.featuredImage?.node.mediaItemUrl}
+                  title={item.title}
+                  excerpt={item.excerpt}
+                  click={() => selectVideo(item.acf_data?.videoUrl)}
+                />
+              )}
+            />
+          </main>
         </Section>
-        <Section title="Notícias" link="/noticias">
-          <FlatList
-            className={styles.noticias}
-            source={posts}
-            colsxss={1}
-            colsmd={1}
-            cols={3}
-            colsl={3}
-            colsxl={3}
-            renderItem={(item) => (
-              <CardFigure
-                title={item.title}
-                excerpt={item.acf_chamada_post?.chamadaHome}
-                image={item.featuredImage?.node?.mediaItemUrl}
-                click={() => push(`noticias/${item.slug}`)}
-              />
-            )}
-          />
+        <Section>
+          <header>
+            <Title link="/noticias">Notícias</Title>
+          </header>
+          <main>
+            <FlatList
+              className={styles.noticias}
+              source={posts}
+              colsxss={1}
+              colsmd={1}
+              cols={3}
+              colsl={3}
+              colsxl={3}
+              renderItem={(item) => (
+                <CardFigure
+                  title={item.title}
+                  excerpt={item.acf_chamada_post?.chamadaHome}
+                  image={item.featuredImage?.node?.mediaItemUrl}
+                  click={() => push(`noticias/${item.slug}`)}
+                />
+              )}
+            />
+          </main>
         </Section>
-        <Section title="Oficinas" link="/oficinas">
-          <CarouselGrid
-            source={oficinas}
-            renderItem={(item) => (
-              <CardThumb
-                excerpt={item.description}
-                title={item.name}
-                image={item.acf_data.imagemDestacada.mediaItemUrl}
-                click={() => push(`oficinas/${item.slug}`)}
-              />
-            )}
-          />
+        <Section>
+          <header>
+            <Title link="/oficinas">Oficinas</Title>
+          </header>
+          <main>
+            <CarouselGrid
+              source={oficinas}
+              renderItem={(item) => (
+                <CardThumb
+                  excerpt={item.description}
+                  title={item.name}
+                  image={item.acf_data.imagemDestacada.mediaItemUrl}
+                  click={() => push(`oficinas/${item.slug}`)}
+                />
+              )}
+            />
+          </main>
         </Section>
-        <Section title="Lives" link="/lives">
-          <CarouselGrid
-            source={ultimasLives}
-            reverse
-            renderItem={(item) => (
-              <CardThumb
-                video={item.acf_data.videoUrl}
-                image={item.featuredImage?.node.mediaItemUrl
-                  || item.acf_data.imagemDestacada?.mediaItemUrl}
-                excerpt={item.excerpt}
-                title={item.title}
-                click={() => push(`lives/${item.slug}`)}
-              // h={200}
-              />
-            )}
-          />
+        <Section>
+          <header>
+            <Title link="/lives">Lives</Title>
+          </header>
+          <main>
+            <CarouselGrid
+              source={ultimasLives}
+              reverse
+              renderItem={(item) => (
+                <CardThumb
+                  video={item.acf_data.videoUrl}
+                  image={item.featuredImage?.node.mediaItemUrl
+                    || item.acf_data.imagemDestacada?.mediaItemUrl}
+                  excerpt={item.excerpt}
+                  title={item.title}
+                  click={() => push(`lives/${item.slug}`)}
+                // h={200}
+                />
+              )}
+            />
+          </main>
         </Section>
       </Fluid>
     </Page>

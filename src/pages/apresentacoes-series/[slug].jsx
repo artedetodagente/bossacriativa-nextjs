@@ -9,6 +9,7 @@ import CardThumb from '@/components/CardThumb';
 import Page from '@/components/Page';
 import styles from '@/styles/apresentacoes-series-slug.module.css';
 import { getISODateString } from '@/utils/date';
+import Title from '@/components/Title';
 
 export default function SerieSlug({ serie, menus, links }) {
   const [video, setVideo] = useState(0);
@@ -32,41 +33,51 @@ export default function SerieSlug({ serie, menus, links }) {
             url={serie?.mostrasVirtuais.nodes[video]?.acf_data.videoUrl}
           />
         </div>
-        <Section title="Próximos Vídeos" className={styles.listContainer}>
-          <FlatList
-            className={styles.list}
-            source={serie?.mostrasVirtuais.nodes.slice(video + 1, video + 3) || []}
-            colsxss={2}
-            cols={1}
-            renderItem={(item) => (
-              <CardThumb
-                video={item.acf_data?.videoUrl}
-                image={item.featuredImage?.node.mediaItemUrl}
-                title={item.title}
-                excerpt={item.excerpt}
-                click={() => changeVideo(item.id)}
-              />
-            )}
-          />
+        <Section className={styles.listContainer}>
+          <header>
+            <Title>Próximos Vídeos</Title>
+          </header>
+          <main>
+            <FlatList
+              className={styles.list}
+              source={serie?.mostrasVirtuais.nodes.slice(video + 1, video + 3) || []}
+              colsxss={2}
+              cols={1}
+              renderItem={(item) => (
+                <CardThumb
+                  video={item.acf_data?.videoUrl}
+                  image={item.featuredImage?.node.mediaItemUrl}
+                  title={item.title}
+                  excerpt={item.excerpt}
+                  click={() => changeVideo(item.id)}
+                />
+              )}
+            />
+          </main>
         </Section>
-        <Section title="Todos os vídeos" className={styles.videosContainer}>
-          <FlatList
-            className={styles.videos}
-            source={serie?.mostrasVirtuais.nodes || []}
-            colsxss={1}
-            colsmd={2}
-            cols={3}
-            colsl={4}
-            colsxl={8}
-            renderItem={(item) => (
-              <CardThumb
-                video={item.acf_data?.videoUrl}
-                title={item.title}
-                excerpt={item.excerpt}
-                click={() => changeVideo(item.id)}
-              />
-            )}
-          />
+        <Section className={styles.videosContainer}>
+          <header>
+            <Title>Todos os vídeos</Title>
+          </header>
+          <main>
+            <FlatList
+              className={styles.videos}
+              source={serie?.mostrasVirtuais.nodes || []}
+              colsxss={1}
+              colsmd={2}
+              cols={3}
+              colsl={4}
+              colsxl={8}
+              renderItem={(item) => (
+                <CardThumb
+                  video={item.acf_data?.videoUrl}
+                  title={item.title}
+                  excerpt={item.excerpt}
+                  click={() => changeVideo(item.id)}
+                />
+              )}
+            />
+          </main>
         </Section>
       </Fluid>
     </Page>

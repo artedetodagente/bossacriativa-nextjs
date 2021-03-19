@@ -8,3 +8,15 @@
   font-family: 'Barlow Condensed';
   margin: 0;
 }
+
+.release header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clipping header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

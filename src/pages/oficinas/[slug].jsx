@@ -14,6 +14,7 @@ import ItemHeaderList from '@/components/ItemHeaderList';
 import ItemList from '@/components/ItemList';
 import styles from '@/styles/oficinas-slug.module.css';
 import { getISODateString } from '@/utils/date';
+import Title from '@/components/Title';
 
 export default function WorkshopSlug({ workshop, menus, links }) {
   const content = useRef(null);
@@ -99,56 +100,66 @@ export default function WorkshopSlug({ workshop, menus, links }) {
             </Fluid>
           </Expansibled>
         </div>
-        
         <Section title="Próximas Aulas" className={styles.listContainer}>
-          <FlatList
-            className={styles.list}
-            source={workshop?.oficinas.nodes.slice(lesson + 1, lesson + 3) || []}
-            colsxss={2}
-            cols={2}
-            renderItem={(item) => (
-              <CardThumb
-                video={item.acf_data?.videoUrl}
-                image={item.featuredImage?.node.mediaItemUrl}
-                title={item.title}
-                excerpt={item.excerpt}
-                click={() => changeLeasson(item.id)}
-              />
-            )}
-          />
+          <header>
+            <Title>Próximas Aulas</Title>
+          </header>
+          <main>
+            <FlatList
+              className={styles.list}
+              source={workshop?.oficinas.nodes.slice(lesson + 1, lesson + 3) || []}
+              colsxss={2}
+              cols={2}
+              renderItem={(item) => (
+                <CardThumb
+                  video={item.acf_data?.videoUrl}
+                  image={item.featuredImage?.node.mediaItemUrl}
+                  title={item.title}
+                  excerpt={item.excerpt}
+                  click={() => changeLeasson(item.id)}
+                />
+              )}
+            />
+          </main>
         </Section>
-        <Section title="Todas as Aulas" className={styles.videosContainer}>
-          <FlatList
-            className={styles.videos}
-            source={
-              teacher !== 'todos' ? workshop?.oficinas.nodes.filter(
-                (item) => item.acf_data.autor && item.acf_data.autor.slug !== teacher,
-              ) : workshop?.oficinas.nodes || []
-            }
-            colsxss={1}
-            colsmd={2}
-            cols={3}
-            colsl={4}
-            colsxl={8}
-            filters={teachers}
-            renderItem={(item) => (
-              <CardThumb
-                video={item.acf_data?.videoUrl}
-                image={item.featuredImage?.node.mediaItemUrl}
-                title={item.title}
-                excerpt={item.excerpt}
-                click={() => changeLeasson(item.id)}
-              />
-            )}
-            renderFilter={(item) => (
-              <Option
-                id={item.slug}
-                name={item.title}
-                selected={teacher === item.slug}
-                click={() => setTeacher(item.slug)}
-              />
-            )}
-          />
+        <Section className={styles.videosContainer}>
+          <header>
+            <Title>Todas as Aulas</Title>
+          </header>
+          <main>
+
+            <FlatList
+              className={styles.videos}
+              source={
+                teacher !== 'todos' ? workshop?.oficinas.nodes.filter(
+                  (item) => item.acf_data.autor && item.acf_data.autor.slug !== teacher,
+                ) : workshop?.oficinas.nodes || []
+              }
+              colsxss={1}
+              colsmd={2}
+              cols={3}
+              colsl={4}
+              colsxl={8}
+              filters={teachers}
+              renderItem={(item) => (
+                <CardThumb
+                  video={item.acf_data?.videoUrl}
+                  image={item.featuredImage?.node.mediaItemUrl}
+                  title={item.title}
+                  excerpt={item.excerpt}
+                  click={() => changeLeasson(item.id)}
+                />
+              )}
+              renderFilter={(item) => (
+                <Option
+                  id={item.slug}
+                  name={item.title}
+                  selected={teacher === item.slug}
+                  click={() => setTeacher(item.slug)}
+                />
+              )}
+            />
+          </main>
         </Section>
       </Fluid>
     </Page>

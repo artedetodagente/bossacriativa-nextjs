@@ -4,6 +4,7 @@ import FlatList from '@/components/FlatList';
 import Fluid from '@/components/Fluid';
 import Page from '@/components/Page';
 import Section from '@/components/Section';
+import Title from '@/components/Title';
 import core from '@/core';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -15,19 +16,24 @@ export default function Notices({ notices, menus, links }) {
     <Page menus={menus} links={links}>
       <Breadcrumb />
       <Fluid>
-        <Section title="Notícias">
-          <FlatList
-            source={notices}
-            cols={3}
-            renderItem={(item) => (
-              <CardFigure
-                title={item.title}
-                excerpt={item.acf_chamada_post?.chamadaHome}
-                image={item.featuredImage?.node?.mediaItemUrl}
-                click={() => push(`noticias/${item.slug}`)}
-              />
-            )}
-          />
+        <Section>
+          <header>
+            <Title>Notícias</Title>
+          </header>
+          <main>
+            <FlatList
+              source={notices}
+              cols={3}
+              renderItem={(item) => (
+                <CardFigure
+                  title={item.title}
+                  excerpt={item.acf_chamada_post?.chamadaHome}
+                  image={item.featuredImage?.node?.mediaItemUrl}
+                  click={() => push(`noticias/${item.slug}`)}
+                />
+              )}
+            />
+          </main>
         </Section>
       </Fluid>
     </Page>
