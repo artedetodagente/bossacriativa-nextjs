@@ -1,3 +1,5 @@
+/* DELETAR */
+
 import React, { useEffect, useState, Fragment } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import AgendaCarousel from '../AgendaCarousel';

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Info from '@/components/Info';
 import Fluid from '@/components/Fluid';
 import FlatList from '@/components/FlatList';
-import CardImage from '@/components/CardImage';
+import CardImageWithTitle from '@/components/CardImageWithTitle';
 import Breadcrumb from '@/components/Breadcrumb';
 import { useRouter } from 'next/router';
 import SearchBar from '@/components/SearchBar';
@@ -79,7 +79,7 @@ export default function Workshops({
           colsxl={7}
           className={styles.card_list}
           renderItem={(item) => (
-            <CardImage
+            <CardImageWithTitle
               image={item.acf_data?.imagemDestacada?.mediaItemUrl}
               title={item?.name}
               excerpt={item?.description}

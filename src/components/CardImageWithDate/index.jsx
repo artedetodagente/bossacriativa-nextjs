@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from './styles';
 
-export default function CardDate({
-  image, title, excerpt, click, h, w, day, month,
+export default function CardImageWithDate({
+  image, title, excerpt, click, day, month,
 }) {
   const months = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -15,8 +15,6 @@ export default function CardDate({
       image={image}
       onClick={click}
       isClicked={!!click}
-      // h={h}
-      // w={w}
     >
       <figure>
         <img
@@ -41,22 +39,18 @@ export default function CardDate({
   );
 }
 
-CardDate.propTypes = {
+CardImageWithDate.propTypes = {
   title: PropTypes.string,
   excerpt: PropTypes.string,
   click: PropTypes.func,
-  h: PropTypes.number,
-  w: PropTypes.number,
   day: PropTypes.number,
   month: PropTypes.number,
 };
 
-CardDate.defaultProps = {
+CardImageWithDate.defaultProps = {
   title: '',
   excerpt: '',
   click: null,
-  h: 0,
-  w: 0,
   day: 1,
   month: 1,
 };

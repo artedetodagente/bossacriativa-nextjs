@@ -6,7 +6,7 @@ import core from '@/core';
 import Fluid from '@/components/Fluid';
 import YouEmbed from '@/components/YouEmbed';
 import FlatList from '@/components/FlatList';
-import CardThumb from '@/components/CardThumb';
+import CardImageWithTitle from '@/components/CardImageWithTitle';
 import Page from '@/components/Page';
 import styles from '@/styles/lives-quadro-slug.module.css';
 import { getISODateString } from '@/utils/date';
@@ -45,7 +45,7 @@ export default function QuadroSlug({ quadro, menus, links }) {
               colsxss={2}
               cols={1}
               renderItem={(item) => (
-                <CardThumb
+                <CardImageWithTitle
                   video={item.acf_data?.videoUrl}
                   image={item.featuredImage?.node.mediaItemUrl
                     || item.acf_data.imagemDestacada?.mediaItemUrl}
@@ -71,7 +71,7 @@ export default function QuadroSlug({ quadro, menus, links }) {
               colsl={4}
               colsxl={8}
               renderItem={(item) => (
-                <CardThumb
+                <CardImageWithTitle
                   video={item.acf_data?.videoUrl}
                   title={item.title}
                   image={item.featuredImage?.node.mediaItemUrl

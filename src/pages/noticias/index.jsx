@@ -1,5 +1,5 @@
 import Breadcrumb from '@/components/Breadcrumb';
-import CardFigure from '@/components/CardFigure';
+import CardImageWithText from '@/components/CardImageWithText';
 import FlatList from '@/components/FlatList';
 import Fluid from '@/components/Fluid';
 import Page from '@/components/Page';
@@ -25,7 +25,7 @@ export default function Notices({ notices, menus, links }) {
               source={notices}
               cols={3}
               renderItem={(item) => (
-                <CardFigure
+                <CardImageWithText
                   title={item.title}
                   excerpt={item.acf_chamada_post?.chamadaHome}
                   image={item.featuredImage?.node?.mediaItemUrl}

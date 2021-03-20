@@ -6,7 +6,7 @@ import core from '@/core';
 import Fluid from '@/components/Fluid';
 import YouEmbed from '@/components/YouEmbed';
 import FlatList from '@/components/FlatList';
-import CardThumb from '@/components/CardThumb';
+import CardImageWithTitle from '@/components/CardImageWithTitle';
 import Option from '@/components/Filter';
 import Page from '@/components/Page';
 import Expansibled from '@/components/Expansibled';
@@ -111,7 +111,7 @@ export default function WorkshopSlug({ workshop, menus, links }) {
               colsxss={2}
               cols={2}
               renderItem={(item) => (
-                <CardThumb
+                <CardImageWithTitle
                   video={item.acf_data?.videoUrl}
                   image={item.featuredImage?.node.mediaItemUrl}
                   title={item.title}
@@ -127,7 +127,6 @@ export default function WorkshopSlug({ workshop, menus, links }) {
             <Title>Todas as Aulas</Title>
           </header>
           <main>
-
             <FlatList
               className={styles.videos}
               source={
@@ -142,7 +141,7 @@ export default function WorkshopSlug({ workshop, menus, links }) {
               colsxl={8}
               filters={teachers}
               renderItem={(item) => (
-                <CardThumb
+                <CardImageWithTitle
                   video={item.acf_data?.videoUrl}
                   image={item.featuredImage?.node.mediaItemUrl}
                   title={item.title}

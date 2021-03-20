@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BsInfoCircleFill } from 'react-icons/bs';
 import { Card } from './styles';
 
-export default function CardThumb({
+export default function CardImageWithTitle({
   video, image, title, excerpt, click,
 }) {
   const src = video || 'https://www.youtube.com/watch?v=TxnbWa9SPdI';

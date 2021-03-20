@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Section from '@/components/Section';
 import CarouselGrid from '@/components/CarouselGrid';
 import FlatList from '@/components/FlatList';
-import CardThumb from '@/components/CardThumb';
+import CardImageWithTitle from '@/components/CardImageWithTitle';
 import { useRouter } from 'next/router';
-import CardFigure from '@/components/CardFigure';
+import CardImageWithText from '@/components/CardImageWithText';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
 import CarouselBanner from '@/components/CarouselBanner';
@@ -13,7 +13,7 @@ import styles from '@/styles/home.module.css';
 import Image from 'next/image';
 import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
-import CardDate from '@/components/CardDate';
+import CardImageWithDate from '@/components/CardImageWithDate';
 import Title from '@/components/Title';
 
 export default function Home({
@@ -82,7 +82,7 @@ export default function Home({
               source={events}
               reverse
               renderItem={(item) => (
-                <CardDate
+                <CardImageWithDate
                   image={item.featuredImage?.node.mediaItemUrl}
                   title={item.title}
                   excerpt={item.excerpt}
@@ -102,7 +102,7 @@ export default function Home({
             <CarouselGrid
               source={ultimasMostras}
               renderItem={(item) => (
-                <CardThumb
+                <CardImageWithTitle
                   video={item.acf_data?.videoUrl}
                   image={item.featuredImage?.node.mediaItemUrl}
                   title={item.title}
@@ -127,7 +127,7 @@ export default function Home({
               colsl={3}
               colsxl={3}
               renderItem={(item) => (
-                <CardFigure
+                <CardImageWithText
                   title={item.title}
                   excerpt={item.acf_chamada_post?.chamadaHome}
                   image={item.featuredImage?.node?.mediaItemUrl}
@@ -145,7 +145,7 @@ export default function Home({
             <CarouselGrid
               source={oficinas}
               renderItem={(item) => (
-                <CardThumb
+                <CardImageWithTitle
                   excerpt={item.description}
                   title={item.name}
                   image={item.acf_data.imagemDestacada.mediaItemUrl}
@@ -164,7 +164,7 @@ export default function Home({
               source={ultimasLives}
               reverse
               renderItem={(item) => (
-                <CardThumb
+                <CardImageWithTitle
                   video={item.acf_data.videoUrl}
                   image={item.featuredImage?.node.mediaItemUrl
                     || item.acf_data.imagemDestacada?.mediaItemUrl}

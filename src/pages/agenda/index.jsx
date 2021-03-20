@@ -7,7 +7,7 @@ import FilterBar from '@/components/FilterBar';
 import SearchBar from '@/components/SearchBar';
 import styles from '@/styles/agenda.module.css';
 import FlatList from '@/components/FlatList';
-import CardDate from '@/components/CardDate';
+import CardImageWithDate from '@/components/CardImageWithDate';
 import { BiRightArrow, BiLeftArrow } from 'react-icons/bi';
 import Section from '@/components/Section';
 import Title from '@/components/Title';
@@ -89,7 +89,6 @@ export default function Agenda({
             <Title>Agenda</Title>
           </header>
           <main>
-
             <FilterBar>
               <div className={styles.calendar}>
                 <button
@@ -123,7 +122,7 @@ export default function Agenda({
               source={list}
               cols={3}
               renderItem={(item) => (
-                <CardDate
+                <CardImageWithDate
                   title={item.title}
                   excerpt={item.excerpt}
                   click={null}

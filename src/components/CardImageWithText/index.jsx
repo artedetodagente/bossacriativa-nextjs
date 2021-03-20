@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, ImageContainer } from './styles';
 
-export default function CardFigure({
+export default function CardImageWithText({
   title, image, excerpt, click,
 }) {
   return (
     <Card onClick={click}>
       <ImageContainer>
-        <img src={image} alt=""/>
+        <img src={image} alt="" />
         <h1>{title}</h1>
       </ImageContainer>
       <div>
@@ -20,13 +20,13 @@ export default function CardFigure({
   );
 }
 
-CardFigure.propTypes = {
+CardImageWithText.propTypes = {
   title: PropTypes.string,
   excerpt: PropTypes.string,
   click: PropTypes.func,
 };
 
-CardFigure.defaultProps = {
+CardImageWithText.defaultProps = {
   title: '',
   excerpt: '',
   click: null,

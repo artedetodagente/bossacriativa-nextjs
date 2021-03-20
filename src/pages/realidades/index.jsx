@@ -6,7 +6,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { useRouter } from 'next/router';
 import Fluid from '@/components/Fluid';
 import core from '@/core';
-import CardThumb from '@/components/CardThumb';
+import CardImageWithTitle from '@/components/CardImageWithTitle';
 import Page from '@/components/Page';
 import ModalPlayer from '@/components/ModalPlayer';
 import SearchBar from '@/components/SearchBar';
@@ -93,7 +93,7 @@ export default function Apresentacoes({
           colsxl={6}
           className={styles.card_list}
           renderItem={(item) => (
-            <CardThumb
+            <CardImageWithTitle
               video={item.acf_data?.videoUrl}
               image={item.featuredImage?.node.mediaItemUrl
                 || item.acf_data.imagemDestacada?.mediaItemUrl}
