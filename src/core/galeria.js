@@ -3,7 +3,7 @@ import { fetchAPI } from '@/services/api';
 export async function getAll(quant) {
   const data = await fetchAPI(
     `
-    query MyQuery ($quant: [Int]) {
+    query MyQuery ($quant: Int) {
         galeria(last: $quant ) {
           nodes {
             title
