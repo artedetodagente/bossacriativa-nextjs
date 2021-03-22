@@ -55,34 +55,28 @@ export const Slide = styled.ul`
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow-y: hidden;
 `;
 
 export const Item = styled.li`
   width: 100%;
   height: 100%;
-  background-image: ${({ photo }) => (photo ? `url(${photo})` : 'url("https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg")')};
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   position: relative;
-  cursor: pointer;
+  cursor: ${({ isClicked }) => (isClicked ? 'pointer' : 'auto')};
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 
-  .text-container{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 50px;
-    
-  }
 
   h1 {
     font-size: 2em;
     color: #fff;
     margin: 0;
     padding: 8px;
+    width: fit-content;
     // width: calc(100% - 10px);
     // width: 100%;
     // overflow: hidden;
@@ -98,6 +92,7 @@ export const Item = styled.li`
   }
 
   p {
+    width: fit-content;
     color: #fff;
     // width: 100%;
     padding: 8px;
@@ -112,20 +107,29 @@ export const Item = styled.li`
     background-color: rgb(2,2,2,0.5);
   }
 
-  @media ${({ theme }) => theme.devices.laptop} {
+  @media ${({ theme }) => theme.devices.mobileS} {
+    background-image: ${({ photoMobile }) => (photoMobile ? `url(${photoMobile})` : 'url("https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg")')};
+    justify-content: flex-start;
+    margin-top: 10px;
+
     .text-container{
       display: flex;
       flex-direction: column;
-      width: 40%;
+      width: 100%;
       padding: 0 20px;
     }
+  }
 
-    h1{
-      width: fit-content;
-    }
+  @media ${({ theme }) => theme.devices.laptop} {
+    background-image: ${({ photo }) => (photo ? `url(${photo})` : 'url("https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg")')};
+    justify-content: flex-end;
+    margin-top: 0;
 
-    p{
-      width: fit-content;
+    .text-container{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 50px;
     }
   }
 

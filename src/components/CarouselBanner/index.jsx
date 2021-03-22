@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import {
   Wrapper, Slide, Item, Dots,
 } from './styles';
@@ -13,6 +14,7 @@ export default function CarouselBanner({
     autoplay: false, slides: [], selected: 0, prevSelected: 0,
   });
   const [dots, setDots] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     setSettings({ ...settings, autoplay, slides: source });
@@ -34,13 +36,13 @@ export default function CarouselBanner({
       if (settings.selected === 0) carousel.current.scrollBy(-(size * settings.slides.length), 0);
       else carousel.current.scrollBy(size, 0);
     } else if (settings.prevSelected > settings.selected) carousel.current.scrollBy(-(size * (settings.prevSelected - settings.selected)), 0);
-    else if (settings.prevSelected == settings.selected) return () => null;
+    else if (settings.prevSelected === settings.selected) return () => null;
     else carousel.current.scrollBy(size * (settings.selected - settings.prevSelected), 0);
   }, [settings.selected, settings.autoplay]);
 
   useEffect(() => {
     const dotsList = [];
-    for (let x = 0; x <= settings.slides.length - 1; x++) {
+    for (let x = 0; x <= settings.slides.length - 1; x += 1) {
       dotsList.push(
         // eslint-disable-next-line jsx-a11y/control-has-associated-label
         <button
@@ -76,6 +78,9 @@ export default function CarouselBanner({
                 <Item
                   key={slide.id}
                   photo={slide.featuredImage?.node?.mediaItemUrl}
+                  photoMobile={slide.acf_chamada_slider.imegemMobile?.mediaItemUrl}
+                  isClicked={!!slide.acf_chamada_slider.urlbanner}
+                  onClick={() => slide.acf_chamada_slider.urlbanner && router.push(slide.acf_chamada_slider.urlbanner)}
                 >
                   <div className="text-container">
                     <h1>{slide.title}</h1>

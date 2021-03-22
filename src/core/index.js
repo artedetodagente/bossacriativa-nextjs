@@ -10,6 +10,7 @@ import * as eventos from './eventos';
 import * as releases from './releases';
 import * as clippings from './clippings';
 import * as links from './links';
+import * as galeria from './galeria';
 
 export default {
   posts,
@@ -24,4 +25,5 @@ export default {
   releases,
   clippings,
   links,
+  galeria,
 };
