@@ -39,7 +39,7 @@ h6 {
   font-weight: 600;
 }
 
-p {
+p, figcaption {
   font-family: 'Barlow Semi Condensed';
   word-wrap:break-word; /* para lidar com URLs muito grandes*/
 }
