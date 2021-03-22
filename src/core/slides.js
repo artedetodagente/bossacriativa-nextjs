@@ -19,6 +19,9 @@ export async function getAll() {
               bannerHomeDataEntrada
               bannerHomeDataSaida
               urlbanner
+              imegemMobile {
+                mediaItemUrl
+              }
             }
           }
         }

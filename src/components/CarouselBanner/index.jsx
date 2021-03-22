@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import theme from '@/theme';
 import {
   Wrapper, Slide, Item, Dots,
 } from './styles';
@@ -78,6 +79,7 @@ export default function CarouselBanner({
                 <Item
                   key={slide.id}
                   photo={slide.featuredImage?.node?.mediaItemUrl}
+                  photoMobile={slide.acf_chamada_slider.imegemMobile?.mediaItemUrl}
                   isClicked={!!slide.acf_chamada_slider.urlbanner}
                   onClick={() => slide.acf_chamada_slider.urlbanner && router.push(slide.acf_chamada_slider.urlbanner)}
                 >
