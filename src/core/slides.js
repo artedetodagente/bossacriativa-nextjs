@@ -18,6 +18,7 @@ export async function getAll() {
             acf_chamada_slider {
               bannerHomeDataEntrada
               bannerHomeDataSaida
+              urlbanner
             }
           }
         }

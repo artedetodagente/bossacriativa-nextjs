@@ -65,7 +65,7 @@ export const Item = styled.li`
   background-position: center;
   background-size: cover;
   position: relative;
-  cursor: pointer;
+  cursor: ${({ isClicked }) => (isClicked ? 'pointer' : 'auto')};
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
