@@ -5,7 +5,7 @@
 
 @media only screen and (min-width: 1024px){
     .container{
-      /* padding: 100px; */
+      padding: 100px;
       max-width: 1200px;
     }
 }
