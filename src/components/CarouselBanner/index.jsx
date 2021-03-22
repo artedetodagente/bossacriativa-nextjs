@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import theme from '@/theme';
 import {
   Wrapper, Slide, Item, Dots,
 } from './styles';

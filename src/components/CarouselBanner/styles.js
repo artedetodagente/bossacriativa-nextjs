@@ -55,6 +55,7 @@ export const Slide = styled.ul`
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow-y: hidden;
 `;
 
 export const Item = styled.li`
@@ -108,17 +109,21 @@ export const Item = styled.li`
 
   @media ${({ theme }) => theme.devices.mobileS} {
     background-image: ${({ photoMobile }) => (photoMobile ? `url(${photoMobile})` : 'url("https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg")')};
+    justify-content: flex-start;
+    margin-top: 10px;
 
     .text-container{
       display: flex;
       flex-direction: column;
-      width: 40%;
+      width: 100%;
       padding: 0 20px;
     }
   }
 
   @media ${({ theme }) => theme.devices.laptop} {
     background-image: ${({ photo }) => (photo ? `url(${photo})` : 'url("https://img.freepik.com/fotos-gratis/transicao-suave-no-azul-para-o-verde_23-2147734210.jpg?size=626&ext=jpg")')};
+    justify-content: flex-end;
+    margin-top: 0;
 
     .text-container{
       display: flex;
