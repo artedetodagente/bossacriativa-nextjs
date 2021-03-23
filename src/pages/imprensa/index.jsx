@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Page from '@/components/Page';
 import Breadcrumb from '@/components/Breadcrumb';
 import Info from '@/components/Info';
@@ -15,12 +15,16 @@ import Title from '@/components/Title';
 import styles from '@/styles/imprensa.module.css';
 
 export default function Press({
-  releases, clippings, menus, links,
+  releases, releasesPage, clippings, clippingsPage, menus, links,
 }) {
   const contacts = [
     { title: 'Funarte - Assessoria de Comunicação:', text: 'ascomfunarte@funarte.gov.br' },
     { title: 'Contato de Assessoria de Imprensa:', text: 'imprensa@musica.ufrj.br' },
   ];
+  const [listClippings, setListClippings] = useState([...clippings]);
+  const [listReleases, setListReleases] = useState([...releases]);
+  const [pageRelease, setPageRelease] = useState({ ...releasesPage });
+  const [pageClipping, setPageClipping] = useState({ ...clippingsPage });
 
   function dowloadRelease(url, name) {
     const link = document.createElement('a');
@@ -33,6 +37,32 @@ export default function Press({
 
   function navigate(url) {
     window.location.href = url;
+  }
+
+  async function navigateReleases(next) {
+    let list = [];
+    if (pageRelease.hasNextPage && next) {
+      list = await core.releases.getAllWithAfter(pageRelease.endCursor);
+      setListReleases(list.nodes);
+      setPageRelease(list.pageInfo);
+    } else if (pageRelease.hasPreviousPage && !next) {
+      list = await core.releases.getAllWithBefore(pageRelease.startCursor);
+      setListReleases(list.nodes);
+      setPageRelease(list.pageInfo);
+    }
+  }
+
+  async function navigateClippings(next) {
+    let list = [];
+    if (pageClipping.hasNextPage && next) {
+      list = await core.clippings.getAllWithAfter(pageClipping.endCursor);
+      setListClippings(list.nodes);
+      setPageClipping(list.pageInfo);
+    } else if (pageClipping.hasPreviousPage && !next) {
+      list = await core.clippings.getAllWithBefore(pageClipping.startCursor);
+      setListClippings(list.nodes);
+      setPageClipping(list.pageInfo);
+    }
   }
 
   return (
@@ -63,12 +93,15 @@ export default function Press({
               <Title>Releases</Title>
             </div>
             <div>
-              <ButtonsNavigations />
+              <ButtonsNavigations
+                onNext={() => navigateReleases(true)}
+                onPrev={() => navigateReleases(false)}
+              />
             </div>
           </header>
           <main>
             <FlatList
-              source={releases}
+              source={listReleases}
               renderItem={(item) => (
                 <CardIcon
                   icon={<BsNewspaper />}
@@ -85,13 +118,16 @@ export default function Press({
               <Title>Clippings</Title>
             </div>
             <div>
-              <ButtonsNavigations />
+              <ButtonsNavigations
+                onNext={() => navigateClippings(true)}
+                onPrev={() => navigateClippings(false)}
+              />
             </div>
           </header>
           <main>
             <FlatList
               cols={3}
-              source={clippings}
+              source={listClippings}
               renderItem={(item) => (
                 <CardHorizontal
                   image={item?.featuredImage?.node?.mediaItemUrl}
@@ -109,15 +145,17 @@ export default function Press({
 }
 
 export async function getStaticProps() {
-  const releases = await core.releases.getAll();
-  const clippings = await core.clippings.getAll();
+  const releases = await core.releases.getAllWithAfter();
+  const clippings = await core.clippings.getAllWithAfter();
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
 
   return {
     props: {
       releases: releases.nodes || [],
+      releasesPage: releases.pageInfo || {},
       clippings: clippings.nodes || [],
+      clippingsPage: clippings.pageInfo || {},
       menus: menus.nodes || [],
       links: links.nodes || [],
     },
