@@ -1,16 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
 import parse from 'html-react-parser';
-import styles from '@/styles/noticias.module.css';
+import style from '@/styles/noticias.module.css';
 import Breadcrumb from '@/components/Breadcrumb';
 import core from '@/core';
 import Page from '@/components/Page';
 
 export default function NoticeSlug({ post, menus, links }) {
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} cssLink="wp_style.css">
       <Breadcrumb />
-      <div className={styles.container}>
+      <div className={style.container}>
         <h3><Link href="/"><a>Bossa Criativa</a></Link></h3>
         <h1>{post?.title}</h1>
         <div className="content">
