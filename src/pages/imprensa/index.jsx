@@ -21,10 +21,10 @@ export default function Press({
     { title: 'Funarte - Assessoria de Comunicação:', text: 'ascomfunarte@funarte.gov.br' },
     { title: 'Contato de Assessoria de Imprensa:', text: 'imprensa@musica.ufrj.br' },
   ];
-  const [listClippings, setListClippings] = useState([...clippings]);
-  const [listReleases, setListReleases] = useState([...releases]);
-  const [pageRelease, setPageRelease] = useState({ ...releasesPage });
-  const [pageClipping, setPageClipping] = useState({ ...clippingsPage });
+  const [indexClippings, setIndexClippings] = useState(0);
+  const [indexReleases, setIndexReleases] = useState(0);
+  // const [pageRelease, setPageRelease] = useState({ ...releasesPage });
+  // const [pageClipping, setPageClipping] = useState({ ...clippingsPage });
 
   function dowloadRelease(url, name) {
     const link = document.createElement('a');
@@ -39,31 +39,32 @@ export default function Press({
     window.location.href = url;
   }
 
-  async function navigateReleases(next) {
-    let list = [];
-    if (pageRelease.hasNextPage && next) {
-      list = await core.releases.getAllWithAfter(pageRelease.endCursor);
-      setListReleases(list.nodes);
-      setPageRelease(list.pageInfo);
-    } else if (pageRelease.hasPreviousPage && !next) {
-      list = await core.releases.getAllWithBefore(pageRelease.startCursor);
-      setListReleases(list.nodes);
-      setPageRelease(list.pageInfo);
-    }
-  }
+  // async function navigateReleases(next) {
+  //   let list = [];
+  //   if (pageRelease.hasNextPage && next) {
+  //     // list = await core.releases.getAllWithAfter(pageRelease.endCursor);
+  //     // setListReleases(list.nodes);
+  //     // setPageRelease(list.pageInfo);
+  //     // setListReleases(releases.findIndex((item) => ))
+  //   } else if (pageRelease.hasPreviousPage && !next) {
+  //     // list = await core.releases.getAllWithBefore(pageRelease.startCursor);
+  //     // setListReleases(list.nodes);
+  //     // setPageRelease(list.pageInfo);
+  //   }
+  // }
 
-  async function navigateClippings(next) {
-    let list = [];
-    if (pageClipping.hasNextPage && next) {
-      list = await core.clippings.getAllWithAfter(pageClipping.endCursor);
-      setListClippings(list.nodes);
-      setPageClipping(list.pageInfo);
-    } else if (pageClipping.hasPreviousPage && !next) {
-      list = await core.clippings.getAllWithBefore(pageClipping.startCursor);
-      setListClippings(list.nodes);
-      setPageClipping(list.pageInfo);
-    }
-  }
+  // async function navigateClippings(next) {
+  //   let list = [];
+  //   if (pageClipping.hasNextPage && next) {
+  //     list = await core.clippings.getAllWithAfter(pageClipping.endCursor);
+  //     setListClippings(list.nodes);
+  //     setPageClipping(list.pageInfo);
+  //   } else if (pageClipping.hasPreviousPage && !next) {
+  //     list = await core.clippings.getAllWithBefore(pageClipping.startCursor);
+  //     setListClippings(list.nodes);
+  //     setPageClipping(list.pageInfo);
+  //   }
+  // }
 
   return (
     <Page menus={menus} links={links}>
@@ -94,14 +95,16 @@ export default function Press({
             </div>
             <div>
               <ButtonsNavigations
-                onNext={() => navigateReleases(true)}
-                onPrev={() => navigateReleases(false)}
+                onNext={
+                  () => indexReleases + 8 < releases.length && setIndexReleases(indexReleases + 8)
+                }
+                onPrev={() => indexReleases - 8 >= 0 && setIndexReleases(indexReleases - 8)}
               />
             </div>
           </header>
           <main>
             <FlatList
-              source={listReleases}
+              source={releases.slice(indexReleases, indexReleases + 8)}
               renderItem={(item) => (
                 <CardIcon
                   icon={<BsNewspaper />}
@@ -119,15 +122,17 @@ export default function Press({
             </div>
             <div>
               <ButtonsNavigations
-                onNext={() => navigateClippings(true)}
-                onPrev={() => navigateClippings(false)}
+                onNext={
+                  () => indexClippings + 6 < clippings.length && setIndexClippings(indexClippings + 6)
+                }
+                onPrev={() => indexClippings - 6 >= 0 && setIndexClippings(indexClippings - 6)}
               />
             </div>
           </header>
           <main>
             <FlatList
               cols={3}
-              source={listClippings}
+              source={clippings.slice(indexClippings, indexClippings + 6)}
               renderItem={(item) => (
                 <CardHorizontal
                   image={item?.featuredImage?.node?.mediaItemUrl}

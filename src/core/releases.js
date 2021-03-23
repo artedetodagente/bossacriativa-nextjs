@@ -28,7 +28,7 @@ export async function getAllWithAfter(id, quant) {
     `,
     {
       variables: {
-        quant: quant || 8,
+        quant: quant || 999,
         id: id || '',
       },
     },

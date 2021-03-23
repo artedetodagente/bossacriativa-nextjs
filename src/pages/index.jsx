@@ -79,7 +79,7 @@ export default function Home({
           </header>
           <main>
             <CarouselGrid
-              source={events}
+              source={events.slice(0, 15)}
               reverse
               renderItem={(item) => (
                 <CardImageWithDate
@@ -207,7 +207,7 @@ export async function getStaticProps() {
     }
     return ofc.sort(() => Math.random() - 0.5);
   };
-  const lastEvents = events?.nodes.slice(0, 15)
+  const lastEvents = events?.nodes
     .filter((item) => {
       const [d, m, y] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
       return new Date(`${y}-${m}-${d}`).getTime() >= new Date().getTime();
