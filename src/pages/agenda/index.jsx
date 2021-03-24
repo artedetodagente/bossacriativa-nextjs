@@ -14,7 +14,7 @@ import Title from '@/components/Title';
 import Loader from '@/components/Loader';
 
 export default function Agenda({
-  menus, eventos, links,
+  menus, eventos, links, menusRodape,
 }) {
   const [list, setList] = useState(eventos);
   const [dates, setDates] = useState([]);
@@ -90,7 +90,7 @@ export default function Agenda({
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <Fluid>
         <Section className={styles.section}>
           <header>
@@ -151,6 +151,7 @@ export default function Agenda({
 
 export async function getStaticProps() {
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
   const eventos = (await core.eventos.getAll()).nodes
     .filter(
@@ -172,6 +173,7 @@ export async function getStaticProps() {
     props: {
       eventos: eventos || [],
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
     },
     revalidate: 1,

@@ -15,7 +15,7 @@ import styles from '@/styles/oficinas.module.css';
 import { getISODateString } from '@/utils/date';
 
 export default function Workshops({
-  workshops, categories, menus, links, selectedCategory,
+  workshops, categories, menus, links, selectedCategory, menusRodape,
 }) {
   const { push } = useRouter();
   const [list, setList] = useState(workshops);
@@ -43,7 +43,7 @@ export default function Workshops({
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <Breadcrumb name="Oficinas" />
       <Info
         title="Oficinas"
@@ -94,6 +94,7 @@ export default function Workshops({
 
 export async function getServerSideProps({ query }) {
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
   const workshops = await core.oficinas.getAll(null, query?.search);
   const categories = workshops.nodes.filter((item) => item.acf_data.categoria !== null)
@@ -109,6 +110,7 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
       workshops: workshops.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],

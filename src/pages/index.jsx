@@ -17,7 +17,7 @@ import CardImageWithDate from '@/components/CardImageWithDate';
 import Title from '@/components/Title';
 
 export default function Home({
-  ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links, events,
+  ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links, events, menusRodape,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -29,7 +29,7 @@ export default function Home({
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <ModalPlayer
         open={modal.player}
         video={video}
@@ -189,6 +189,7 @@ export async function getStaticProps() {
   const posts = await core.posts.getAll(3);
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
   const home = await core.pages.getHome();
   const oficinas = await core.oficinas.getAll();
@@ -226,6 +227,7 @@ export async function getStaticProps() {
       slides: filterSlides || [],
       home: home.nodes || [],
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
       oficinas: randOficinas(oficinas.nodes, 15) || [],
       events: lastEvents || [],

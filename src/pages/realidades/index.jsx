@@ -17,7 +17,7 @@ import FilterList from '@/components/FilterList';
 import { getISODateString } from '@/utils/date';
 
 export default function Apresentacoes({
-  mostrasVirtuais, menus, categories, links, selectedCategory,
+  mostrasVirtuais, menus, categories, links, selectedCategory, menusRodape,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -52,7 +52,7 @@ export default function Apresentacoes({
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <Breadcrumb />
       <ModalPlayer
         open={modal.player}
@@ -139,6 +139,7 @@ export async function getServerSideProps({ query }) {
     }
   });
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
   const categories = mostrasVirtuais.filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
@@ -155,6 +156,7 @@ export async function getServerSideProps({ query }) {
     props: {
       mostrasVirtuais: mostrasVirtuais || [],
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
       selectedCategory: selectedCategory || [],

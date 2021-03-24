@@ -9,11 +9,13 @@ import core from '@/core';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-export default function Notices({ notices, menus, links }) {
+export default function Notices({
+  notices, menus, links, menusRodape,
+}) {
   const { push } = useRouter();
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <Breadcrumb />
       <Fluid>
         <Section>
@@ -42,12 +44,14 @@ export default function Notices({ notices, menus, links }) {
 
 export async function getServerSideProps({ query }) {
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
   const notices = await core.posts.getAll(null, query?.search);
 
   return {
     props: {
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
       notices: notices.nodes || [],
     },
