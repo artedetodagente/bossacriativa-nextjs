@@ -16,7 +16,7 @@ import FilterList from '@/components/FilterList';
 import { getISODateString } from '@/utils/date';
 
 export default function Lives({
-  lives, menus, categories, links, selectedCategory,
+  lives, menus, categories, links, selectedCategory, menusRodape,
 }) {
   const { push } = useRouter();
   const [list, setList] = useState(lives);
@@ -44,7 +44,7 @@ export default function Lives({
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <Breadcrumb />
       <Info
         title="Lives"
@@ -124,6 +124,7 @@ export async function getServerSideProps({ query }) {
   lives.sort((a, b) => new Date(b.data_ordenacao).getTime() - new Date(a.data_ordenacao).getTime());
 
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
   const categories = lives.filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
@@ -135,6 +136,7 @@ export async function getServerSideProps({ query }) {
     props: {
       lives: lives || [],
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
       categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
       selectedCategory: selectedCategory || [],

@@ -16,7 +16,9 @@ import styles from '@/styles/oficinas-slug.module.css';
 import { getISODateString } from '@/utils/date';
 import Title from '@/components/Title';
 
-export default function WorkshopSlug({ workshop, menus, links }) {
+export default function WorkshopSlug({
+  workshop, menus, links, menusRodape,
+}) {
   const content = useRef(null);
   const [lesson, setLesson] = useState(0);
   const [title, setTitle] = useState('Conteúdo Programático');
@@ -54,7 +56,7 @@ export default function WorkshopSlug({ workshop, menus, links }) {
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <div className="cabecalho">
         <Breadcrumb />
         <Info
@@ -168,6 +170,7 @@ export default function WorkshopSlug({ workshop, menus, links }) {
 export async function getStaticProps({ params }) {
   const { nodes } = await core.oficinas.getOne(params.slug);
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
 
   nodes[0]?.oficinas.nodes.sort((a, b) => (
@@ -178,6 +181,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
       workshop: nodes[0] || {},
     },

@@ -11,7 +11,9 @@ import styles from '@/styles/apresentacoes-series-slug.module.css';
 import { getISODateString } from '@/utils/date';
 import Title from '@/components/Title';
 
-export default function SerieSlug({ serie, menus, links }) {
+export default function SerieSlug({
+  serie, menus, links, menusRodape,
+}) {
   const [video, setVideo] = useState(0);
 
   async function changeVideo(id) {
@@ -23,7 +25,7 @@ export default function SerieSlug({ serie, menus, links }) {
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <div className="cabecalho">
         <Breadcrumb />
       </div>
@@ -87,6 +89,7 @@ export default function SerieSlug({ serie, menus, links }) {
 export async function getStaticProps({ params }) {
   const { nodes } = await core.mostras.getSerie(params.slug);
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
 
   nodes[0]?.mostrasVirtuais?.nodes.sort((a, b) => (
@@ -97,6 +100,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
       serie: nodes[0] || {},
     },

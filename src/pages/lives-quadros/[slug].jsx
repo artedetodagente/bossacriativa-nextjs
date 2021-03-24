@@ -12,7 +12,9 @@ import styles from '@/styles/lives-quadro-slug.module.css';
 import { getISODateString } from '@/utils/date';
 import Title from '@/components/Title';
 
-export default function QuadroSlug({ quadro, menus, links }) {
+export default function QuadroSlug({
+  quadro, menus, links, menusRodape,
+}) {
   const [video, setVideo] = useState(0);
 
   async function changeVideo(id) {
@@ -24,7 +26,7 @@ export default function QuadroSlug({ quadro, menus, links }) {
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <div className="cabecalho">
         <Breadcrumb />
       </div>
@@ -91,6 +93,7 @@ export default function QuadroSlug({ quadro, menus, links }) {
 export async function getStaticProps({ params }) {
   const { nodes } = await core.lives.getQuadro(params.slug);
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
 
   nodes[0]?.lives?.nodes.sort((a, b) => (
@@ -101,6 +104,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
       quadro: nodes[0] || {},
     },

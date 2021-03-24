@@ -15,7 +15,7 @@ import Title from '@/components/Title';
 import styles from '@/styles/imprensa.module.css';
 
 export default function Press({
-  releases, releasesPage, clippings, clippingsPage, menus, links,
+  releases, releasesPage, clippings, clippingsPage, menus, links, menusRodape
 }) {
   const contacts = [
     { title: 'Funarte - Assessoria de Comunicação:', text: 'ascomfunarte@funarte.gov.br' },
@@ -67,7 +67,7 @@ export default function Press({
   // }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <Breadcrumb />
       <Info title="Imprensa" />
       <Fluid>
@@ -154,6 +154,7 @@ export async function getStaticProps() {
   const releases = await core.releases.getAllWithAfter();
   const clippings = await core.clippings.getAllWithAfter();
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
 
   return {
@@ -163,6 +164,7 @@ export async function getStaticProps() {
       clippings: clippings.nodes || [],
       clippingsPage: clippings.pageInfo || {},
       menus: menus.nodes || [],
+      menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
     },
     revalidate: 1,
