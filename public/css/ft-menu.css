@@ -6,6 +6,7 @@
   overflow: none;
   position: relative;
   padding: .5em .5em;
+  background-color: rgb(206, 206,206);
 }
 
 .ft-menu-list {
