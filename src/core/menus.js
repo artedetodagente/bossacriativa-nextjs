@@ -26,5 +26,5 @@ export async function getAll(slug = 'menu-principal', qtd = 1000) {
       },
     },
   );
-  return data?.menus.nodes[0]?.menuItems;
+  return data?.menus?.nodes[0]?.menuItems;
 }
