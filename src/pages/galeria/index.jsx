@@ -8,9 +8,9 @@ import core from '@/core';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import CardMasonryImage from '@/components/CardMasonryImage';
 
-export default function Gallery({ menus, links, galeria }) {
+export default function Gallery({ menus, links, galeria, menusRodape }) {
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} menusRodape={menusRodape}>
       <Breadcrumb />
       <Fluid>
         <Section>
@@ -52,6 +52,7 @@ export default function Gallery({ menus, links, galeria }) {
 
 export async function getStaticProps() {
   const menus = await core.menus.getAll();
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
   const galeriaEventos = await core.galeria.getEventosAll();
   const galeria = await core.galeria.getAll();
@@ -63,6 +64,7 @@ export async function getStaticProps() {
   return {
     props: {
       menus: menus.nodes || [],
+      menusRodape: menusRodape.nodes || [],
       links: links.nodes || [],
       galeria: listGaleria || [],
     },
