@@ -21,13 +21,18 @@ export default function Gallery({ menus, links, galeria }) {
           <main>
             <Masonry columnsCount={4} gutter="15px">
               {
-                galeria.filter((item) => item.acf_galeria.tipo === 'imagem').map((item) => (
-                  <CardImageWithTitle
-                    image={item.acf_galeria.imagem.mediaItemUrl}
-                    title={item.title}
-                    excerpt={item.acf_galeria.descricao}
-                  />
-                ))
+                galeria.map((item) => {
+                  if (!item.name) {
+                    return (
+                      <CardImageWithTitle
+                        image={item.acf_galeria.imagem.mediaItemUrl}
+                        title={item.title}
+                        excerpt={item.acf_galeria.descricao}
+                      />
+                    );
+                  }
+                  return null;
+                })
               }
             </Masonry>
             {/* <Masonry
@@ -46,13 +51,18 @@ export default function Gallery({ menus, links, galeria }) {
 export async function getStaticProps() {
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
+  const galeriaEventos = await core.galeria.getEventosAll();
   const galeria = await core.galeria.getAll();
+  const listGaleria = [...galeria.nodes, ...galeriaEventos.nodes]
+    .map((item) => ({ value: item, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((item) => ({ ...item.value }));
 
   return {
     props: {
       menus: menus.nodes || [],
       links: links.nodes || [],
-      galeria: galeria.nodes || [],
+      galeria: listGaleria || [],
     },
     revalidate: 1,
   };
