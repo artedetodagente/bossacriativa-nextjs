@@ -46,7 +46,7 @@ export default function Gallery({ menus, links, galeria }) {
                       excerpt={
                         item.description || item.acf_galeria?.descricao
                       }
-                      click={() => item.galeria.nodes && openLightBox(item.galeria.nodes)}
+                      click={() => (item.galeria.nodes ? openLightBox(item.galeria.nodes) : null)}
                     />
                   ))
                 }
@@ -83,7 +83,13 @@ export async function getStaticProps() {
   const links = await core.links.getAll();
   const galeriaEventos = await core.galeria.getEventosAll();
   const galeria = await core.galeria.getAll();
-  const listGaleria = [...galeria.nodes, ...galeriaEventos.nodes]
+  const filterGaleria = galeria.nodes.filter(
+    (item) => galeriaEventos.nodes
+      .map((ge) => ge.galeria)
+      .reduce((acc, cur) => ([...acc, ...cur.nodes]), [])
+      .findIndex((ge) => ge.slug === item.slug) === -1,
+  );
+  const listGaleria = [...filterGaleria, ...galeriaEventos.nodes]
     .map((item) => ({ value: item, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map((item) => ({ ...item.value }));

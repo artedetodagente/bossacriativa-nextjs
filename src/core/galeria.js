@@ -23,7 +23,7 @@ export async function getAll(quant) {
     `,
     {
       variables: {
-        quant: quant || 100,
+        quant: quant || 900,
       },
     },
   );
@@ -41,6 +41,7 @@ export async function getEventosAll(quant) {
           description
           galeria {
             nodes {
+              slug
               acf_galeria {
                 imagem {
                   mediaItemUrl
@@ -53,7 +54,7 @@ export async function getEventosAll(quant) {
     }`,
     {
       variables: {
-        quant: quant || 100,
+        quant: quant || 900,
       },
     },
   );

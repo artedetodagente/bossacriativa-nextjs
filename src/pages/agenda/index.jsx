@@ -11,6 +11,7 @@ import CardImageWithDate from '@/components/CardImageWithDate';
 import { BiRightArrow, BiLeftArrow } from 'react-icons/bi';
 import Section from '@/components/Section';
 import Title from '@/components/Title';
+import Loader from '@/components/Loader';
 
 export default function Agenda({
   menus, eventos, links,
@@ -20,6 +21,7 @@ export default function Agenda({
   const [date, setDate] = useState('');
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     const mark = list.map((item) => item.acf_data_evento && item.acf_data_evento.dataDoEvento
@@ -59,18 +61,21 @@ export default function Agenda({
   }
 
   async function changeMonth(value) {
-    if (month + value < 0) {
-      setMonth(11);
-      setYear(year - 1);
-    } else if (month + value > 11) {
-      setMonth(0);
-      setYear(year + 1);
-    } else setMonth(month + value);
+    setLoad(true);
     const res = await core.eventos.getAll();
+    let yea = year;
+    let mont = month;
+    if (mont + value < 0) {
+      mont = 11;
+      yea -= 1;
+    } else if (mont + value > 11) {
+      mont = 0;
+      yea += 1;
+    } else mont += value;
     const events = res.nodes
       .filter((item) => {
         const [, m, y] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
-        return parseInt(m, 10) === month + value + 1 && parseInt(y, 10) === year;
+        return parseInt(m, 10) === mont + 1 && parseInt(y, 10) === yea;
       })
       .sort((a, b) => {
         const [da, ma, ya] = a.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
@@ -78,7 +83,10 @@ export default function Agenda({
         return new Date(`${ya}-${parseInt(ma, 10)}-${parseInt(da, 10)}`).getTime()
           - new Date(`${yb}-${parseInt(mb, 10)}-${parseInt(db, 10)}`).getTime();
       });
+    setYear(yea);
+    setMonth(mont);
     setList(events);
+    setLoad(false);
   }
 
   return (
@@ -136,6 +144,7 @@ export default function Agenda({
           </main>
         </Section>
       </Fluid>
+      <Loader animation={require('@/lotties/calendar.json')} open={load} />
     </Page>
   );
 }
