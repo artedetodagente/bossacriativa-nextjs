@@ -1,12 +1,13 @@
+import React from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import CardImageWithTitle from '@/components/CardImageWithTitle';
 import Fluid from '@/components/Fluid';
-import Masonry from '@/components/Masonry';
+// import Masonry from '@/components/Masonry';
 import Page from '@/components/Page';
 import Section from '@/components/Section';
 import Title from '@/components/Title';
 import core from '@/core';
-import React from 'react';
+import Masonry from 'react-responsive-masonry';
 
 export default function Gallery({ menus, links, galeria }) {
   return (
@@ -18,16 +19,23 @@ export default function Gallery({ menus, links, galeria }) {
             <Title>Galeria</Title>
           </header>
           <main>
-            <Masonry
+            <Masonry columnsCount={4} gutter="15px">
+              {
+                galeria.filter((item) => item.acf_galeria.tipo === 'imagem').map((item) => (
+                  <CardImageWithTitle
+                    image={item.acf_galeria.imagem.mediaItemUrl}
+                    title={item.title}
+                    excerpt={item.acf_galeria.descricao}
+                  />
+                ))
+              }
+            </Masonry>
+            {/* <Masonry
               source={galeria.filter((item) => item.acf_galeria.tipo === 'imagem')}
               renderItem={(item) => (
-                <CardImageWithTitle
-                  image={item.acf_galeria.imagem.mediaItemUrl}
-                  title={item.title}
-                  excerpt={item.acf_galeria.descricao}
-                />
+
               )}
-            />
+            /> */}
           </main>
         </Section>
       </Fluid>

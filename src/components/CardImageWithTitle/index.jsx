@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { BsInfoCircleFill } from 'react-icons/bs';
 import { Card } from './styles';
 
@@ -18,7 +19,7 @@ export default function CardImageWithTitle({
   };
 
   return (
-    <Card infoShow={infoShow} onClick={click}>
+    <Card infoShow={infoShow} onClick={click} isClick={click !== null}>
       <figure>
         <img
           src={image || thumb}
@@ -41,3 +42,11 @@ export default function CardImageWithTitle({
     </Card>
   );
 }
+
+CardImageWithTitle.propTypes = {
+  click: PropTypes.func,
+};
+
+CardImageWithTitle.defaultProps = {
+  click: null,
+};

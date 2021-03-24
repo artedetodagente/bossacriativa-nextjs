@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Card = styled.article`
   position: relative;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: ${({ isClick }) => (isClick ? 'pointer' : 'auto')};
   padding-top: calc(9 / 14 * 100%);
   width: 100%;
 

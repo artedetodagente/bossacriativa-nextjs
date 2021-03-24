@@ -123,7 +123,8 @@ export default function Press({
             <div>
               <ButtonsNavigations
                 onNext={
-                  () => indexClippings + 6 < clippings.length && setIndexClippings(indexClippings + 6)
+                  () => indexClippings + 6 < clippings.length
+                    && setIndexClippings(indexClippings + 6)
                 }
                 onPrev={() => indexClippings - 6 >= 0 && setIndexClippings(indexClippings - 6)}
               />
