@@ -1,13 +1,12 @@
 import React from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
-import CardImageWithTitle from '@/components/CardImageWithTitle';
 import Fluid from '@/components/Fluid';
-// import Masonry from '@/components/Masonry';
 import Page from '@/components/Page';
 import Section from '@/components/Section';
 import Title from '@/components/Title';
 import core from '@/core';
-import Masonry from 'react-responsive-masonry';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import CardMasonryImage from '@/components/CardMasonryImage';
 
 export default function Gallery({ menus, links, galeria }) {
   return (
@@ -19,28 +18,31 @@ export default function Gallery({ menus, links, galeria }) {
             <Title>Galeria</Title>
           </header>
           <main>
-            <Masonry columnsCount={4} gutter="15px">
-              {
-                galeria.map((item) => {
-                  if (!item.name) {
-                    return (
-                      <CardImageWithTitle
-                        image={item.acf_galeria.imagem.mediaItemUrl}
-                        title={item.title}
-                        excerpt={item.acf_galeria.descricao}
-                      />
-                    );
-                  }
-                  return null;
-                })
-              }
-            </Masonry>
-            {/* <Masonry
-              source={galeria.filter((item) => item.acf_galeria.tipo === 'imagem')}
-              renderItem={(item) => (
-
-              )}
-            /> */}
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+            >
+              <Masonry gutter="15px">
+                {
+                  galeria.map((item) => {
+                    if (!item.name) {
+                      return (
+                        <CardMasonryImage
+                          image={item.acf_galeria.imagem.mediaItemUrl}
+                          title={item.title}
+                          excerpt={item.acf_galeria.descricao}
+                        />
+                        // <CardImageWithTitle
+                        //   image={item.acf_galeria.imagem.mediaItemUrl}
+                        //   title={item.title}
+                        //   excerpt={item.acf_galeria.descricao}
+                        // />
+                      );
+                    }
+                    return null;
+                  })
+                }
+              </Masonry>
+            </ResponsiveMasonry>
           </main>
         </Section>
       </Fluid>
