@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import Fluid from '@/components/Fluid';
 import Page from '@/components/Page';
@@ -7,10 +7,21 @@ import Title from '@/components/Title';
 import core from '@/core';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import CardMasonryImage from '@/components/CardMasonryImage';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
-export default function Gallery({ menus, links, galeria, menusRodape }) {
+export default function Gallery({ menus, links, galeria }) {
+  const [photos, setPhotos] = useState([]);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  function openLightBox(elements) {
+    setPhotos(elements);
+    setOpen(true);
+  }
+
   return (
-    <Page menus={menus} links={links} menusRodape={menusRodape}>
+    <Page menus={menus} links={links}>
       <Breadcrumb />
       <Fluid>
         <Section>
@@ -23,26 +34,43 @@ export default function Gallery({ menus, links, galeria, menusRodape }) {
             >
               <Masonry gutter="15px">
                 {
-                  galeria.map((item) => {
-                    if (!item.name) {
-                      return (
-                        <CardMasonryImage
-                          image={item.acf_galeria.imagem.mediaItemUrl}
-                          title={item.title}
-                          excerpt={item.acf_galeria.descricao}
-                        />
-                        // <CardImageWithTitle
-                        //   image={item.acf_galeria.imagem.mediaItemUrl}
-                        //   title={item.title}
-                        //   excerpt={item.acf_galeria.descricao}
-                        // />
-                      );
-                    }
-                    return null;
-                  })
+                  galeria.map((item, index) => (
+                    <CardMasonryImage
+                      key={index}
+                      collection={!!item.name}
+                      title={item.name || item.title}
+                      image={
+                        item.galeria?.nodes[0].acf_galeria.imagem.mediaItemUrl
+                        || item.acf_galeria.imagem.mediaItemUrl
+                      }
+                      excerpt={
+                        item.description || item.acf_galeria?.descricao
+                      }
+                      click={() => item.galeria.nodes && openLightBox(item.galeria.nodes)}
+                    />
+                  ))
                 }
               </Masonry>
             </ResponsiveMasonry>
+            {
+              open && (
+                <Lightbox
+                  mainSrc={photos[photoIndex].acf_galeria.imagem.mediaItemUrl}
+                  nextSrc={photos[(photoIndex + 1) % photos.length].acf_galeria.imagem.mediaItemUrl}
+                  prevSrc={
+                    photos[(photoIndex + photos.length - 1) % photos.length]
+                      .acf_galeria.imagem.mediaItemUrl
+                  }
+                  onCloseRequest={() => setOpen(false)}
+                  onMovePrevRequest={
+                    () => setPhotoIndex((photoIndex + photos.length - 1) % photos.length)
+                  }
+                  onMoveNextRequest={
+                    () => setPhotoIndex((photoIndex + 1) % photos.length)
+                  }
+                />
+              )
+            }
           </main>
         </Section>
       </Fluid>
@@ -52,7 +80,6 @@ export default function Gallery({ menus, links, galeria, menusRodape }) {
 
 export async function getStaticProps() {
   const menus = await core.menus.getAll();
-  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
   const galeriaEventos = await core.galeria.getEventosAll();
   const galeria = await core.galeria.getAll();
@@ -64,7 +91,6 @@ export async function getStaticProps() {
   return {
     props: {
       menus: menus.nodes || [],
-      menusRodape: menusRodape.nodes || [],
       links: links.nodes || [],
       galeria: listGaleria || [],
     },

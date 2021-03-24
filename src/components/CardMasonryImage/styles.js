@@ -3,10 +3,27 @@ import styled from 'styled-components';
 export const Card = styled.article`
   position: relative;
   display: flex;
+  cursor: ${({ isClick }) => (isClick ? 'pointer' : 'auto')};
 
   figure {
     margin: 0;
     padding: 0;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  div.icon {
+    position: absolute;
+    padding: 15px;
+    right: 0;
+
+    * {
+      color: #ddd;
+      font-size: 1.5em;
+    }
   }
 
   h1 {
@@ -20,13 +37,7 @@ export const Card = styled.article`
     text-align: center;
   }
 
-  :hover {
-    div {
-      opacity: 1;
-    }
-  }
-
-  div {
+  div:last-of-type {
     position: absolute;
     top: 0;
     background-color: rgba(0, 0, 0, .7);
@@ -39,6 +50,12 @@ export const Card = styled.article`
 
     p {
       margin: 0;
+    }
+  }
+
+  :hover {
+    div:last-of-type {
+      opacity: 1;
     }
   }
 `;

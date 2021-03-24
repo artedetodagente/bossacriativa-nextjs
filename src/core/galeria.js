@@ -38,6 +38,7 @@ export async function getEventosAll(quant) {
         nodes {
           name
           slug
+          description
           galeria {
             nodes {
               acf_galeria {
