@@ -8,12 +8,15 @@ export default function CardMasonryImage({
   return (
     <Card
       onClick={click}
-      isClick={!!click}
+      isClick={click !== null}
+      isCollection={collection}
     >
       <figure>
         <img src={image} alt={title} />
       </figure>
-      { collection && <div className="icon"><IoCopy /></div> }
+      <div className="icon">
+        <IoCopy />
+      </div>
       <h1>{title}</h1>
       <div>
         <p>{excerpt}</p>

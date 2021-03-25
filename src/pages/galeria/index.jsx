@@ -40,13 +40,20 @@ export default function Gallery({ menus, links, galeria }) {
                       collection={!!item.name}
                       title={item.name || item.title}
                       image={
-                        item.galeria?.nodes[0].acf_galeria.imagem.mediaItemUrl
-                        || item.acf_galeria.imagem.mediaItemUrl
+                        item.name
+                          ? item.galeria?.nodes[0].acf_galeria.imagem.mediaItemUrl
+                          : item.acf_galeria.imagem.mediaItemUrl
                       }
                       excerpt={
-                        item.description || item.acf_galeria?.descricao
+                        item.name
+                          ? item.description
+                          : item.acf_galeria?.descricao
                       }
-                      click={() => (item.galeria.nodes ? openLightBox(item.galeria.nodes) : null)}
+                      click={
+                        item.galeria !== undefined
+                          ? () => (openLightBox(item.galeria.nodes))
+                          : null
+                      }
                     />
                   ))
                 }

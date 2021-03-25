@@ -19,6 +19,7 @@ export const Card = styled.article`
     position: absolute;
     padding: 15px;
     right: 0;
+    display: ${({ isCollection }) => (isCollection ? 'block' : 'none')};
 
     * {
       color: #ddd;
