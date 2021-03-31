@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import Fluid from '@/components/Fluid';
@@ -5,12 +6,11 @@ import Page from '@/components/Page';
 import Section from '@/components/Section';
 import Title from '@/components/Title';
 import core from '@/core';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import CardMasonryImage from '@/components/CardMasonryImage';
+import Galeria from '@/components/Galeria';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
-export default function Gallery({ menus, links, galeria }) {
+export default function Gallery({ menus, links }) {
   const [photos, setPhotos] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [open, setOpen] = useState(false);
@@ -29,36 +29,7 @@ export default function Gallery({ menus, links, galeria }) {
             <Title>Galeria</Title>
           </header>
           <main>
-            <ResponsiveMasonry
-              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
-            >
-              <Masonry gutter="15px">
-                {
-                  galeria.map((item, index) => (
-                    <CardMasonryImage
-                      key={index}
-                      collection={!!item.name}
-                      title={item.name || item.title}
-                      image={
-                        item.name
-                          ? item.galeria?.nodes[0].acf_galeria.imagem.mediaItemUrl
-                          : item.acf_galeria.imagem.mediaItemUrl
-                      }
-                      excerpt={
-                        item.name
-                          ? item.description
-                          : item.acf_galeria?.descricao
-                      }
-                      click={
-                        item.galeria !== undefined
-                          ? () => (openLightBox(item.galeria.nodes))
-                          : null
-                      }
-                    />
-                  ))
-                }
-              </Masonry>
-            </ResponsiveMasonry>
+            <Galeria clickAction={(item) => (openLightBox(item.galeria.nodes))} />
             {
               open && (
                 <Lightbox
@@ -85,28 +56,13 @@ export default function Gallery({ menus, links, galeria }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const menus = await core.menus.getAll();
   const links = await core.links.getAll();
-  const galeriaEventos = await core.galeria.getEventosAll();
-  const galeria = await core.galeria.getAll();
-  const filterGaleria = galeria.nodes.filter(
-    (item) => galeriaEventos.nodes
-      .map((ge) => ge.galeria)
-      .reduce((acc, cur) => ([...acc, ...cur.nodes]), [])
-      .findIndex((ge) => ge.slug === item.slug) === -1,
-  );
-  const listGaleria = [...filterGaleria, ...galeriaEventos.nodes]
-    .map((item) => ({ value: item, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map((item) => ({ ...item.value }));
-
   return {
     props: {
       menus: menus.nodes || [],
       links: links.nodes || [],
-      galeria: listGaleria || [],
     },
-    revalidate: 1,
   };
 }
