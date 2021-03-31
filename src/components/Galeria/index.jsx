@@ -37,6 +37,7 @@ const Galeria = ({ clickAction }) => {
                                 nodes {
                                   slug
                                   acf_galeria {
+                                    descricao
                                     imagem {
                                       mediaItemUrl
                                     }
