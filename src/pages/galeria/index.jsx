@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import Fluid from '@/components/Fluid';
@@ -21,7 +20,7 @@ export default function Gallery({ menus, links }) {
   }
 
   return (
-    <Page menus={menus} links={links}>
+    <Page menus={menus} links={links} cssLink="galeria.css">
       <Breadcrumb />
       <Fluid>
         <Section>
@@ -46,6 +45,7 @@ export default function Gallery({ menus, links }) {
                   onMoveNextRequest={
                     () => setPhotoIndex((photoIndex + 1) % photos.length)
                   }
+                  imageCaption={photos[photoIndex].acf_galeria.descricao}
                 />
               )
             }
