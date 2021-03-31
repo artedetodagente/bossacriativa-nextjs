@@ -59,7 +59,7 @@ export default function Home({
         <div area="action" className={styles.botaomais}>
           <button
             type="button"
-            onClick={() => selectVideo(home[0].acf_data_home.info.saibaMais)}
+            onClick={() => push('/projeto/o-que-e-o-bossa-criativa')}
           >
             Saiba Mais
           </button>
