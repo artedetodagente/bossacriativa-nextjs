@@ -7,7 +7,7 @@ import Title from '@/components/Title';
 import core from '@/core';
 import Galeria from '@/components/Galeria';
 import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
+// import 'react-image-lightbox/style.css';
 
 export default function Gallery({ menus, links }) {
   const [photos, setPhotos] = useState([]);
@@ -20,7 +20,7 @@ export default function Gallery({ menus, links }) {
   }
 
   return (
-    <Page menus={menus} links={links} cssLink="galeria.css">
+    <Page menus={menus} links={links} cssLink="react-image-lightbox.taylored.css">
       <Breadcrumb />
       <Fluid>
         <Section>
