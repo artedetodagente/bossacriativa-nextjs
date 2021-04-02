@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { BsCircleFill } from 'react-icons/bs';
 import { Nav } from './styles';
 
-
 export default function NavBar({ menus }) {
   const [open, setOpen] = useState(false);
 
