@@ -10,6 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^1.12.0",
     "disqus-react": "^1.0.10",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",

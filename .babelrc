@@ -3,6 +3,6 @@
   "plugins" : [ 
     "@babel/plugin-transform-react-jsx",
     ["babel-plugin-root-import", {"rootPathPrefix": "@", "rootPathSuffix": "src"}],
-    ["styled-components", { "ssr": true, "displayName": true }]
+    ["babel-plugin-styled-components", { "ssr": true, "displayName": true }]
   ] 
 }
