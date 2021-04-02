@@ -1,4 +1,5 @@
 import React from 'react';
+// import '@/styles/nv_sc-bars.css';
 import '@/styles/globals.css';
 import '@/styles/fonts.css';
 import { ThemeProvider } from 'styled-components';
