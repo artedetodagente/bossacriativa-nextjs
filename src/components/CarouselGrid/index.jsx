@@ -5,7 +5,7 @@ import {
   Wrapper, Indicator, IndicatorItem, Slide, Item,
 } from './styles';
 
-const blockSpin = false;
+const blockSpin = true;
 
 export default function CarouselGrid({
   autoplay, source, reverse, renderItem,

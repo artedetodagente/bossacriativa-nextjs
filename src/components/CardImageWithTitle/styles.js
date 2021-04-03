@@ -46,7 +46,7 @@ export const Card = styled.article`
     padding: .1em .5em;
     margin: 0;
     right: 0;
-    bottom: 60px;
+    top: 10px;
     font-size: 1.5em;
     height: 1.5em;
     width: 2em;
@@ -75,7 +75,7 @@ export const Card = styled.article`
 
   p {
     color: #fff;
-    margin: 0;
+    margin: 1.6em;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -90,6 +90,10 @@ export const Card = styled.article`
 
     > a.infoButton {
       display: none;
+    }
+
+    p { 
+      margin: 0;
     }
  }
 

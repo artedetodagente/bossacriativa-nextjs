@@ -117,20 +117,20 @@ export const Item = styled.li`
 
   :first-of-type h1 {
     bottom: 20px;
-    width: 50% !important;
+    width: 100% !important;
   }
 
   :first-of-type div {
     padding: 20px;
   }
 
-  a.infoButton {
-    bottom: 20px !important;
-  }
-
   @media ${({ theme }) => theme.devices.laptop} {
      :first-of-type div {
        padding: 10px;
+     }
+
+     :first-of-type h1 {
+      width: 50% !important;
      }
   }
 
