@@ -27,7 +27,7 @@
   position: relative;
   list-style: none;
   width: auto;
-  font-size: 1em;
+  font-size: 2em;
   font-weight: bold;
   margin: 1em 1em;
 }
@@ -42,6 +42,6 @@
   list-style: none;
   width: fit-content;
   font-weight: normal;
-  font-size: .8em;
+  /* font-size: .8em; */
 }
 
