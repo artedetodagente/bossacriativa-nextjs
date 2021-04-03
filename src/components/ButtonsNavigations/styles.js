@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Bar = styled.div`
   display: flex;
-
+  
   button {
     display: flex;
     align-items: center;

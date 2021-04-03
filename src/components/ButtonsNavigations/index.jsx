@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { BiRightArrow, BiLeftArrow } from 'react-icons/bi';
 import { Bar } from './styles';
 
-export default function ButtonsNavigations({ onPrev, onNext }) {
+export default function ButtonsNavigations({
+  onPrev, onNext,
+}) {
   return (
     <Bar>
       <button
