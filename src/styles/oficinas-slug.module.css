@@ -101,9 +101,9 @@
     align-self: end;
   }
 
-  .listContainer > header {
+  /* .listContainer > header {
     margin-bottom: 14% !important;
-  }
+  } */
 
   .videosContainer {
     margin-top: 5em !important;
