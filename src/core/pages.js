@@ -9,6 +9,7 @@ export async function getAll() {
             id
             title
             slug
+            content
             acf_data {
               blocos {
                 ... on Page_AcfData_Blocos_EditorDeTexto {
