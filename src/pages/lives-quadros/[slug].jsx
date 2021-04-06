@@ -28,7 +28,7 @@ export default function QuadroSlug({
   return (
     <Page menus={menus} links={links} menusRodape={menusRodape}>
       <div className="cabecalho">
-        <Breadcrumb />
+        <Breadcrumb name={quadro?.name} />
       </div>
       <Fluid className={styles.layout}>
         <div className={styles.player}>

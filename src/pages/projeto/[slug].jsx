@@ -26,7 +26,7 @@ export default function ProjectSlug({
 
   return (
     <Page menus={menus} links={links} cssLink="wp_style.css" menusRodape={menusRodape}>
-      <Breadcrumb />
+      <Breadcrumb name={project?.title} />
       <Fluid className={styles.content}>
         <div ref={content} />
       </Fluid>

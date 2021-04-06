@@ -13,7 +13,7 @@ export default function LiveSlug({
 }) {
   return (
     <Page menus={menus} links={links} menusRodape={menusRodape}>
-      <Breadcrumb />
+      <Breadcrumb name={live?.title} />
       <div className={styles.container}>
         <h3>
           <Link href="/"><a>Bossa Criativa</a></Link>

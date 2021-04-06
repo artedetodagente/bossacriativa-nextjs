@@ -6,7 +6,7 @@ export const Container = styled.div`
   color: #fff;
 
   a {
-    text-transform: capitalize;
+    // text-transform: capitalize;
   }
 
   svg {

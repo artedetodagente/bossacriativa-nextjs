@@ -11,7 +11,7 @@ export default function NoticeSlug({
 }) {
   return (
     <Page menus={menus} links={links} cssLink="wp_style.css" menusRodape={menusRodape}>
-      <Breadcrumb />
+      <Breadcrumb name={post?.title} />
       <div className={style.container}>
         <h3><Link href="/"><a>Bossa Criativa</a></Link></h3>
         <h1>{post?.title}</h1>

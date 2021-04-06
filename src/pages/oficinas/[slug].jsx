@@ -58,7 +58,7 @@ export default function WorkshopSlug({
   return (
     <Page menus={menus} links={links} menusRodape={menusRodape}>
       <div className="cabecalho">
-        <Breadcrumb />
+        <Breadcrumb name={workshop?.name} />
         <Info
           title={workshop?.name}
           // text={workshop?.description}

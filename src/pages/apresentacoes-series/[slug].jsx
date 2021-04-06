@@ -27,7 +27,7 @@ export default function SerieSlug({
   return (
     <Page menus={menus} links={links} menusRodape={menusRodape}>
       <div className="cabecalho">
-        <Breadcrumb />
+        <Breadcrumb name={serie?.name} />
       </div>
       <Fluid className={styles.layout}>
         <div className={styles.player}>

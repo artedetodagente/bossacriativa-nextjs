@@ -4,13 +4,21 @@ import { BsChevronRight } from 'react-icons/bs';
 import Link from 'next/link';
 import { Container } from './styles';
 
+const translateDict = {
+  noticias: 'Notícias',
+  projeto: 'Projeto',
+  agenda: 'Agenda',
+  realidades: 'Apresentações',
+  oficinas: 'Oficinas',
+  imprensa: 'Imprensa',
+  lives: 'Lives',
+};
+
 export default function Breadcrumb({ name }) {
   const router = useRouter();
   const paths = (router.asPath.split('?')[0].split('/'))
     .filter((item) => item.trim() !== '')
     .filter((item, index) => !(item.trim() === 'automatica' && index === 0))
-    // .filter((item, index) => !(item.trim() === 'lives-quadros' && index === 0))
-    // .filter((item, index) => !(item.trim() === 'apresentacoes-series' && index === 0))
     .map((item, index) => ((item.trim() === 'lives-quadros' && index === 0) ? 'lives' : item))
     .map((item, index) => ((item.trim() === 'apresentacoes-series' && index === 0) ? 'realidades' : item))
     .map((item) => item.split('-').join(' '));
@@ -26,10 +34,10 @@ export default function Breadcrumb({ name }) {
           <Fragment key={index}>
             {
               index === paths.length - 1
-                ? <Link href={router.asPath}><a>{name || item}</a></Link>
+                ? <Link href={router.asPath}><a>{name || translateDict[item] || item}</a></Link>
                 : (
                   <>
-                    <Link href={`/${item}`}><a>{item}</a></Link>
+                    <Link href={`/${item}`}><a>{translateDict[item] || item}</a></Link>
                     <BsChevronRight />
                   </>
                 )

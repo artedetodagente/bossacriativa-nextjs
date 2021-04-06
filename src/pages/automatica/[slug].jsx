@@ -26,7 +26,7 @@ export default function GenericaSlug({
 
   return (
     <Page menus={menus} links={links} menusRodape={menusRodape}>
-      <Breadcrumb />
+      <Breadcrumb name={automatica?.title} />
       <Fluid className={styles.content}>
         <div ref={content} />
       </Fluid>

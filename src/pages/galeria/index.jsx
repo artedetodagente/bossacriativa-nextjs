@@ -21,7 +21,7 @@ export default function Gallery({ menus, links }) {
 
   return (
     <Page menus={menus} links={links} cssLink="react-image-lightbox.taylored.css">
-      <Breadcrumb />
+      <Breadcrumb name="Galeria" />
       <Fluid>
         <Section>
           <header>
