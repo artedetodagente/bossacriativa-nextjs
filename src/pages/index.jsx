@@ -75,7 +75,7 @@ export default function Home({
       <Fluid>
         <Section>
           <header>
-            <Title link="/agenda">Programação</Title>
+            <Title link="/agenda">Agenda</Title>
           </header>
           <main>
             <CarouselGrid
