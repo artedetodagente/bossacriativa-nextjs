@@ -32,7 +32,12 @@ export const Indicator = styled.div`
   display: flex;
   /*bottom: 10px;*/
   z-index: 998;
-  ${({ reverse }) => (reverse ? 'right: 10px; bottom: 10px' : 'left: 10px; top: 10px')};
+  left: 10px;
+  top: 10px;
+
+  @media ${({ theme }) => theme.devices.laptop} {
+    ${({ reverse }) => (reverse ? 'left: auto; top: auto; right: 10px; bottom: 10px' : '')};
+  }
 `;
 
 export const IndicatorItem = styled.button`
