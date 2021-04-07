@@ -19,6 +19,7 @@ export async function getAll() {
               bannerHomeDataEntrada
               bannerHomeDataSaida
               urlbanner
+              ocultarCamposDeTexto
               imegemMobile {
                 mediaItemUrl
               }

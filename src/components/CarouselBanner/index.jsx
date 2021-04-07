@@ -82,10 +82,16 @@ export default function CarouselBanner({
                   isClicked={!!slide.acf_chamada_slider.urlbanner}
                   onClick={() => slide.acf_chamada_slider.urlbanner && router.push(slide.acf_chamada_slider.urlbanner)}
                 >
-                  <div className="text-container">
-                    <h1>{slide.title}</h1>
-                    <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
-                  </div>
+                  {(!slide.acf_chamada_slider.ocultarCamposDeTexto // condiciona exibição dos campos de texto
+                    ? (
+                      <div className="text-container">
+                        <h1>{slide.title}</h1>
+                        {(slide.excerpt // condiciona exibição do campo descrição
+                          ? <p>{slide.excerpt && slide.excerpt.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+                          : '')}
+                      </div>
+                    )
+                    : '')}
                 </Item>
               </Slide>
             ))
