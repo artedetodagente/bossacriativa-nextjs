@@ -7,6 +7,7 @@
   position: relative;
   padding: .5em .5em;
   background-color: rgb(206, 206,206);
+  font-size: 1.2em;
 }
 
 .ft-menu-list {
@@ -27,21 +28,23 @@
   position: relative;
   list-style: none;
   width: auto;
-  font-size: 2em;
-  font-weight: bold;
-  margin: 1em 1em;
+  margin: .5em;
+}
+
+.ft-menu-list-item > a {
+  font-size: 1.3em;
+  font-weight: bolder;
 }
 
 .ft-menu-inner-list {
   width: fit-content;
   list-style: none;
   padding-left: 0;
+  color: #555;
 }
 
 .ft-menu-inner-list-item {
   list-style: none;
   width: fit-content;
-  font-weight: normal;
-  /* font-size: .8em; */
 }
 
