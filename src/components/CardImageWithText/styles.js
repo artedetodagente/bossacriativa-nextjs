@@ -39,7 +39,7 @@ export const ImageContainer = styled.div`
   
   h1 {
     font-size: 1.5em;
-    background-color: rgba(2, 2, 2, .9);
+    background-color: rgba(2, 2, 2, .6);
     color: #fff;
     padding: 5px 10px;
     margin: 0;
