@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { List, Select } from './styles';
+import {BiDownArrow} from 'react-icons/bi';
+import { List, SelectContainer } from './styles';
 import ButtonsNavigations from '../ButtonsNavigations';
 
 export default function FilterList({ source, action, renderItem }) {
@@ -8,7 +9,9 @@ export default function FilterList({ source, action, renderItem }) {
   const listRef = useRef(null);
 
   const checkOverflow = () => {
-    const isOverflown = (e) => e.scrollHeight > e.clientHeight || e.scrollWidth > e.clientWidth;
+    // eslint-disable-next-line max-len
+    const isOverflown = (e) => ((e) ? e.scrollHeight > e.clientHeight || e.scrollWidth > e.clientWidth : false);
+
     if (isOverflown(listRef.current)) {
       setButtonsShow(true);
       listRef.current.scrollLeft = 0;
@@ -43,11 +46,16 @@ export default function FilterList({ source, action, renderItem }) {
           onNext={scrollToRight}
         />
       ) : ''}
-      <Select onChange={(e) => action(e.target.value)}>
-        {
+      <SelectContainer>
+        <button type="button">
+          <BiDownArrow />
+        </button>
+        <select onChange={(e) => action(e.target.value)}>
+          {
           source.map((item, index) => <option key={index} value={item?.slug}>{item?.name}</option>)
-        }
-      </Select>
+          }
+        </select>
+      </SelectContainer>
     </>
   );
 }

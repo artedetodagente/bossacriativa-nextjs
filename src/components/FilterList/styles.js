@@ -36,13 +36,60 @@ export const List = styled.ul`
     :last-of-type {
       margin-right: 0;
     }
+
+    :first-of-type {
+      margin-left: 15px;
+    }
   }
 `;
 
-export const Select = styled.select`
+export const SelectContainer = styled.div`
   width: 100%;
   flex: 1;
-  font-size: 1.3em;
+  // display: flex;
+  position: relative;
+  border-radius: 30px;
+  background-color: white;
+  //margin-bottom: 40px;
+  padding-top: 35px;
+  
+
+  select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    // border-top-left-radius: 30px;
+    // border-bottom-left-radius: 30px;
+    padding: 7px;
+    background-color: transparent;
+    border: none;
+    -webkit-appearance: none;
+    font-size: 1.1em;
+    outline: none;        
+
+    select {
+      display: none;
+    }
+
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 35px;
+    border: none;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: #222;
+    color: white;
+    width: 43px;
+    font-size: 1.1em;
+    padding-top: 7px;
+    
+  }
+  
   
   @media ${({ theme }) => theme.devices.laptop} {
     display: none;
