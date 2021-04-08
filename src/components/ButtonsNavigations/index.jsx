@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import { BsCaretRightFill } from 'react-icons/bs';
 import { BiRightArrow, BiLeftArrow } from 'react-icons/bi';
 import { Bar } from './styles';
 

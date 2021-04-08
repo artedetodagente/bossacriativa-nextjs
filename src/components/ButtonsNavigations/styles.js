@@ -23,5 +23,10 @@ export const Bar = styled.div`
     :last-of-type {
       margin-left: 3px;
     }
+
+    :hover {
+      background-color: #666;
+      color: white;
+    }
   }
 `;
