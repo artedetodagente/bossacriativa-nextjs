@@ -14,6 +14,7 @@ export const Bar = styled.div`
     border: 2px solid #666;
     background-color: transparent;
     cursor: pointer;
+    outline: none;
 
     :first-of-type {
       margin-right: 3px;
