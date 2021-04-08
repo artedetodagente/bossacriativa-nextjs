@@ -39,7 +39,7 @@ export const Container = styled.article`
         margin-right: 15px;
 
         :last-of-type {
-          margin-right: 0;
+          // margin-right: 0;
         }
       }
     }
