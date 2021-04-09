@@ -348,6 +348,7 @@
   .ril__caption{
     height: 2.5em;
     transition: height .8s ease;
+    max-height: none;
   }
 
 
@@ -362,7 +363,6 @@
     max-height: none;
     background-color: rgba(2, 2, 2, .8);
   }
-
 
   .ril__caption:hover .ril__captionContent{
     overflow: auto;
