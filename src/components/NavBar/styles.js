@@ -47,7 +47,7 @@ export const Nav = styled.nav`
     margin-top: 0;
     right: 0;
     list-style: none;
-    font-size: 2em;
+    font-size: 1.5em;
     overflow-y: scroll;
 
 
@@ -55,9 +55,11 @@ export const Nav = styled.nav`
       display: none;
     }
     > li {
+        margin-top: 10px;
       > ul {
-        font-size: .6em;
+        font-size: .8em;
         list-style: none;
+        line-height: 1.5em;
         a {
           font-family: 'Barlow Condensed Light';
         }
