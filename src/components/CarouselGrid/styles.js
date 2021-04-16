@@ -131,7 +131,7 @@ export const Item = styled.li`
 
   @media ${({ theme }) => theme.devices.laptop} {
      :first-of-type div {
-       padding: 10px;
+       padding: 30px 10px;
      }
 
      :first-of-type h1 {
