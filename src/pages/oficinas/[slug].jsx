@@ -15,6 +15,7 @@ import ItemList from '@/components/ItemList';
 import styles from '@/styles/oficinas-slug.module.css';
 import { getISODateString } from '@/utils/date';
 import Title from '@/components/Title';
+import theme from '@/theme';
 
 export default function WorkshopSlug({
   workshop, menus, links, menusRodape,
@@ -38,7 +39,7 @@ export default function WorkshopSlug({
     const index = workshop?.oficinas.nodes.findIndex((item) => item.id === id);
     const margemSeguranca = 50;
     let dist;
-    if (window.innerWidth >= 1024) {
+    if (window.innerWidth > theme.sizes.laptop) {
       dist = document.querySelector('.cabecalho').scrollHeight
      + document.querySelector(`.${styles.expansibleContainer}`).scrollHeight
      - margemSeguranca;
