@@ -15,26 +15,34 @@ export default function CarouselGrid({
     autoplay: false, slides: [[]], selected: 0, oldSelected: 0,
   });
 
+  // monta strutura de dados slides
   useEffect(() => {
-    if (source.length === 0) setSettings({ ...settings, autoplay });
-    else {
-      const slides = [];
-      for (let i = 0; i < source.length / 5; i += 1) slides.push(source.slice(i * 5, (i + 1) * 5));
+    const slides = [];
+    const slidesPerPage = (window.innerWidth > theme.sizes.laptop) ? 5 : 1;
+    // limita a 5 slides no mobile
+    const maxSlides = (window.innerWidth > theme.sizes.laptop) ? source.length / slidesPerPage : 5;
+    if (source.length === 0) {
+      setSettings({ ...settings, autoplay });
+    } else {
+      for (let i = 0; i < maxSlides; i += 1) {
+        slides.push(source.slice(i * slidesPerPage, (i + 1) * slidesPerPage));
+      }
       setSettings({ ...settings, autoplay, slides });
     }
   }, []);
 
+  // executa seleção (rotação) automática
   useEffect(() => {
     if (!settings.autoplay || blockSpin) return () => null;
     const timer = setInterval(() => {
-      const sizeOfSlides = window.innerWidth > theme.sizes.laptop
-        ? settings.slides.length - 1 : settings.slides[0].length - 1;
+      const sizeOfSlides = settings.slides.length - 1;
       const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
       setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
     }, 7000);
     return () => clearInterval(timer);
   });
 
+  // decide voltar se o selecionado não é zero e chegou ao final
   useEffect(() => {
     if (settings.selected !== 0) {
       slideScroll.current.scrollTo(0, 0);
@@ -42,6 +50,7 @@ export default function CarouselGrid({
     }
   }, [slideScroll.current && slideScroll.current.offsetWidth]);
 
+  // rotação com base no atributo selected do settings
   useEffect(() => {
     const size = slideScroll.current.offsetWidth;
     const scrollX = size * (settings.selected - settings.oldSelected);
@@ -49,7 +58,13 @@ export default function CarouselGrid({
   }, [settings.selected]);
 
   function goPosition(index) {
-    setSettings({ ...settings, oldSelected: settings.selected, selected: index });
+    if (window.innerWidth > theme.sizes.laptop) {
+      setSettings({ ...settings, oldSelected: settings.selected, selected: index });
+    } else {
+      setSettings({
+        ...settings, oldSelected: settings.selected, selected: index, autoplay: true 
+      });
+    }
   }
 
   return (
@@ -59,21 +74,10 @@ export default function CarouselGrid({
     >
       <Indicator reverse={reverse}>
         {
-          settings.slides[0].length > 0 && settings.slides.map((item, index) => (
+          settings.slides.map((item, index) => (
             <IndicatorItem
               type="button"
               key={index}
-              selected={settings.selected === index}
-              onClick={() => goPosition(index)}
-            />
-          ))
-        }
-        {
-          settings.slides[0].length > 0 && settings.slides[0].map((item, index) => (
-            <IndicatorItem
-              type="button"
-              key={index}
-              mobile
               selected={settings.selected === index}
               onClick={() => goPosition(index)}
             />
@@ -95,7 +99,7 @@ export default function CarouselGrid({
           ))
         }
         {
-          settings.slides[0].length > 0 && settings.slides[0].map((item, index) => (
+          settings.slides[0].length === 0 && settings.slides[0].map((item, index) => (
             <Slide key={index} mobile>
               <Item area="a1">
                 { renderItem(item) }

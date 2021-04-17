@@ -49,19 +49,19 @@ export const IndicatorItem = styled.button`
   border: 0;
   outline: none;
   cursor: pointer;
-  display: ${({ mobile }) => (mobile ? 'none' : 'block')};
+  // display: ${({ mobile }) => (mobile ? 'none' : 'block')};
 
   :last-of-type {
     margin-right: 0;
   }
 
-  @media ${({ theme }) => theme.devices.mobileS} {
-    display: ${({ mobile }) => (mobile ? 'block' : 'none')};
-  }
+  // @media ${({ theme }) => theme.devices.mobileS} {
+  //   display: ${({ mobile }) => (mobile ? 'block' : 'none')};
+  // }
 
-  @media ${({ theme }) => theme.devices.laptop} {
-    display: ${({ mobile }) => (mobile ? 'none' : 'block')};
-  }
+  // @media ${({ theme }) => theme.devices.laptop} {
+  //   display: ${({ mobile }) => (mobile ? 'none' : 'block')};
+  // }
 `;
 
 export const Slide = styled.ul`
@@ -72,27 +72,17 @@ export const Slide = styled.ul`
   padding: 0;
   height: 100%;
   width: 100%;
-  display: ${({ mobile }) => (mobile ? 'none' : 'grid')};
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-areas: ${({ reverse }) => (!reverse
-    ? '"a1 a1 a1 a1 a1 a1 a2 a2 a2 a3 a3 a3" "a1 a1 a1 a1 a1 a1 a4 a4 a4 a5 a5 a5"'
-    : '"a2 a2 a2 a3 a3 a3 a1 a1 a1 a1 a1 a1" "a4 a4 a4 a5 a5 a5 a1 a1 a1 a1 a1 a1"'
-  )};
-  grid-gap: 15px;
-
-  @media ${({ theme }) => theme.devices.mobileS} {
-    display: ${({ mobile }) => (mobile ? 'grid' : 'none')};
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-areas: 'a1';
-  }
-
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-areas: 'a1';
+  
   @media ${({ theme }) => theme.devices.laptop} {
-    display: ${({ mobile }) => (mobile ? 'none' : 'grid')};
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas: ${({ reverse }) => (!reverse
     ? '"a1 a1 a1 a1 a1 a1 a2 a2 a2 a3 a3 a3" "a1 a1 a1 a1 a1 a1 a4 a4 a4 a5 a5 a5"'
     : '"a2 a2 a2 a3 a3 a3 a1 a1 a1 a1 a1 a1" "a4 a4 a4 a5 a5 a5 a1 a1 a1 a1 a1 a1"'
   )};
+    grid-gap: 15px;
   }
 `;
 
