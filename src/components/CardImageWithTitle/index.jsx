@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BsInfoCircleFill } from 'react-icons/bs';
+import { decode } from 'html-entities';
 import { Card } from './styles';
 
 export default function CardImageWithTitle({
@@ -35,8 +36,11 @@ export default function CardImageWithTitle({
         <BsInfoCircleFill />
       </a>
       <div>
+        {
+        // eslint-disable-next-line max-len
+        /* <p dangerouslySetInnerHTML={{__html: excerpt && excerpt.replace(/<\/?[^>]+(>|$)/g, '')}} /> */}
         <p>
-          {excerpt && excerpt.replace(/<\/?[^>]+(>|$)/g, '')}
+          {excerpt && decode(excerpt.replace(/<\/?[^>]+(>|$)/g, ''))}
         </p>
       </div>
     </Card>
