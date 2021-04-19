@@ -3444,6 +3444,11 @@ html-dom-parser@0.5.0:
     domhandler "3.3.0"
     htmlparser2 "4.1.0"
 
+html-entities@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.3.2.tgz#760b404685cb1d794e4f4b744332e3b00dcfe488"
+  integrity sha512-c3Ab/url5ksaT0WyleslpBEthOzWhrjQbg75y7XUsfSzi3Dgzt0l8w5e7DylRn15MTlMMD58dTfzddNS2kcAjQ==
+
 html-react-parser@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/html-react-parser/-/html-react-parser-1.0.0.tgz#7d4e352de30e71c4775703216663ec3ca9375a42"
