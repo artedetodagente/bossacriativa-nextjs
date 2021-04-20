@@ -15,6 +15,7 @@ import { FaPlay } from 'react-icons/fa';
 import ModalPlayer from '@/components/ModalPlayer';
 import CardImageWithDate from '@/components/CardImageWithDate';
 import Title from '@/components/Title';
+import CarouselNews from '@/components/CarouselNews';
 
 export default function Home({
   ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links, events, menusRodape,
@@ -118,6 +119,17 @@ export default function Home({
             <Title link="/noticias">Notícias</Title>
           </header>
           <main>
+            <CarouselNews
+              source={[posts[0]]}
+              renderItem={(item) => (
+                <CardImageWithText
+                  title={item.title}
+                  excerpt={item.acf_chamada_post?.chamadaHome}
+                  image={item.featuredImage?.node?.mediaItemUrl}
+                  click={() => push(`noticias/${item.slug}`)}
+                />
+              )}
+            />
             <FlatList
               className={styles.noticias}
               source={posts}
