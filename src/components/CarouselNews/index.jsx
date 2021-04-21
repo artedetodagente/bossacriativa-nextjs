@@ -5,7 +5,7 @@ import {
   Wrapper, Indicator, IndicatorItem, Slide, Item,
 } from './styles';
 
-const blockSpin = true;
+const blockSpin = false;
 
 export default function CarouselNews({ source, renderItem }) {
   const slideScroll = useRef();

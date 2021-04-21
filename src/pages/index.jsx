@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Section from '@/components/Section';
 import CarouselGrid from '@/components/CarouselGrid';
 import FlatList from '@/components/FlatList';
@@ -119,34 +119,56 @@ export default function Home({
             <Title link="/noticias">Notícias</Title>
           </header>
           <main>
-            <CarouselNews
-              source={[posts[0]]}
-              renderItem={(item) => (
-                <CardImageWithText
-                  title={item.title}
-                  excerpt={item.acf_chamada_post?.chamadaHome}
-                  image={item.featuredImage?.node?.mediaItemUrl}
-                  click={() => push(`noticias/${item.slug}`)}
-                />
-              )}
-            />
-            <FlatList
-              className={styles.noticias}
-              source={posts}
-              colsxss={1}
-              colsmd={1}
-              cols={3}
-              colsl={3}
-              colsxl={3}
-              renderItem={(item) => (
-                <CardImageWithText
-                  title={item.title}
-                  excerpt={item.acf_chamada_post?.chamadaHome}
-                  image={item.featuredImage?.node?.mediaItemUrl}
-                  click={() => push(`noticias/${item.slug}`)}
-                />
-              )}
-            />
+            <div className={styles.containerNoticias}>
+              <CarouselNews /* para mobile */
+                area="a1"
+                source={[posts[0], posts[1], posts[2]]}
+                renderItem={(item) => (
+                  <CardImageWithText
+                    title={item?.title}
+                    excerpt={item?.acf_chamada_post?.chamadaHome}
+                    image={item?.featuredImage?.node?.mediaItemUrl}
+                    click={() => push(`noticias/${item.slug}`)}
+                  />
+                )}
+              />
+              <CarouselNews
+                area="a1"
+                source={[posts[0], posts[3], posts[6]]}
+                renderItem={(item) => (
+                  <CardImageWithText
+                    title={item?.title}
+                    excerpt={item?.acf_chamada_post?.chamadaHome}
+                    image={item?.featuredImage?.node?.mediaItemUrl}
+                    click={() => push(`noticias/${item.slug}`)}
+                  />
+                )}
+              />
+              <CarouselNews
+                area="a2"
+                source={[posts[1], posts[4], posts[7]]}
+                renderItem={(item) => (
+                  <CardImageWithText
+                    title={item?.title}
+                    excerpt={item?.acf_chamada_post?.chamadaHome}
+                    image={item?.featuredImage?.node?.mediaItemUrl}
+                    click={() => push(`noticias/${item.slug}`)}
+                  />
+                )}
+              />
+              <CarouselNews
+                area="a3"
+                source={[posts[2], posts[5], posts[8]]}
+                renderItem={(item) => (
+                  <CardImageWithText
+                    title={item?.title}
+                    excerpt={item?.acf_chamada_post?.chamadaHome}
+                    image={item?.featuredImage?.node?.mediaItemUrl}
+                    click={() => push(`noticias/${item.slug}`)}
+                  />
+                )}
+              />
+            </div>
           </main>
         </Section>
         <Section>
@@ -198,7 +220,7 @@ export async function getStaticProps() {
   const ultimasLives = await core.lives.getLast(15);
   const ultimasMostras = await core.mostras.getLast(15);
   const events = await core.eventos.getAll();
-  const posts = await core.posts.getAll(3);
+  const posts = await core.posts.getAll(9);
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
   const menusRodape = await core.menus.getAll('menu_rodape');
