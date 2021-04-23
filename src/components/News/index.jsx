@@ -10,7 +10,7 @@ const News = ({ after, action }) => {
   const apiUrl = 'https://wp-admin.bossacriativa.art.br/graphql';
   const queryString = `
       query($after: String){
-        posts(first: 70,
+        posts(first: 9,
               after: $after,
               where: {
                 orderby: {field: DATE, order: DESC}
