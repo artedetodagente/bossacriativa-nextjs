@@ -14,6 +14,7 @@ export default function CarouselGrid({
   const [settings, setSettings] = useState({
     autoplay: false, slides: [[]], selected: 0, oldSelected: 0,
   });
+  const [exibindo, setExibindo] = useState(false);
 
   // monta strutura de dados slides
   useEffect(() => {
@@ -35,6 +36,13 @@ export default function CarouselGrid({
   useEffect(() => {
     if (!settings.autoplay || blockSpin) return () => null;
     const timer = setInterval(() => {
+      const altura = exibindo ? 0 : '100%';
+      setExibindo(!exibindo);
+      slideScroll.current.querySelectorAll('.cobertura')
+        .forEach((item) => {
+          // eslint-disable-next-line no-param-reassign
+          item.style.padding = 0; item.style.transition = `height ${(Math.random() * 2 + 1)}s`; item.style.height = altura;
+        });
       const sizeOfSlides = settings.slides.length - 1;
       const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
       setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
@@ -92,6 +100,7 @@ export default function CarouselGrid({
                 slide.map((item, area) => (
                   <Item key={area} area={`a${area + 1}`}>
                     { renderItem(item) }
+                    <div className="cobertura" />
                   </Item>
                 ))
               }
@@ -103,6 +112,7 @@ export default function CarouselGrid({
             <Slide key={index} mobile>
               <Item area="a1">
                 { renderItem(item) }
+                <div className="cobertura" />
               </Item>
             </Slide>
           ))
