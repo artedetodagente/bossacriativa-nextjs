@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import Breadcrumb from '@/components/Breadcrumb';
 import News from '@/components/News';
 import Fluid from '@/components/Fluid';
@@ -6,21 +7,47 @@ import Section from '@/components/Section';
 import Title from '@/components/Title';
 import core from '@/core';
 import styles from '@/styles/noticias.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function Noticias({
   menus, links, menusRodape,
 }) {
   const [pages, setPages] = useState([]);
+  var cursor;
+  var hasNext = true;
+  const loader = useRef();
 
-  const proximaPagina = (cursor) => {
-    // eslint-disable-next-line no-shadow
-    setPages((pages) => [...pages, <News after={cursor} action={proximaPagina} />]);
+  // const proximaPagina = (cursor) => {
+  //   // eslint-disable-next-line no-shadow
+  //   setPages((pages) => [...pages, <News after={cursor} action={proximaPagina} />]);
+  // };
+
+  const nextCursor = (nCursor, nHasNext) => {
+    cursor = nCursor;
+    hasNext = nHasNext;
+  };
+
+  const carregaProxima = (entry) => {
+    if (entry[0] && entry[0].isIntersecting && hasNext) {
+      // eslint-disable-next-line no-shadow
+      setPages((pages) => [
+        ...pages, <News after={cursor} action={nextCursor} />]);
+    }
   };
 
   useEffect(() => {
     // eslint-disable-next-line no-shadow
-    setPages((pages) => [...pages, <News action={proximaPagina} />]);
+    // setPages((pages) => [...pages, <News action={nextCursor} />]);
+
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1,
+    };
+
+    const observer = new IntersectionObserver(carregaProxima, options);
+
+    observer.observe(loader.current);
   }, []);
 
   return (
@@ -39,6 +66,7 @@ export default function Noticias({
                 </div>
               ))}
             </div>
+            <span ref={loader} />
           </main>
         </Section>
       </Fluid>
