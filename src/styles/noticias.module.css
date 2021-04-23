@@ -1,9 +1,34 @@
-.container {
+.container { /* slug */
     padding: .5em 1em;
     margin: auto;
 }
 
-@media only screen and (min-width: 1024px){
+/* principal */
+
+#listaNoticias > div {
+  padding-bottom: 15px;
+}
+
+#listaNoticias > div input[name="more"]{
+  display: none;
+}
+
+#listaNoticias > div:last-of-type input[name="more"]{
+  display: block;
+  margin: 15px auto;
+  width: 90%;
+  padding: 15px;
+  font-size: 1.1em;
+  border: 0;
+  border-radius: 5px;
+  text-transform: uppercase;
+  background-color: rgb(2,2,2);
+  color: #fff;
+  justify-content: center;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 1024px){ /* slug */
     .container{
       padding: 100px;
       max-width: 1200px;
