@@ -44,7 +44,7 @@ export default function CarouselNews({ source, renderItem }) {
       setSettings({ ...settings, oldSelected: settings.selected, selected: index });
     } else {
       setSettings({
-        ...settings, oldSelected: settings.selected, selected: index, autoplay: true 
+        ...settings, oldSelected: settings.selected, selected: index, autoplay: true,
       });
     }
   }
