@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     --webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
     --ms-overflow-style: none;
     scrollbar-width: none;
     height: 100%;
@@ -75,4 +75,25 @@ export const Item = styled.li`
     min-height: 0; 
     height: 100%;
   }
+
+  div.cobertura {
+    display: block;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    padding: 0;
+    
+    top: 0px;
+    bottom: auto;
+    height: 0px;
+    
+    z-index:998;
+
+    background: #F7CA18;
+    transition-property: all;
+    transition-duration: .8s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition-delay: 0s;
+  }
+
 `;

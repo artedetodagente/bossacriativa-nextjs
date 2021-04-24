@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import theme from '@/theme';
@@ -13,13 +14,45 @@ export default function CarouselNews({ source, renderItem }) {
     autoplay: true, slides: source, selected: 0, oldSelected: 0,
   });
 
+  const cortina = ({ altura, topo, piso }) => {
+    slideScroll.current.querySelectorAll('.cobertura')
+      .forEach((item) => {
+        item.style.bottom = piso;
+        item.style.height = altura;
+        item.style.top = topo;
+        item.style.transitionDelay = `${Math.random() / 2}s`;
+      });
+  };
+
+  const cortinaClose = () => {
+    cortina({
+      altura: '100%',
+      topo: 'auto',
+      piso: '0%',
+    });
+  };
+
+  const cortinaOpen = () => {
+    cortina({
+      altura: '0px',
+      topo: '0px',
+      piso: 'auto',
+    });
+  };
+
   // executa seleção (rotação) automática
   useEffect(() => {
     if (!settings.autoplay || blockSpin) return () => null;
     const timer = setInterval(() => {
-      const sizeOfSlides = settings.slides.length - 1;
-      const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
-      setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
+      let mudando = null;
+      cortinaClose();
+      mudando = setTimeout(() => {
+        const sizeOfSlides = settings.slides.length - 1;
+        const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
+        setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
+        cortinaOpen();
+      }, 1200);
+      return () => clearTimeout(mudando);
     }, 7000);
     return () => clearInterval(timer);
   });
@@ -40,13 +73,19 @@ export default function CarouselNews({ source, renderItem }) {
   }, [settings.selected]);
 
   function goPosition(index) {
-    if (window.innerWidth > theme.sizes.laptop) {
-      setSettings({ ...settings, oldSelected: settings.selected, selected: index });
-    } else {
-      setSettings({
-        ...settings, oldSelected: settings.selected, selected: index, autoplay: true,
-      });
-    }
+    cortinaClose();
+    let mudando = null;
+    mudando = setTimeout(() => {
+      if (window.innerWidth > theme.sizes.laptop) {
+        setSettings({ ...settings, oldSelected: settings.selected, selected: index });
+      } else {
+        setSettings({
+          ...settings, oldSelected: settings.selected, selected: index, autoplay: true,
+        });
+      }
+      cortinaOpen();
+    }, 1200);
+    return () => clearTimeout(mudando);
   }
 
   return (
@@ -72,6 +111,7 @@ export default function CarouselNews({ source, renderItem }) {
             <Slide key={index}>
               <Item area="a1">
                 { renderItem(item) }
+                <div className="cobertura" />
               </Item>
             </Slide>
           ))
