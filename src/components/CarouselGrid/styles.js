@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     height: 100%;
@@ -120,20 +120,32 @@ export const Item = styled.li`
   }
 
   div.cobertura {
+    display: block;
     position: absolute;
-    transition: height 2s;
-    padding: 0;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    background-color: yellow;
+    left: 0px;
+    padding: 0;
+    
+    top: 0px;
+    bottom: auto;
+    height: 0px;
+    
     z-index:998;
+
+    background: #F7CA18;
+    transition-property: all;
+    transition-duration: .8s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition-delay: 0s;
   }
 
   @media ${({ theme }) => theme.devices.laptop} {
      :first-of-type div {
        padding: 30px 10px;
+     }
+
+     div.cobertura {
+       padding: 0;
      }
 
      :first-of-type h1 {

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import theme from '@/theme';
@@ -14,7 +15,22 @@ export default function CarouselGrid({
   const [settings, setSettings] = useState({
     autoplay: false, slides: [[]], selected: 0, oldSelected: 0,
   });
-  const [exibindo, setExibindo] = useState(false);
+  const [exibindo, setExibindo] = useState(true);
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  function cortina() {
+    const altura = !exibindo ? '0px' : '100%';
+    const topo = !exibindo ? '0px' : 'auto';
+    const piso = !exibindo ? 'auto' : '0%';
+    slideScroll.current.querySelectorAll('.cobertura')
+      .forEach((item) => {
+        item.style.bottom = piso;
+        item.style.height = altura;
+        item.style.top = topo;
+        item.style.transitionDelay = `${Math.random() / 2}s`;
+      });
+  }
 
   // monta strutura de dados slides
   useEffect(() => {
@@ -34,21 +50,27 @@ export default function CarouselGrid({
 
   // executa seleção (rotação) automática
   useEffect(() => {
-    if (!settings.autoplay || blockSpin) return () => null;
+    if (!settings.autoplay || blockSpin) return null;
     const timer = setInterval(() => {
-      const altura = exibindo ? 0 : '100%';
+      cortina();
       setExibindo(!exibindo);
-      slideScroll.current.querySelectorAll('.cobertura')
-        .forEach((item) => {
-          // eslint-disable-next-line no-param-reassign
-          item.style.padding = 0; item.style.transition = `height ${(Math.random() * 2 + 1)}s`; item.style.height = altura;
-        });
-      const sizeOfSlides = settings.slides.length - 1;
-      const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
-      setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
     }, 7000);
     return () => clearInterval(timer);
   });
+
+  useEffect(() => {
+    let mudando = null;
+    if (!exibindo) {
+      mudando = setTimeout(() => {
+        const sizeOfSlides = settings.slides.length - 1;
+        const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
+        setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
+        cortina();
+        setExibindo(!exibindo);
+      }, 1200);
+    }
+    return () => clearTimeout(mudando);
+  }, [exibindo]);
 
   // decide voltar se o selecionado não é zero e chegou ao final
   useEffect(() => {
@@ -70,7 +92,7 @@ export default function CarouselGrid({
       setSettings({ ...settings, oldSelected: settings.selected, selected: index });
     } else {
       setSettings({
-        ...settings, oldSelected: settings.selected, selected: index, autoplay: true 
+        ...settings, oldSelected: settings.selected, selected: index, autoplay: true,
       });
     }
   }
