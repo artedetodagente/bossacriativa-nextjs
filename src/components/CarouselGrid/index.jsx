@@ -15,14 +15,11 @@ export default function CarouselGrid({
   const [settings, setSettings] = useState({
     autoplay: false, slides: [[]], selected: 0, oldSelected: 0,
   });
-  const [exibindo, setExibindo] = useState(true);
+  // const [exibindo, setExibindo] = useState(true);
 
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  function cortina() {
-    const altura = !exibindo ? '0px' : '100%';
-    const topo = !exibindo ? '0px' : 'auto';
-    const piso = !exibindo ? 'auto' : '0%';
+  const cortina = ({ altura, topo, piso }) => {
     slideScroll.current.querySelectorAll('.cobertura')
       .forEach((item) => {
         item.style.bottom = piso;
@@ -30,7 +27,23 @@ export default function CarouselGrid({
         item.style.top = topo;
         item.style.transitionDelay = `${Math.random() / 2}s`;
       });
-  }
+  };
+
+  const cortinaClose = () => {
+    cortina({
+      altura: '100%',
+      topo: 'auto',
+      piso: '0%',
+    });
+  };
+
+  const cortinaOpen = () => {
+    cortina({
+      altura: '0px',
+      topo: '0px',
+      piso: 'auto',
+    });
+  };
 
   // monta strutura de dados slides
   useEffect(() => {
@@ -52,25 +65,20 @@ export default function CarouselGrid({
   useEffect(() => {
     if (!settings.autoplay || blockSpin) return null;
     const timer = setInterval(() => {
-      cortina();
-      setExibindo(!exibindo);
-    }, 7000);
-    return () => clearInterval(timer);
-  });
-
-  useEffect(() => {
-    let mudando = null;
-    if (!exibindo) {
+      let mudando = null;
+      // setExibindo(false);
+      cortinaClose();
       mudando = setTimeout(() => {
         const sizeOfSlides = settings.slides.length - 1;
         const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
         setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
-        cortina();
-        setExibindo(!exibindo);
+        cortinaOpen();
+        // setExibindo(!exibindo);
       }, 1200);
-    }
-    return () => clearTimeout(mudando);
-  }, [exibindo]);
+      return () => clearTimeout(mudando);
+    }, 7000);
+    return () => clearInterval(timer);
+  });
 
   // decide voltar se o selecionado não é zero e chegou ao final
   useEffect(() => {
@@ -88,13 +96,20 @@ export default function CarouselGrid({
   }, [settings.selected]);
 
   function goPosition(index) {
-    if (window.innerWidth > theme.sizes.laptop) {
-      setSettings({ ...settings, oldSelected: settings.selected, selected: index });
-    } else {
-      setSettings({
-        ...settings, oldSelected: settings.selected, selected: index, autoplay: true,
-      });
-    }
+    cortinaClose();
+    // setExibindo(false);
+    let mudando = null;
+    mudando = setTimeout(() => {
+      if (window.innerWidth > theme.sizes.laptop) {
+        setSettings({ ...settings, oldSelected: settings.selected, selected: index });
+      } else {
+        setSettings({
+          ...settings, oldSelected: settings.selected, selected: index, autoplay: true,
+        });
+      }
+      cortinaOpen();
+    }, 1200);
+    return () => clearTimeout(mudando);
   }
 
   return (
