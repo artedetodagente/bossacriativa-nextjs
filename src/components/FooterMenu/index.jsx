@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { Fragment } from 'react';
+import { ImInstagram, ImYoutube, ImFacebook } from 'react-icons/im';
 
 const FooterMenu = ({ menus }) => (
   <div className="ft-menu-container">
@@ -28,6 +30,41 @@ const FooterMenu = ({ menus }) => (
           )
         ))
       }
+      <li className="ft-menu-list-item">
+        <a href="#" onClick={(e) => e.preventDefault()}>Social</a>
+        <ul className="ft-menu-icon-list">
+          <li>
+            <a
+              href="https://www.instagram.com/bossacriativa.art"
+              className="ft-menu-icon-container"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ImInstagram />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/c/ArteDeTodaGente/playlists?view=50&sort=dd&shelf_id=1"
+              className="ft-menu-icon-container"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ImYoutube />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.facebook.com/bossacriativa.art/"
+              className="ft-menu-icon-container"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ImFacebook />
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 );
