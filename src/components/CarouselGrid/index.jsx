@@ -15,9 +15,6 @@ export default function CarouselGrid({
   const [settings, setSettings] = useState({
     autoplay: false, slides: [[]], selected: 0, oldSelected: 0,
   });
-  // const [exibindo, setExibindo] = useState(true);
-
-  // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const cortina = ({ altura, topo, piso }) => {
     slideScroll.current.querySelectorAll('.cobertura')
@@ -66,14 +63,12 @@ export default function CarouselGrid({
     if (!settings.autoplay || blockSpin) return null;
     const timer = setInterval(() => {
       let mudando = null;
-      // setExibindo(false);
       cortinaClose();
       mudando = setTimeout(() => {
         const sizeOfSlides = settings.slides.length - 1;
         const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
         setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
         cortinaOpen();
-        // setExibindo(!exibindo);
       }, 1200);
       return () => clearTimeout(mudando);
     }, 7000);
@@ -97,7 +92,6 @@ export default function CarouselGrid({
 
   function goPosition(index) {
     cortinaClose();
-    // setExibindo(false);
     let mudando = null;
     mudando = setTimeout(() => {
       if (window.innerWidth > theme.sizes.laptop) {
