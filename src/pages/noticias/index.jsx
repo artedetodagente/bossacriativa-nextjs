@@ -14,13 +14,9 @@ export default function Noticias({
 }) {
   const [pages, setPages] = useState([]);
   var cursor;
+  var lastCursor = 'inicial';
   var hasNext = true;
   const loader = useRef();
-
-  // const proximaPagina = (cursor) => {
-  //   // eslint-disable-next-line no-shadow
-  //   setPages((pages) => [...pages, <News after={cursor} action={proximaPagina} />]);
-  // };
 
   const nextCursor = (nCursor, nHasNext) => {
     cursor = nCursor;
@@ -28,7 +24,8 @@ export default function Noticias({
   };
 
   const carregaProxima = (entry) => {
-    if (entry[0] && entry[0].isIntersecting && hasNext) {
+    if (entry[0] && entry[0].isIntersecting && hasNext && (lastCursor !== cursor)) {
+      lastCursor = cursor;
       // eslint-disable-next-line no-shadow
       setPages((pages) => [
         ...pages, <News after={cursor} action={nextCursor} />]);
@@ -36,9 +33,6 @@ export default function Noticias({
   };
 
   useEffect(() => {
-    // eslint-disable-next-line no-shadow
-    // setPages((pages) => [...pages, <News action={nextCursor} />]);
-
     const options = {
       root: null,
       rootMargin: '0px',
