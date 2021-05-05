@@ -5,7 +5,7 @@ export const Container = styled.footer`
   flex-direction: column;
 
   > div {
-    padding: 10px 4em;
+    padding: 10px 5px;
 
     :first-of-type {
       flex: 1;
@@ -46,6 +46,12 @@ export const Container = styled.footer`
         }
       }
       
+    }
+  }
+
+  @media ${({ theme }) => theme.devices.laptop} {
+    >  div {
+      padding: 10px 4em;
     }
   }
 `;
