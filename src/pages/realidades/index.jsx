@@ -42,7 +42,7 @@ export default function Apresentacoes({
   }, []);
 
   async function find(search) {
-    const { nodes } = await core.mostrasVirtuais.getAll(null, search.search);
+    const { nodes } = await core.mostras.getAll(null, search.search);
     const cats = nodes.filter((item) => item.categories.nodes.length > 0)
       .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
       .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
