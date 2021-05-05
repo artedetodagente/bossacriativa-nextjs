@@ -96,3 +96,7 @@ iframe{
 .btnMenuVazio{
   cursor: default !important;
 }
+
+ul {
+  font-family: 'Barlow Semi Condensed';
+}
