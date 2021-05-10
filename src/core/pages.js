@@ -37,6 +37,7 @@ export async function getOne(slug) {
           id
           title
           slug
+          content
           acf_data {
             fieldGroupName
             blocos {

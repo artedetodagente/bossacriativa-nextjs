@@ -8,6 +8,13 @@ import FooterMenu from '../FooterMenu';
 export default function Page({
   menus, menusRodape, links, cssLink, children,
 }) {
+  let cssLinks = [];
+  if (cssLink && !Array.isArray(cssLink)) {
+    cssLinks[0] = cssLink;
+  } else if (cssLink) {
+    cssLinks = cssLink;
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -18,7 +25,9 @@ export default function Page({
         <title>Bossa Criativa - Arte de Toda Gente</title>
         <link rel="icon" href="/favicon.ico" />
         <link href="/css/ft-menu.css" rel="stylesheet" />
-        { (cssLink) ? <link href={`/css/${cssLink}`} rel="stylesheet" /> : '' }
+        { cssLinks.map((link, index) => (
+          <link key={index} href={`/css/${link}`} rel="stylesheet" />
+        ))}
       </Head>
       <header>
         <SchoolBar data={links} />

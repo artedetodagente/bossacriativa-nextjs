@@ -21,11 +21,21 @@ export default function GenericaSlug({
       }
       return '';
     }, '');
-    content.current.innerHTML = text;
+
+    if (text) {
+      content.current.innerHTML = text;
+    } else {
+      content.current.innerHTML = automatica?.content;
+    }
   }, []);
 
   return (
-    <Page menus={menus} links={links} menusRodape={menusRodape}>
+    <Page
+      menus={menus}
+      links={links}
+      cssLink={['wp_style.css', 'gutenberg-style.css', 'gutenberg-theme.css']}
+      menusRodape={menusRodape}
+    >
       <Breadcrumb name={automatica?.title} />
       <Fluid className={styles.content}>
         <div ref={content} />
