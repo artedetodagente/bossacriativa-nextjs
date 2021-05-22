@@ -6,7 +6,7 @@
     "dev": "next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev -p 3030",
     "build": "next build",
-    "homolog": "next start -p 5051",
+    "homolog": "next start -p 5051 &",
     "start": "next start"
   },
   "dependencies": {
