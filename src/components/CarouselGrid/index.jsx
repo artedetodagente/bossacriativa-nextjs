@@ -7,6 +7,8 @@ import {
 } from './styles';
 
 const blockSpin = false;
+const mudaPaginaTimer = 7000;
+const transicaoTimer = 800;
 
 export default function CarouselGrid({
   autoplay, source, reverse, renderItem,
@@ -69,9 +71,9 @@ export default function CarouselGrid({
         const pos = settings.selected === sizeOfSlides ? 0 : settings.selected + 1;
         setSettings({ ...settings, oldSelected: settings.selected, selected: pos });
         cortinaOpen();
-      }, 1200);
+      }, transicaoTimer);
       return () => clearTimeout(mudando);
-    }, 7000);
+    }, mudaPaginaTimer);
     return () => clearInterval(timer);
   });
 
@@ -102,7 +104,7 @@ export default function CarouselGrid({
         });
       }
       cortinaOpen();
-    }, 1200);
+    }, transicaoTimer);
     return () => clearTimeout(mudando);
   }
 

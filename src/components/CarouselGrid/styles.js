@@ -134,7 +134,7 @@ export const Item = styled.li`
 
     background: #F7CA18;
     transition-property: all;
-    transition-duration: .8s;
+    transition-duration: .4s;
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     transition-delay: 0s;
   }
