@@ -6,52 +6,55 @@ export const Container = styled.footer`
 
   > div {
     padding: 10px 5px;
+    flex: 1;
+    background-color: rgb(26, 26, 26);
 
-    :first-of-type {
-      flex: 1;
-      background-color: rgb(206, 206, 206);
+    h4 {
+      color: #fff;
+      text-transform: uppercase;
+      margin: 0;
     }
-
-    :last-of-type {
-      flex: .2;
+  
+    ul {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-end;
-      background-color: rgb(26, 26, 26);
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      padding-top: 1em;
 
-      div {
-        display: inline-block;
-
-        h4 {
-          color: #fff;
-          text-transform: uppercase;
-          margin: 0;
-        }
-  
-        ul {
-          display: flex;
-          justify-content: flex-end;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-  
-          li {
-            margin-right: 20px;
-  
-            :last-of-type {
-              margin-right: 0;
-            }
-          }
+      li {
+        div{
+          position: relative;
+          width: 30vw;
+          height: 12vw;
         }
       }
+  
       
     }
+      
+    
   }
 
   @media ${({ theme }) => theme.devices.laptop} {
     >  div {
       padding: 10px 4em;
+      ul{
+        padding-top: 0;
+        li {
+          div{
+            position: relative;
+            width: 12vw;
+            height: 5vw;
+          }
+        }
+      }
+
     }
   }
+
 `;

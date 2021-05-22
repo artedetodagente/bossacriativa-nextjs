@@ -16,29 +16,30 @@ export default function Footer() {
 
   return (
     <Container>
-      <div />
       <div>
-        <div>
-          <h4>Realização</h4>
-          <ul>
-            {
-              sponsors.map((item, index) => (
-                <li key={index}>
-                  <Link href={item.url}>
-                    <a>
+        <h4>Realização</h4>
+        <ul>
+          {
+            sponsors.map((item, index) => (
+              <li key={index}>
+                <Link href={item.url}>
+                  <a>
+                    <div>
                       <Image
                         src={item.image}
-                        width="180px"
-                        height="80px"
+                        // width="180px"
+                        // height="80px"
+                        layout="fill"
+                        objectFit="contain"
                       />
-                    </a>
-                  </Link>
-                </li>
-              ))
-            }
-            <li />
-          </ul>
-        </div>
+                    </div>
+                  </a>
+                </Link>
+              </li>
+            ))
+          }
+          {/* <li /> */}
+        </ul>
       </div>
     </Container>
   );
