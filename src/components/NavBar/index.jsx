@@ -20,11 +20,11 @@ export default function NavBar({ menus }) {
             />
           </a>
         </Link>
-        {/* <Link href="/automatica/pagina-de-teste-para-exibicao-de-paginas-internas">
+        <Link href="/automatica/pagina-de-teste-para-exibicao-de-paginas-internas">
           <a>
             Link página de teste
           </a>
-        </Link> */}
+        </Link>
         <a className="hamburguer" href="#" onClick={() => setOpen(!open)}>
           Menu
           <span className="hamburgerSymbol">&#9776;</span>
