@@ -14,6 +14,7 @@ export async function getAllWithAfter(id, quant) {
             acf_link_release {
               arquivo {
                 link
+                mediaItemUrl
               }
             }
           }
@@ -50,6 +51,7 @@ export async function getAllWithBefore(id, quant) {
             acf_link_release {
               arquivo {
                 link
+                mediaItemUrl
               }
             }
           }

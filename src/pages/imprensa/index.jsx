@@ -109,7 +109,9 @@ export default function Press({
                 <CardIcon
                   icon={<BsNewspaper />}
                   text={item.title}
-                  click={() => dowloadRelease(item.acf_link_release.arquivo.link, item.title)}
+                  click={
+                    () => dowloadRelease(item.acf_link_release.arquivo.mediaItemUrl, item.title)
+                  }
                 />
               )}
             />
