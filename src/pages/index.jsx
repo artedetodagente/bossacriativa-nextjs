@@ -245,7 +245,9 @@ export async function getStaticProps() {
   const lastEvents = events?.nodes
     .filter((item) => {
       const [d, m, y] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
-      return new Date(`${y}-${m}-${d}`).getTime() >= new Date().getTime();
+      const dataEvento = new Date(`${y}-${m}-${d}`).getTime();
+      const hoje = new Date(new Date().toISOString().substr(0, 10)).getTime();
+      return dataEvento >= hoje;
     })
     .sort((a, b) => {
       const [da, ma, ya] = a.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
