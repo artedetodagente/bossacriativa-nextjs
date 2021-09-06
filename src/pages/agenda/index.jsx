@@ -142,7 +142,7 @@ export default function Agenda({
                   click={() => openPage(item.acf_data_evento.linkExterno)}
                   image={item.featuredImage?.node.mediaItemUrl}
                   h={350}
-                  day={item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0]}
+                  day={Number(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0])}
                   month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10) - 1}
                 />
               )}
