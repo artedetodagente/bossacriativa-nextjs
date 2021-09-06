@@ -89,6 +89,12 @@ export default function Agenda({
     setLoad(false);
   }
 
+  function openPage(pageToOpen) {
+    if (pageToOpen) {
+      window.open(pageToOpen, '_blank');
+    }
+  }
+
   return (
     <Page menus={menus} links={links} menusRodape={menusRodape}>
       <Fluid>
@@ -133,7 +139,7 @@ export default function Agenda({
                 <CardImageWithDate
                   title={item.title}
                   excerpt={item.excerpt}
-                  click={null}
+                  click={() => openPage(item.acf_data_evento.linkExterno)}
                   image={item.featuredImage?.node.mediaItemUrl}
                   h={350}
                   day={item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0]}
