@@ -18,6 +18,7 @@ export async function getAll(quant, search) {
             acf_data_evento {
               dataDoEvento
               tipo
+              linkExterno
             }
           }
         }
