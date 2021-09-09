@@ -4,7 +4,7 @@ export async function getAll(quant, slug) {
   const data = await fetchAPI(
     `
       query MyQuery($quant: Int, $slug: String) {
-        mostrasVirtuais(last: $quant, before: "", where: {search: $slug}) {
+        mostrasVirtuais(last: $quant, where: {search: $slug}) {
           nodes {
             id
             title
@@ -41,7 +41,7 @@ export async function getAll(quant, slug) {
     `,
     {
       variables: {
-        quant: quant || 100,
+        quant: quant || 1000,
         slug: slug || '',
       },
     },
@@ -164,7 +164,7 @@ export async function getSerie(slug, qtd = 100) {
   return data?.apresentacoesSeries;
 }
 
-export async function getSeries(slug, qtd = 100) {
+export async function getSeries(qtd = 100) {
   const data = await fetchAPI(`
   query ($qtd : Int) {
     apresentacoesSeries {

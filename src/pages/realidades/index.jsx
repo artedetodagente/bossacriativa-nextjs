@@ -116,7 +116,7 @@ export default function Apresentacoes({
 
 export async function getServerSideProps({ query }) {
   const mostrasVirtuais = [];
-  const series = await core.mostras.getSeries();
+  const series = await core.mostras.getSeries(1000);
   series.nodes.forEach((element) => {
     element.title = element.name;
     element.data_exibicao = element.acf_data.dataPublicar || 'Sem data';
