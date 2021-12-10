@@ -89,7 +89,7 @@ export default function Home({
                   excerpt={item.excerpt}
                   day={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0], 10)}
                   month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10) - 1}
-                  // click={() => selectVideo(item.acf_data?.videoUrl)}
+                  /* click={() => selectVideo(item.acf_data?.videoUrl)} */
                 />
               )}
             />
