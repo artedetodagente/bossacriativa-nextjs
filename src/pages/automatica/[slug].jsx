@@ -15,8 +15,9 @@ export default function GenericaSlug({
 
   useEffect(() => {
     const text = automatica?.acf_data.blocos.reduce((acc, cur) => {
-      if (cur.fieldGroupName === "page_AcfData_Blocos_EditorDeTexto")
+      if (cur.fieldGroupName === "page_AcfData_Blocos_EditorDeTexto") {
         return acc + cur.texto;
+      }
       if (cur.fieldGroupName === "page_AcfData_Blocos_ImagemFull") {
         return `${acc}<img src="${cur.imagem.mediaItemUrl}" alt="${cur.imagem.altText}" />`;
       }
@@ -57,7 +58,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       automatica: automatica || {},
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       menusRodape: menusRodape?.nodes || [],
       links: links?.nodes || [],
     },
