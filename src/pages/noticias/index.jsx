@@ -1,20 +1,18 @@
 /* eslint-disable no-var */
-import Breadcrumb from '@/components/Breadcrumb';
-import News from '@/components/News';
-import Fluid from '@/components/Fluid';
-import Page from '@/components/Page';
-import Section from '@/components/Section';
-import Title from '@/components/Title';
-import core from '@/core';
-import styles from '@/styles/noticias.module.css';
-import React, { useEffect, useRef, useState } from 'react';
+import core from "@/core";
+import styles from "@/styles/noticias.module.css";
+import React, { useEffect, useRef, useState } from "react";
+import Breadcrumb from "@/components/Breadcrumb";
+import News from "@/components/News";
+import Fluid from "@/components/Fluid";
+import Page from "@/components/Page";
+import Section from "@/components/Section";
+import Title from "@/components/Title";
 
-export default function Noticias({
-  menus, links, menusRodape,
-}) {
+export default function Noticias({ menus, links, menusRodape }) {
   const [pages, setPages] = useState([]);
   var cursor;
-  var lastCursor = 'inicial';
+  var lastCursor = "inicial";
   var hasNext = true;
   const loader = useRef();
 
@@ -24,18 +22,25 @@ export default function Noticias({
   };
 
   const carregaProxima = (entry) => {
-    if (entry[0] && entry[0].isIntersecting && hasNext && (lastCursor !== cursor)) {
+    if (
+      entry[0] &&
+      entry[0].isIntersecting &&
+      hasNext &&
+      lastCursor !== cursor
+    ) {
       lastCursor = cursor;
       // eslint-disable-next-line no-shadow
       setPages((pages) => [
-        ...pages, <News after={cursor} action={nextCursor} />]);
+        ...pages,
+        <News after={cursor} action={nextCursor} />,
+      ]);
     }
   };
 
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: "0px",
       threshold: 1,
     };
 
@@ -55,9 +60,7 @@ export default function Noticias({
           <main>
             <div id={styles.listaNoticias}>
               {pages.map((item, index) => (
-                <div key={index}>
-                  {item}
-                </div>
+                <div key={index}>{item}</div>
               ))}
             </div>
             <span ref={loader} />
@@ -70,14 +73,14 @@ export default function Noticias({
 
 export async function getServerSideProps() {
   const menus = await core.menus.getAll();
-  const menusRodape = await core.menus.getAll('menu_rodape');
+  const menusRodape = await core.menus.getAll("menu_rodape");
   const links = await core.links.getAll();
 
   return {
     props: {
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       menusRodape: menusRodape?.nodes || [],
-      links: links.nodes || [],
+      links: links?.nodes || [],
     },
   };
 }
