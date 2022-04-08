@@ -1,27 +1,32 @@
 /* eslint-disable no-param-reassign */
-import React, { useEffect, useState } from 'react';
-import Info from '@/components/Info';
-import FlatList from '@/components/FlatList';
-import Breadcrumb from '@/components/Breadcrumb';
-import { useRouter } from 'next/router';
-import Fluid from '@/components/Fluid';
-import core from '@/core';
-import CardImageWithTitle from '@/components/CardImageWithTitle';
-import Page from '@/components/Page';
-import SearchBar from '@/components/SearchBar';
-import Filter from '@/components/Filter';
-import styles from '@/styles/lives.module.css';
-import FilterBar from '@/components/FilterBar';
-import FilterList from '@/components/FilterList';
-import { getISODateString } from '@/utils/date';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import core from "@/core";
+import styles from "@/styles/lives.module.css";
+import { getISODateString } from "@/utils/date";
+import Info from "@/components/Info";
+import FlatList from "@/components/FlatList";
+import Breadcrumb from "@/components/Breadcrumb";
+import Fluid from "@/components/Fluid";
+import CardImageWithTitle from "@/components/CardImageWithTitle";
+import Page from "@/components/Page";
+import SearchBar from "@/components/SearchBar";
+import Filter from "@/components/Filter";
+import FilterBar from "@/components/FilterBar";
+import FilterList from "@/components/FilterList";
 
 export default function Lives({
-  lives, menus, categories, links, selectedCategory, menusRodape,
+  lives,
+  menus,
+  categories,
+  links,
+  selectedCategory,
+  menusRodape,
 }) {
   const { push } = useRouter();
   const [list, setList] = useState(lives);
   const [listCategories, setListCategories] = useState(categories);
-  const [category, setCategory] = useState('todas');
+  const [category, setCategory] = useState("todas");
 
   function changeCategory(slug) {
     setCategory(slug);
@@ -35,12 +40,16 @@ export default function Lives({
 
   async function find(search) {
     const { nodes } = await core.lives.getAll(null, search.search);
-    const cats = nodes.filter((item) => item.categories.nodes.length > 0)
+    const cats = nodes
+      .filter((item) => item.categories.nodes.length > 0)
       .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
-      .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+      .filter(
+        (item, i, arr) =>
+          arr.slice(0, i).findIndex((it) => it.name === item.name) === -1
+      );
     setList(nodes);
-    setListCategories([{ name: 'Todas', slug: 'todas' }, ...cats]);
-    setCategory('todas');
+    setListCategories([{ name: "Todas", slug: "todas" }, ...cats]);
+    setCategory("todas");
   }
 
   return (
@@ -68,10 +77,15 @@ export default function Lives({
         </FilterBar>
         <FlatList
           source={
-            category !== 'todas' ? list.filter(
-              (item) => item.categories.nodes
-                && item.categories.nodes.findIndex((cat) => cat.slug === category) !== -1,
-            ) : list
+            category !== "todas"
+              ? list.filter(
+                  (item) =>
+                    item.categories.nodes &&
+                    item.categories.nodes.findIndex(
+                      (cat) => cat.slug === category
+                    ) !== -1
+                )
+              : list
           }
           colsxss={1}
           colsmd={2}
@@ -82,8 +96,10 @@ export default function Lives({
           renderItem={(item) => (
             <CardImageWithTitle
               video={item.acf_data?.videoUrl}
-              image={item.featuredImage?.node.mediaItemUrl
-                || item.acf_data.imagemDestacada?.mediaItemUrl}
+              image={
+                item.featuredImage?.node.mediaItemUrl ||
+                item.acf_data.imagemDestacada?.mediaItemUrl
+              }
               title={item.title}
               excerpt={item.excerpt || item.description}
               click={() => push(`${item.slug_url}`)}
@@ -100,45 +116,57 @@ export async function getServerSideProps({ query }) {
   const quadros = await core.lives.getQuadros();
   quadros.nodes.forEach((element) => {
     element.title = element.name;
-    element.data_exibicao = element.acf_data.dataPublicar || 'Sem data';
+    element.data_exibicao = element.acf_data.dataPublicar || "Sem data";
     element.data_ordenacao = getISODateString(element.acf_data.dataPublicar);
     element.slug_url = `lives-quadros/${element.slug}`;
     element.categories = {
-      nodes: [{
-        name: element.acf_data.categoria[0].name,
-        slug: element.acf_data.categoria[0].slug,
-      }],
+      nodes: [
+        {
+          name: element.acf_data.categoria[0].name,
+          slug: element.acf_data.categoria[0].slug,
+        },
+      ],
     };
     lives.push(element);
   });
   const fullLives = await core.lives.getAll(null, query?.search);
   fullLives.nodes.forEach((element) => {
     if (element.livesQuadros.nodes.length === 0) {
-      element.data_exibicao = element.acf_data.dataDePublicacao || 'Sem data';
-      element.data_ordenacao = getISODateString(element.acf_data.dataDePublicacao);
+      element.data_exibicao = element.acf_data.dataDePublicacao || "Sem data";
+      element.data_ordenacao = getISODateString(
+        element.acf_data.dataDePublicacao
+      );
       element.slug_url = `lives/${element.slug}`;
       lives.push(element);
     }
   });
 
-  lives.sort((a, b) => new Date(b.data_ordenacao).getTime() - new Date(a.data_ordenacao).getTime());
+  lives.sort(
+    (a, b) =>
+      new Date(b.data_ordenacao).getTime() -
+      new Date(a.data_ordenacao).getTime()
+  );
 
   const menus = await core.menus.getAll();
-  const menusRodape = await core.menus.getAll('menu_rodape');
+  const menusRodape = await core.menus.getAll("menu_rodape");
   const links = await core.links.getAll();
-  const categories = lives.filter((item) => item.categories.nodes.length > 0)
+  const categories = lives
+    .filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
-    .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+    .filter(
+      (item, i, arr) =>
+        arr.slice(0, i).findIndex((it) => it.name === item.name) === -1
+    );
 
   const selectedCategory = query?.category;
 
   return {
     props: {
       lives: lives || [],
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       menusRodape: menusRodape?.nodes || [],
       links: links.nodes || [],
-      categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
+      categories: [{ slug: "todas", name: "Todas" }, ...categories] || [],
       selectedCategory: selectedCategory || [],
     },
   };

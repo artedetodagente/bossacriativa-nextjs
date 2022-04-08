@@ -191,7 +191,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       menusRodape: menusRodape?.nodes || [],
       links: links?.nodes || [],
       workshop: nodes[0] || {},

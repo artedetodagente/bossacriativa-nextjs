@@ -68,7 +68,7 @@ export async function getServerSideProps() {
   const links = await core.links.getAll();
   return {
     props: {
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       links: links?.nodes || [],
     },
   };

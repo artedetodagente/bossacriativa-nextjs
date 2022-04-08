@@ -37,7 +37,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       post: nodes[0],
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       menusRodape: menusRodape?.nodes || [],
       links: links?.nodes || [],
     },

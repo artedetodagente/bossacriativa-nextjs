@@ -224,7 +224,7 @@ export async function getStaticProps() {
   return {
     props: {
       eventos: eventos || [],
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       menusRodape: menusRodape?.nodes || [],
       links: links?.nodes || [],
     },

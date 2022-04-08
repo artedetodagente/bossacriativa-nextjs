@@ -10,8 +10,9 @@ export default function ProjectSlug({ project, menus, links, menusRodape }) {
 
   useEffect(() => {
     const text = project?.acf_data.blocos.reduce((acc, cur) => {
-      if (cur.fieldGroupName === "page_AcfData_Blocos_EditorDeTexto")
+      if (cur.fieldGroupName === "page_AcfData_Blocos_EditorDeTexto") {
         return acc + cur.texto;
+      }
       if (cur.fieldGroupName === "page_AcfData_Blocos_ImagemFull") {
         return `${acc}<img src="${cur.imagem.mediaItemUrl}" alt="${cur.imagem.altText}" />`;
       }
@@ -47,7 +48,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       project: project || {},
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       menusRodape: menusRodape?.nodes || [],
       links: links?.nodes || [],
     },

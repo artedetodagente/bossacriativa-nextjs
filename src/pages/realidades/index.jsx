@@ -180,7 +180,7 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       mostrasVirtuais: mostrasVirtuais || [],
-      menus: menus.nodes || [],
+      menus: menus?.nodes || [],
       menusRodape: menusRodape?.nodes || [],
       links: links?.nodes || [],
       categories: [{ slug: "todas", name: "Todas" }, ...categories] || [],
