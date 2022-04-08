@@ -1,37 +1,38 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Section from '@/components/Section';
-import Breadcrumb from '@/components/Breadcrumb';
-import Info from '@/components/Info';
-import core from '@/core';
-import Fluid from '@/components/Fluid';
-import YouEmbed from '@/components/YouEmbed';
-import FlatList from '@/components/FlatList';
-import CardImageWithTitle from '@/components/CardImageWithTitle';
-import Option from '@/components/Filter';
-import Page from '@/components/Page';
-import Expansibled from '@/components/Expansibled';
-import ItemHeaderList from '@/components/ItemHeaderList';
-import ItemList from '@/components/ItemList';
-import styles from '@/styles/oficinas-slug.module.css';
-import { getISODateString } from '@/utils/date';
-import Title from '@/components/Title';
-import theme from '@/theme';
+import React, { useEffect, useRef, useState } from "react";
+import core from "@/core";
+import styles from "@/styles/oficinas-slug.module.css";
+import { getISODateString } from "@/utils/date";
+import theme from "@/theme";
+import Section from "@/components/Section";
+import Breadcrumb from "@/components/Breadcrumb";
+import Info from "@/components/Info";
+import Fluid from "@/components/Fluid";
+import YouEmbed from "@/components/YouEmbed";
+import FlatList from "@/components/FlatList";
+import CardImageWithTitle from "@/components/CardImageWithTitle";
+import Option from "@/components/Filter";
+import Page from "@/components/Page";
+import Expansibled from "@/components/Expansibled";
+import ItemHeaderList from "@/components/ItemHeaderList";
+import ItemList from "@/components/ItemList";
+import Title from "@/components/Title";
 
-export default function WorkshopSlug({
-  workshop, menus, links, menusRodape,
-}) {
+export default function WorkshopSlug({ workshop, menus, links, menusRodape }) {
   const content = useRef(null);
   const [lesson, setLesson] = useState(0);
-  const [title, setTitle] = useState('Conteúdo Programático');
+  const [title, setTitle] = useState("Conteúdo Programático");
   const [teachers, setTeachers] = useState([]);
-  const [teacher, setTeacher] = useState('todos');
+  const [teacher, setTeacher] = useState("todos");
 
   useEffect(() => {
     const authors = workshop?.oficinas.nodes
       .filter((item) => item.acf_data.autor !== null)
       .reduce((acc, cur) => [...acc, cur.acf_data.autor], [])
-      .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.title === item.title) === -1);
-    setTeachers(authors ? [{ title: 'Todos', slug: 'todos' }, ...authors] : []);
+      .filter(
+        (item, i, arr) =>
+          arr.slice(0, i).findIndex((it) => it.title === item.title) === -1
+      );
+    setTeachers(authors ? [{ title: "Todos", slug: "todos" }, ...authors] : []);
     content.current.innerHTML = workshop.acf_data?.descricaoCompleta;
   }, []);
 
@@ -40,11 +41,12 @@ export default function WorkshopSlug({
     const margemSeguranca = 50;
     let dist;
     if (window.innerWidth > theme.sizes.laptop) {
-      dist = document.querySelector('.cabecalho').scrollHeight
-     + document.querySelector(`.${styles.expansibleContainer}`).scrollHeight
-     - margemSeguranca;
+      dist =
+        document.querySelector(".cabecalho").scrollHeight +
+        document.querySelector(`.${styles.expansibleContainer}`).scrollHeight -
+        margemSeguranca;
     } else {
-      dist = document.querySelector('.cabecalho').scrollHeight;
+      dist = document.querySelector(".cabecalho").scrollHeight;
     }
     document.body.scrollTop = dist;
     document.documentElement.scrollTop = dist;
@@ -67,9 +69,7 @@ export default function WorkshopSlug({
       </div>
       <Fluid className={styles.layout}>
         <div className={styles.player}>
-          <YouEmbed
-            url={workshop?.oficinas.nodes[lesson]?.acf_data.videoUrl}
-          />
+          <YouEmbed url={workshop?.oficinas.nodes[lesson]?.acf_data.videoUrl} />
         </div>
         <div className={styles.expansibleContainer}>
           <Expansibled
@@ -80,21 +80,24 @@ export default function WorkshopSlug({
               <ul>
                 <ItemHeaderList
                   title="Conteúdo Programático"
-                  click={() => changeContent({
-                    title: 'Conteúdo Programático',
-                    content: workshop.acf_data?.descricaoCompleta,
-                  })}
+                  click={() =>
+                    changeContent({
+                      title: "Conteúdo Programático",
+                      content: workshop.acf_data?.descricaoCompleta,
+                    })
+                  }
                 />
                 <ItemHeaderList title="Professores" />
-                {
-                  teachers.map((item, index) => item.title !== 'Todos' && (
-                    <ItemList
-                      key={index}
-                      title={item.title}
-                      click={() => changeContent(item)}
-                    />
-                  ))
-                }
+                {teachers.map(
+                  (item, index) =>
+                    item.title !== "Todos" && (
+                      <ItemList
+                        key={index}
+                        title={item.title}
+                        click={() => changeContent(item)}
+                      />
+                    )
+                )}
               </ul>
               <div>
                 <h1>{title}</h1>
@@ -110,7 +113,9 @@ export default function WorkshopSlug({
           <main>
             <FlatList
               className={styles.list}
-              source={workshop?.oficinas.nodes.slice(lesson + 1, lesson + 3) || []}
+              source={
+                workshop?.oficinas.nodes.slice(lesson + 1, lesson + 3) || []
+              }
               colsxss={2}
               cols={2}
               renderItem={(item) => (
@@ -133,9 +138,13 @@ export default function WorkshopSlug({
             <FlatList
               className={styles.videos}
               source={
-                teacher !== 'todos' ? workshop?.oficinas.nodes.filter(
-                  (item) => item.acf_data.autor && item.acf_data.autor.slug !== teacher,
-                ) : workshop?.oficinas.nodes || []
+                teacher !== "todos"
+                  ? workshop?.oficinas.nodes.filter(
+                      (item) =>
+                        item.acf_data.autor &&
+                        item.acf_data.autor.slug !== teacher
+                    )
+                  : workshop?.oficinas.nodes || []
               }
               colsxss={1}
               colsmd={2}
@@ -171,19 +180,20 @@ export default function WorkshopSlug({
 export async function getStaticProps({ params }) {
   const { nodes } = await core.oficinas.getOne(params.slug);
   const menus = await core.menus.getAll();
-  const menusRodape = await core.menus.getAll('menu_rodape');
+  const menusRodape = await core.menus.getAll("menu_rodape");
   const links = await core.links.getAll();
 
-  nodes[0]?.oficinas.nodes.sort((a, b) => (
-    new Date(getISODateString(a.acf_data.dataDePublicacao))
-  - new Date(getISODateString(b.acf_data.dataDePublicacao))
-  ));
+  nodes[0]?.oficinas.nodes.sort(
+    (a, b) =>
+      new Date(getISODateString(a.acf_data.dataDePublicacao)) -
+      new Date(getISODateString(b.acf_data.dataDePublicacao))
+  );
 
   return {
     props: {
       menus: menus.nodes || [],
       menusRodape: menusRodape?.nodes || [],
-      links: links.nodes || [],
+      links: links?.nodes || [],
       workshop: nodes[0] || {},
     },
     revalidate: 1,

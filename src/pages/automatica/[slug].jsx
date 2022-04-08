@@ -1,26 +1,30 @@
-import React, { useEffect, useRef } from 'react';
-import Breadcrumb from '@/components/Breadcrumb';
-import core from '@/core';
-import Page from '@/components/Page';
-import Fluid from '@/components/Fluid';
-import styles from '@/styles/automatica-slug.module.css';
+import React, { useEffect, useRef } from "react";
+import core from "@/core";
+import styles from "@/styles/automatica-slug.module.css";
+import Breadcrumb from "@/components/Breadcrumb";
+import Page from "@/components/Page";
+import Fluid from "@/components/Fluid";
 
 export default function GenericaSlug({
-  automatica, menus, links, menusRodape,
+  automatica,
+  menus,
+  links,
+  menusRodape,
 }) {
   const content = useRef();
 
   useEffect(() => {
     const text = automatica?.acf_data.blocos.reduce((acc, cur) => {
-      if (cur.fieldGroupName === 'page_AcfData_Blocos_EditorDeTexto') return acc + cur.texto;
-      if (cur.fieldGroupName === 'page_AcfData_Blocos_ImagemFull') {
+      if (cur.fieldGroupName === "page_AcfData_Blocos_EditorDeTexto")
+        return acc + cur.texto;
+      if (cur.fieldGroupName === "page_AcfData_Blocos_ImagemFull") {
         return `${acc}<img src="${cur.imagem.mediaItemUrl}" alt="${cur.imagem.altText}" />`;
       }
-      if (cur.fieldGroupName === 'page_AcfData_Blocos_Galeria') {
+      if (cur.fieldGroupName === "page_AcfData_Blocos_Galeria") {
         return `${acc}<img src="${cur.imagem.mediaItemUrl}" alt="${cur.imagem.altText}" />`;
       }
-      return '';
-    }, '');
+      return "";
+    }, "");
 
     if (text) {
       content.current.innerHTML = text;
@@ -33,7 +37,7 @@ export default function GenericaSlug({
     <Page
       menus={menus}
       links={links}
-      cssLink={['wp_style.css', 'gutenberg-style.css', 'gutenberg-theme.css']}
+      cssLink={["wp_style.css", "gutenberg-style.css", "gutenberg-theme.css"]}
       menusRodape={menusRodape}
     >
       <Breadcrumb name={automatica?.title} />
@@ -47,7 +51,7 @@ export default function GenericaSlug({
 export async function getStaticProps({ params }) {
   const automatica = await core.pages.getOne(params.slug);
   const menus = await core.menus.getAll();
-  const menusRodape = await core.menus.getAll('menu_rodape');
+  const menusRodape = await core.menus.getAll("menu_rodape");
   const links = await core.links.getAll();
 
   return {
@@ -55,7 +59,7 @@ export async function getStaticProps({ params }) {
       automatica: automatica || {},
       menus: menus.nodes || [],
       menusRodape: menusRodape?.nodes || [],
-      links: links.nodes || [],
+      links: links?.nodes || [],
     },
     revalidate: 1,
   };

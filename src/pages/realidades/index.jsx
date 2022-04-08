@@ -1,30 +1,35 @@
 /* eslint-disable no-param-reassign */
-import React, { useEffect, useState } from 'react';
-import Info from '@/components/Info';
-import FlatList from '@/components/FlatList';
-import Breadcrumb from '@/components/Breadcrumb';
-import { useRouter } from 'next/router';
-import Fluid from '@/components/Fluid';
-import core from '@/core';
-import CardImageWithTitle from '@/components/CardImageWithTitle';
-import Page from '@/components/Page';
-import ModalPlayer from '@/components/ModalPlayer';
-import SearchBar from '@/components/SearchBar';
-import Filter from '@/components/Filter';
-import styles from '@/styles/realidades.module.css';
-import FilterBar from '@/components/FilterBar';
-import FilterList from '@/components/FilterList';
-import { getISODateString } from '@/utils/date';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import core from "@/core";
+import styles from "@/styles/realidades.module.css";
+import { getISODateString } from "@/utils/date";
+import Info from "@/components/Info";
+import FlatList from "@/components/FlatList";
+import Breadcrumb from "@/components/Breadcrumb";
+import Fluid from "@/components/Fluid";
+import CardImageWithTitle from "@/components/CardImageWithTitle";
+import Page from "@/components/Page";
+import ModalPlayer from "@/components/ModalPlayer";
+import SearchBar from "@/components/SearchBar";
+import Filter from "@/components/Filter";
+import FilterBar from "@/components/FilterBar";
+import FilterList from "@/components/FilterList";
 
 export default function Apresentacoes({
-  mostrasVirtuais, menus, categories, links, selectedCategory, menusRodape,
+  mostrasVirtuais,
+  menus,
+  categories,
+  links,
+  selectedCategory,
+  menusRodape,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
-  const [video, setVideo] = useState('');
+  const [video, setVideo] = useState("");
   const [list, setList] = useState(mostrasVirtuais);
   const [listCategories, setListCategories] = useState(categories);
-  const [category, setCategory] = useState('todas');
+  const [category, setCategory] = useState("todas");
 
   function selectVideo(url) {
     setVideo(url);
@@ -43,12 +48,16 @@ export default function Apresentacoes({
 
   async function find(search) {
     const { nodes } = await core.mostras.getAll(null, search.search);
-    const cats = nodes.filter((item) => item.categories.nodes.length > 0)
+    const cats = nodes
+      .filter((item) => item.categories.nodes.length > 0)
       .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
-      .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+      .filter(
+        (item, i, arr) =>
+          arr.slice(0, i).findIndex((it) => it.name === item.name) === -1
+      );
     setList(nodes);
-    setListCategories([{ name: 'Todas', slug: 'todas' }, ...cats]);
-    setCategory('todas');
+    setListCategories([{ name: "Todas", slug: "todas" }, ...cats]);
+    setCategory("todas");
   }
 
   return (
@@ -81,10 +90,15 @@ export default function Apresentacoes({
         </FilterBar>
         <FlatList
           source={
-            category !== 'todas' ? list.filter(
-              (item) => item.categories.nodes
-                && item.categories.nodes.findIndex((cat) => cat.slug === category) !== -1,
-            ) : list
+            category !== "todas"
+              ? list.filter(
+                  (item) =>
+                    item.categories.nodes &&
+                    item.categories.nodes.findIndex(
+                      (cat) => cat.slug === category
+                    ) !== -1
+                )
+              : list
           }
           colsxss={1}
           colsmd={2}
@@ -95,8 +109,10 @@ export default function Apresentacoes({
           renderItem={(item) => (
             <CardImageWithTitle
               video={item.acf_data?.videoUrl}
-              image={item.featuredImage?.node.mediaItemUrl
-                || item.acf_data.imagemDestacada?.mediaItemUrl}
+              image={
+                item.featuredImage?.node.mediaItemUrl ||
+                item.acf_data.imagemDestacada?.mediaItemUrl
+              }
               title={item.title}
               excerpt={item.excerpt || item.description}
               click={() => {
@@ -119,46 +135,55 @@ export async function getServerSideProps({ query }) {
   const series = await core.mostras.getSeries(1000);
   series.nodes.forEach((element) => {
     element.title = element.name;
-    element.data_exibicao = element.acf_data.dataPublicar || 'Sem data';
+    element.data_exibicao = element.acf_data.dataPublicar || "Sem data";
     element.data_ordenacao = getISODateString(element.acf_data.dataPublicar);
     element.slug_url = `apresentacoes-series/${element.slug}`;
     element.categories = {
-      nodes: [{
-        name: element.acf_data.categoria[0].name,
-        slug: element.acf_data.categoria[0].slug,
-      }],
+      nodes: [
+        {
+          name: element.acf_data.categoria[0].name,
+          slug: element.acf_data.categoria[0].slug,
+        },
+      ],
     };
     mostrasVirtuais.push(element);
   });
   const fullApresentacoes = await core.mostras.getAll(null, query?.search);
   fullApresentacoes.nodes.forEach((element) => {
     if (element.apresentacoesSeries.nodes.length === 0) {
-      element.data_exibicao = element.acf_data.dataDePublicacao || 'Sem data';
-      element.data_ordenacao = getISODateString(element.acf_data.dataDePublicacao);
+      element.data_exibicao = element.acf_data.dataDePublicacao || "Sem data";
+      element.data_ordenacao = getISODateString(
+        element.acf_data.dataDePublicacao
+      );
       mostrasVirtuais.push(element);
     }
   });
   const menus = await core.menus.getAll();
-  const menusRodape = await core.menus.getAll('menu_rodape');
+  const menusRodape = await core.menus.getAll("menu_rodape");
   const links = await core.links.getAll();
-  const categories = mostrasVirtuais.filter((item) => item.categories.nodes.length > 0)
+  const categories = mostrasVirtuais
+    .filter((item) => item.categories.nodes.length > 0)
     .reduce((acc, cur) => [...acc, ...cur.categories.nodes], [])
-    .filter((item, i, arr) => arr.slice(0, i).findIndex((it) => it.name === item.name) === -1);
+    .filter(
+      (item, i, arr) =>
+        arr.slice(0, i).findIndex((it) => it.name === item.name) === -1
+    );
 
   const selectedCategory = query?.category;
 
-  mostrasVirtuais.sort((a, b) => (
-    new Date(b.data_ordenacao).getTime()
-    - new Date(a.data_ordenacao).getTime()
-  ));
+  mostrasVirtuais.sort(
+    (a, b) =>
+      new Date(b.data_ordenacao).getTime() -
+      new Date(a.data_ordenacao).getTime()
+  );
 
   return {
     props: {
       mostrasVirtuais: mostrasVirtuais || [],
       menus: menus.nodes || [],
       menusRodape: menusRodape?.nodes || [],
-      links: links.nodes || [],
-      categories: [{ slug: 'todas', name: 'Todas' }, ...categories] || [],
+      links: links?.nodes || [],
+      categories: [{ slug: "todas", name: "Todas" }, ...categories] || [],
       selectedCategory: selectedCategory || [],
     },
   };

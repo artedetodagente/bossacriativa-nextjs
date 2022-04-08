@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
-import Page from '@/components/Page';
-import Breadcrumb from '@/components/Breadcrumb';
-import Info from '@/components/Info';
-import Section from '@/components/Section';
-import Fluid from '@/components/Fluid';
-import FlatList from '@/components/FlatList';
-import CardText from '@/components/CardText';
-import CardIcon from '@/components/CardIcon';
-import { BsNewspaper } from 'react-icons/bs';
-import CardHorizontal from '@/components/CardHorizontal';
-import core from '@/core';
-import ButtonsNavigations from '@/components/ButtonsNavigations';
-import Title from '@/components/Title';
-import styles from '@/styles/imprensa.module.css';
+import React, { useState } from "react";
+import { BsNewspaper } from "react-icons/bs";
+import core from "@/core";
+import styles from "@/styles/imprensa.module.css";
+import Page from "@/components/Page";
+import Breadcrumb from "@/components/Breadcrumb";
+import Info from "@/components/Info";
+import Section from "@/components/Section";
+import Fluid from "@/components/Fluid";
+import FlatList from "@/components/FlatList";
+import CardText from "@/components/CardText";
+import CardIcon from "@/components/CardIcon";
+import CardHorizontal from "@/components/CardHorizontal";
+import ButtonsNavigations from "@/components/ButtonsNavigations";
+import Title from "@/components/Title";
 
 export default function Press({
-  releases, releasesPage, clippings, clippingsPage, menus, links, menusRodape
+  releases,
+  releasesPage,
+  clippings,
+  clippingsPage,
+  menus,
+  links,
+  menusRodape,
 }) {
   const contacts = [
-    { title: 'Funarte - Assessoria de Comunicação:', text: 'ascomfunarte@funarte.gov.br' },
-    { title: 'Contato de Assessoria de Imprensa:', text: 'imprensa@musica.ufrj.br' },
+    {
+      title: "Funarte - Assessoria de Comunicação:",
+      text: "ascomfunarte@funarte.gov.br",
+    },
+    {
+      title: "Contato de Assessoria de Imprensa:",
+      text: "imprensa@musica.ufrj.br",
+    },
   ];
   const [indexClippings, setIndexClippings] = useState(0);
   const [indexReleases, setIndexReleases] = useState(0);
@@ -27,9 +39,9 @@ export default function Press({
   // const [pageClipping, setPageClipping] = useState({ ...clippingsPage });
 
   function dowloadRelease(url, name) {
-    const link = document.createElement('a');
-    link.setAttribute('download', name);
-    link.setAttribute('href', url);
+    const link = document.createElement("a");
+    link.setAttribute("download", name);
+    link.setAttribute("href", url);
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -79,11 +91,7 @@ export default function Press({
             <FlatList
               source={contacts}
               renderItem={(item) => (
-                <CardText
-                  gap="20px"
-                  title={item.title}
-                  text={item.text}
-                />
+                <CardText gap="20px" title={item.title} text={item.text} />
               )}
             />
           </main>
@@ -95,10 +103,13 @@ export default function Press({
             </div>
             <div>
               <ButtonsNavigations
-                onNext={
-                  () => indexReleases + 8 < releases.length && setIndexReleases(indexReleases + 8)
+                onNext={() =>
+                  indexReleases + 8 < releases.length &&
+                  setIndexReleases(indexReleases + 8)
                 }
-                onPrev={() => indexReleases - 8 >= 0 && setIndexReleases(indexReleases - 8)}
+                onPrev={() =>
+                  indexReleases - 8 >= 0 && setIndexReleases(indexReleases - 8)
+                }
               />
             </div>
           </header>
@@ -109,8 +120,11 @@ export default function Press({
                 <CardIcon
                   icon={<BsNewspaper />}
                   text={item.title}
-                  click={
-                    () => dowloadRelease(item.acf_link_release.arquivo.mediaItemUrl, item.title)
+                  click={() =>
+                    dowloadRelease(
+                      item.acf_link_release.arquivo.mediaItemUrl,
+                      item.title
+                    )
                   }
                 />
               )}
@@ -124,11 +138,14 @@ export default function Press({
             </div>
             <div>
               <ButtonsNavigations
-                onNext={
-                  () => indexClippings + 6 < clippings.length
-                    && setIndexClippings(indexClippings + 6)
+                onNext={() =>
+                  indexClippings + 6 < clippings.length &&
+                  setIndexClippings(indexClippings + 6)
                 }
-                onPrev={() => indexClippings - 6 >= 0 && setIndexClippings(indexClippings - 6)}
+                onPrev={() =>
+                  indexClippings - 6 >= 0 &&
+                  setIndexClippings(indexClippings - 6)
+                }
               />
             </div>
           </header>
@@ -156,7 +173,7 @@ export async function getStaticProps() {
   const releases = await core.releases.getAllWithAfter();
   const clippings = await core.clippings.getAllWithAfter();
   const menus = await core.menus.getAll();
-  const menusRodape = await core.menus.getAll('menu_rodape');
+  const menusRodape = await core.menus.getAll("menu_rodape");
   const links = await core.links.getAll();
 
   return {
@@ -167,7 +184,7 @@ export async function getStaticProps() {
       clippingsPage: clippings.pageInfo || {},
       menus: menus.nodes || [],
       menusRodape: menusRodape?.nodes || [],
-      links: links.nodes || [],
+      links: links?.nodes || [],
     },
     revalidate: 1,
   };
