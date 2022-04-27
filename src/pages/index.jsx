@@ -220,7 +220,7 @@ export async function getStaticProps() {
   const ultimasLives = await core.lives.getLast(15);
   const ultimasMostras = await core.mostras.getLast(15);
   const events = await core.eventos.getAll();
-  const posts = await core.posts.getAll(9);
+  const posts = await core.posts.getAll(9); //comentário para forçar o rebuild
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
   const menusRodape = await core.menus.getAll('menu_rodape');
