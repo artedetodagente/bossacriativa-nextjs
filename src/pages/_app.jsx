@@ -4,7 +4,6 @@ import '@/styles/fonts.css';
 import { ThemeProvider } from 'styled-components';
 import theme from '@/theme';
 
-// Inicio da aplicação
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
