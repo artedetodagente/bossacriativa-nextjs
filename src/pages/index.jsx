@@ -1,24 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Section from '@/components/Section';
-import CarouselGrid from '@/components/CarouselGrid';
-import FlatList from '@/components/FlatList';
-import CardImageWithTitle from '@/components/CardImageWithTitle';
-import { useRouter } from 'next/router';
+import CardImageWithDate from '@/components/CardImageWithDate';
 import CardImageWithText from '@/components/CardImageWithText';
-import Fluid from '@/components/Fluid';
-import core from '@/core';
+import CardImageWithTitle from '@/components/CardImageWithTitle';
 import CarouselBanner from '@/components/CarouselBanner';
+import CarouselGrid from '@/components/CarouselGrid';
+import CarouselNews from '@/components/CarouselNews';
+import Fluid from '@/components/Fluid';
+import ModalPlayer from '@/components/ModalPlayer';
 import Page from '@/components/Page';
+import Section from '@/components/Section';
+import Title from '@/components/Title';
+import core from '@/core';
 import styles from '@/styles/home.module.css';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
-import ModalPlayer from '@/components/ModalPlayer';
-import CardImageWithDate from '@/components/CardImageWithDate';
-import Title from '@/components/Title';
-import CarouselNews from '@/components/CarouselNews';
 
 export default function Home({
-  ultimasMostras, posts, ultimasLives, oficinas, menus, slides, home, links, events, menusRodape,
+  ultimasMostras,
+  posts,
+  ultimasLives,
+  oficinas,
+  menus,
+  slides,
+  home,
+  links,
+  events,
+  menusRodape,
 }) {
   const { push } = useRouter();
   const [modal, setModal] = useState({ player: false });
@@ -40,10 +48,10 @@ export default function Home({
       <div className={styles.description}>
         <div area="text">
           <p>
-            No Bossa Criativa, arte, cultura e patrimônios da humanidade
-            têm como palco a internet. São mais de 180 artistas e educadores,
-            de várias regiões do país, em apresentações, oficinas de capacitação
-            e lives nas áreas de música, circo, artes visuais, dança, teatro e
+            No Bossa Criativa, arte, cultura e patrimônios da humanidade têm
+            como palco a internet. São mais de 180 artistas e educadores, de
+            várias regiões do país, em apresentações, oficinas de capacitação e
+            lives nas áreas de música, circo, artes visuais, dança, teatro e
             gestão cultural. Mais de 200 horas de conteúdo já estão no ar, com
             foco na diversidade, inclusão e democratização da cultura.
           </p>
@@ -87,8 +95,20 @@ export default function Home({
                   image={item.featuredImage?.node.mediaItemUrl}
                   title={item.title}
                   excerpt={item.excerpt}
-                  day={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[0], 10)}
-                  month={parseInt(item.acf_data_evento.dataDoEvento.split(' ')[0].split('/')[1], 10) - 1}
+                  day={parseInt(
+                    item.acf_data_evento.dataDoEvento
+                      .split(' ')[0]
+                      .split('/')[0],
+                    10
+                  )}
+                  month={
+                    parseInt(
+                      item.acf_data_evento.dataDoEvento
+                        .split(' ')[0]
+                        .split('/')[1],
+                      10
+                    ) - 1
+                  }
                   // /* click={() => selectVideo(item.acf_data?.videoUrl)} */
                 />
               )}
@@ -200,12 +220,14 @@ export default function Home({
               renderItem={(item) => (
                 <CardImageWithTitle
                   video={item.acf_data.videoUrl}
-                  image={item.featuredImage?.node.mediaItemUrl
-                    || item.acf_data.imagemDestacada?.mediaItemUrl}
+                  image={
+                    item.featuredImage?.node.mediaItemUrl ||
+                    item.acf_data.imagemDestacada?.mediaItemUrl
+                  }
                   excerpt={item.excerpt}
                   title={item.title}
                   click={() => push(`lives/${item.slug}`)}
-                // h={200}
+                  // h={200}
                 />
               )}
             />
@@ -220,7 +242,7 @@ export async function getStaticProps() {
   const ultimasLives = await core.lives.getLast(15);
   const ultimasMostras = await core.mostras.getLast(15);
   const events = await core.eventos.getAll();
-  const posts = await core.posts.getAll(9); //comentário para forçar o rebuild
+  const posts = await core.posts.getAll(9); // comentário para forçar o rebuild
   const slides = await core.slides.getAll();
   const menus = await core.menus.getAll();
   const menusRodape = await core.menus.getAll('menu_rodape');
@@ -229,10 +251,16 @@ export async function getStaticProps() {
   const oficinas = await core.oficinas.getAll();
   const filterSlides = slides.nodes.filter((item) => {
     if (item.acf_chamada_slider?.bannerHomeDataEntrada === null) return false;
-    const [startDay, startMonth, startYear] = item.acf_chamada_slider?.bannerHomeDataEntrada.split(' ')[0].split('/');
-    const [endDay, endMonth, endYear] = item.acf_chamada_slider?.bannerHomeDataSaida.split(' ')[0].split('/');
-    return new Date().getTime() >= new Date(`${startYear}-${startMonth}-${startDay}`).getTime()
-      && new Date().getTime() <= new Date(`${endYear}-${endMonth}-${endDay}`).getTime();
+    const [startDay, startMonth, startYear] =
+      item.acf_chamada_slider?.bannerHomeDataEntrada.split(' ')[0].split('/');
+    const [endDay, endMonth, endYear] =
+      item.acf_chamada_slider?.bannerHomeDataSaida.split(' ')[0].split('/');
+    return (
+      new Date().getTime() >=
+        new Date(`${startYear}-${startMonth}-${startDay}`).getTime() &&
+      new Date().getTime() <=
+        new Date(`${endYear}-${endMonth}-${endDay}`).getTime()
+    );
   });
   const randOficinas = (ofc, qtd) => {
     let j;
@@ -244,15 +272,24 @@ export async function getStaticProps() {
   };
   const lastEvents = events?.nodes
     .filter((item) => {
-      const [d, m, y] = item.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
+      const [d, m, y] = item.acf_data_evento.dataDoEvento
+        .split(' ')[0]
+        .split('/');
       const dataEvento = new Date(`${y}-${m}-${d}`).getTime();
       const hoje = new Date(new Date().toISOString().substr(0, 10)).getTime();
       return dataEvento >= hoje;
     })
     .sort((a, b) => {
-      const [da, ma, ya] = a.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
-      const [db, mb, yb] = b.acf_data_evento.dataDoEvento.split(' ')[0].split('/');
-      return new Date(`${ya}-${ma}-${da}`).getTime() - new Date(`${yb}-${mb}-${db}`).getTime();
+      const [da, ma, ya] = a.acf_data_evento.dataDoEvento
+        .split(' ')[0]
+        .split('/');
+      const [db, mb, yb] = b.acf_data_evento.dataDoEvento
+        .split(' ')[0]
+        .split('/');
+      return (
+        new Date(`${ya}-${ma}-${da}`).getTime() -
+        new Date(`${yb}-${mb}-${db}`).getTime()
+      );
     });
 
   return {
