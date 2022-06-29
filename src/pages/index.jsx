@@ -13,7 +13,7 @@ import core from '@/core';
 import styles from '@/styles/home.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
 
 export default function Home({
