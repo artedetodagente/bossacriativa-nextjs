@@ -4,7 +4,6 @@ import React from 'react';
 import { Container } from './styles';
 
 export default function Footer() {
-
   const sponsors = [
     { image: require('@/images/footer-ufrj.svg'), url: '/' },
     { image: require('@/images/footer-emufrj.svg'), url: '/' },
