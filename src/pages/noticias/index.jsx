@@ -1,18 +1,18 @@
 /* eslint-disable no-var */
-import core from "@/core";
-import styles from "@/styles/noticias.module.css";
-import React, { useEffect, useRef, useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import News from "@/components/News";
-import Fluid from "@/components/Fluid";
-import Page from "@/components/Page";
-import Section from "@/components/Section";
-import Title from "@/components/Title";
+import core from '@/core';
+import styles from '@/styles/noticias.module.css';
+import React, { useEffect, useRef, useState } from 'react';
+import Breadcrumb from '@/components/Breadcrumb';
+import News from '@/components/News';
+import Fluid from '@/components/Fluid';
+import Page from '@/components/Page';
+import Section from '@/components/Section';
+import Title from '@/components/Title';
 
 export default function Noticias({ menus, links, menusRodape }) {
   const [pages, setPages] = useState([]);
   var cursor;
-  var lastCursor = "inicial";
+  var lastCursor = 'inicial';
   var hasNext = true;
   const loader = useRef();
 
@@ -40,7 +40,7 @@ export default function Noticias({ menus, links, menusRodape }) {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: '0px',
       threshold: 1,
     };
 
@@ -73,7 +73,7 @@ export default function Noticias({ menus, links, menusRodape }) {
 
 export async function getServerSideProps() {
   const menus = await core.menus.getAll();
-  const menusRodape = await core.menus.getAll("menu_rodape");
+  const menusRodape = await core.menus.getAll('menu_rodape');
   const links = await core.links.getAll();
 
   return {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CardImageWithText from '@/components/CardImageWithText';
 import FlatList from '@/components/FlatList';
 import { request } from 'graphql-request';
@@ -7,7 +7,8 @@ import { useRouter } from 'next/router';
 
 const News = ({ after, action }) => {
   const { push } = useRouter();
-  const apiUrl = 'https://wp-admin.bossacriativa.art.br/graphql';
+  const apiUrl =
+    'https://wp-admin.bossacriativa.artedetodagente.com.br/graphql';
   const queryString = `
       query($after: String){
         posts(first: 9,
