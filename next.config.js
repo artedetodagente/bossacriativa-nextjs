@@ -4,7 +4,7 @@ const withImages = require('next-images');
 
 const nextConfig = {
   images: {
-    domains: ['wp-admin.bossacriativa.art.br'],
+    domains: ['wp-admin.bossacriativa.artedetodagente.com.br'],
   },
 };
 
