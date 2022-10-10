@@ -13,7 +13,7 @@ import core from '@/core';
 import styles from '@/styles/home.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
 
 export default function Home({
@@ -29,7 +29,7 @@ export default function Home({
   menusRodape,
 }) {
   const { push } = useRouter();
-  const [modal, setModal] = useState({ player: false });
+  const [modal, setModal] = React.useState({ player: false });
   const [video, setVideo] = useState('');
 
   function selectVideo(url) {
@@ -227,7 +227,7 @@ export default function Home({
                   excerpt={item.excerpt}
                   title={item.title}
                   click={() => push(`lives/${item.slug}`)}
-                  // h={200}
+                  h={200}
                 />
               )}
             />
